@@ -1,10 +1,8 @@
 import { Metadata } from "next"
-import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
-
-const inter = Inter({ subsets: ["latin"] })
+import { fontSans } from "@/lib/fonts"
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={fontSans.variable}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
