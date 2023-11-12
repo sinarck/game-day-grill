@@ -3,24 +3,28 @@ export const siteConfig = {
   description: "BPA Website Design Team 2023",
   mainNav: [
     {
-      title: "Technology",
-      href: "/tech",
+      title: "Menus",
+      href: "/menus",
     },
     {
-      title: "Ethics",
-      href: "/ethics",
+      title: "Locations",
+      href: "/locations",
     },
     {
-      title: "Applications",
-      href: "/applications",
+      title: "Events",
+      href: "/events",
     },
 
     {
-      title: "Sources",
-      href: "/sources",
+      title: "Reservations",
+      href: "/reservations",
     },
+    {
+      title: "Order",
+      href: "/order",
+    }
   ],
   links: {
     github: "https://github.com/aadisanghvii/gt-hsa",
   },
-}
+};
