@@ -22,9 +22,9 @@ export const siteConfig = {
     {
       title: "Order",
       href: "/order",
-    }
+    },
   ],
   links: {
     github: "https://github.com/aadisanghvii/gt-hsa",
   },
-};
+}
