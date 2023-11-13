@@ -10,10 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Item {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  price       Int
+enum food_category {
+  DRINK
+  APPETIZER
+  ENTREE
+  DESSERT
+}
+
+enum items {
+  FAJITA
+  GRILLED_CHEESE
+  GRILLED_VEGETABLES
+  BURRITO
+  TACO
+  QUESADILLA
+  PALAK_PANEER
+  NACHOS
+  CHIPS_AND_SALSA
+  GUACAMOLE
+  QUESO
+}
+
+model menu_item {
+  id          Int          @id @default(autoincrement())
+  order       order?       @relation(fields: [id], references: [id])
+  name        items
+  price       Float
   description String
-  createdAt   DateTime @default(now())
+  category    food_category
+}
+
+model order {
+  id          Int        @id @default(autoincrement())
+  items       menu_item[]
+  total_price Float
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
