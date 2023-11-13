@@ -32,18 +32,19 @@ enum items {
 }
 
 model menu_item {
-  id          Int          @id @default(autoincrement())
-  order       order?       @relation(fields: [id], references: [id])
-  name        items
+  id          Int           @id @default(autoincrement())
+  name        items         @unique
   price       Float
   description String
   category    food_category
+  order       order?        @relation(fields: [orderId], references: [id])
+  orderId     Int?
 }
 
 model order {
-  id          Int        @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   items       menu_item[]
   total_price Float
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
