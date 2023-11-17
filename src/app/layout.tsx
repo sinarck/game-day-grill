@@ -1,8 +1,8 @@
 import { Metadata } from "next"
-import { ThemeProvider } from "@/components/theme-provider"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
 import { fontSans } from "@/lib/fonts"
+import { SiteHeader } from "@/components/site-header"
 
 export const metadata: Metadata = {
   title: {
@@ -10,10 +10,6 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   icons: {
     icon: {
       url: "/favicon.ico",
@@ -32,9 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fontSans.variable}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+        <SiteHeader />
+        {children}
       </body>
     </html>
   )

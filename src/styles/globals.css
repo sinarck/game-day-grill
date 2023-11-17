@@ -69,6 +69,7 @@
     --radius: 0.5rem;
   }
 }
+
 /* 
 @layer base {
   * {
@@ -81,6 +82,12 @@
       "calt" 1;
   }
 } */
+
+@layer base {
+  body {
+    @apply bg-white text-black;
+  }
+}
 
 .gradient {
   @apply bg-gradient-to-br from-purple-400 to-pink-600 bg-clip-text text-transparent;

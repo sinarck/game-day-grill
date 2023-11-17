@@ -25,10 +25,10 @@ export const siteConfig = {
     },
     {
       title: "Log in",
-      href: "/login",
+      href: "/signup",
     },
   ],
   links: {
     github: "https://github.com/aadisanghvii/gt-hsa",
   },
-};
+}
