@@ -54,14 +54,15 @@ const SignUp = () => {
 
   return (
     <motion.div
-      className="flex justify-center pt-10"
+      className="flex justify-center pt-10 h-screen"
       animate={isAdvanced && { x: -width }}
     >
-      <div className="relative w-1/2">
+      {/* attribution to macrovector on FreePik (will be added in footer later) */}
+      <div className="relative w-1/2 h-full">
         <Image
           alt="Barbeque Stock image"
           src="/barbeque.jpg"
-          objectFit="cover"
+          className="object-cover"
           fill
           priority
         />
@@ -96,15 +97,8 @@ const SignUp = () => {
             />
             {errors?.confirmPassword && <p>{errors.confirmPassword.message}</p>}
           </div>
-          <button type="submit">Sign up</button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsAdvanced(true)
-            }}
-            className={isAdvanced ? "hidden" : ""}
-          >
-            Next
+          <button type="submit" className="rounded bg-black text-white p-2">
+            Create Account
           </button>
         </form>
       </div>

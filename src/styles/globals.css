@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Barlow&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -88,7 +88,7 @@
 @layer base {
   body {
     @apply bg-white text-black;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Barlow', 'sans-serif'
   }
 }
 
