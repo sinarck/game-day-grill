@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 
@@ -17,10 +17,7 @@ const Page = () => {
   const { height, width } = useWindowDimensions()
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<enrollForm> = async ({
-    username,
-    password,
-  }: enrollForm) => {
+  const onSubmit = async ({ username, password }: enrollForm) => {
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
