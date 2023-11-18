@@ -1,8 +1,10 @@
 import { userSchema } from "@/schema/auth"
-import { formSchema } from "@/schema/form"
+import { enrollSchema, loginSchema } from "@/schema/form"
 import { z } from "zod"
 
-export type Form = z.infer<typeof formSchema>
+// Authentication form types
+export type enrollForm = z.infer<typeof enrollSchema>
+export type loginForm = z.infer<typeof loginSchema>
 
 export type User = Omit<z.infer<typeof userSchema>, "password">
 

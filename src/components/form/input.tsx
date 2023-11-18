@@ -1,8 +1,8 @@
-import { Form } from "@/types/auth"
+import { enrollForm } from "@/types/auth"
 import { UseFormRegister } from "react-hook-form"
 
 interface InputProps {
-  fieldName: keyof Form
+  fieldName: keyof enrollForm
   labelName?: string
   placeholderText: string
   type: React.HTMLInputTypeAttribute

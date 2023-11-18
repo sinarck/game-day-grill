@@ -6,21 +6,21 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 
 import Input from "@/components/form/input"
-import { formSchema } from "@/schema/form"
-import { Form } from "@/types/auth"
+import { enrollSchema } from "@/schema/form"
+import { enrollForm } from "@/types/auth"
 import { useWindowDimensions } from "@/lib/dimensions"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
-const SignUp = () => {
+const Page = () => {
   const [isAdvanced, setIsAdvanced] = useState(false)
   const { height, width } = useWindowDimensions()
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<Form> = async ({
+  const onSubmit: SubmitHandler<enrollForm> = async ({
     username,
     password,
-  }: Form) => {
+  }: enrollForm) => {
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -43,13 +43,13 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Form>({
+  } = useForm<enrollForm>({
     defaultValues: {
       username: "",
       password: "",
       confirmPassword: "",
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(enrollSchema),
   })
 
   return (
@@ -111,4 +111,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default Page
