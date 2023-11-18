@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
-import { fontSans } from "@/lib/fonts"
 import { SiteHeader } from "@/components/site-header"
 
 export const metadata: Metadata = {
@@ -29,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fontSans.variable}>
+      <body>
         <SiteHeader />
         {children}
       </body>
