@@ -1,7 +1,14 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { db } from "./db"
+import { compare } from "bcrypt"
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(db),
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/login",
   },
@@ -12,13 +19,27 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
-
-        if (user) {
-          return user
-        } else {
+      async authorize(credentials) {
+        if (!credentials?.username || !credentials?.password) {
           return null
+        }
+
+        const user = await db.user.findUnique({
+          where: { username: credentials.username },
+        })
+        if (!user) {
+          return null
+        }
+
+        const validPassword = await compare(credentials.password, user.password)
+
+        if (!validPassword) {
+          return null
+        }
+
+        return {
+          id: `${user.id}`,
+          username: user.username,
         }
       },
     }),
