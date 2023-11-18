@@ -1,14 +1,15 @@
 "use client"
 
 import React, { useState } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import Input from "@/components/form/input"
-import { enrollSchema } from "@/schema/form"
-import { enrollForm, loginForm } from "@/types/auth"
+import { loginSchema } from "@/schema/form"
+import { loginForm } from "@/types/auth"
 import { useWindowDimensions } from "@/lib/dimensions"
 import { useRouter } from "next/navigation"
+import { getSession, signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -17,11 +18,23 @@ const Page = () => {
   const { height, width } = useWindowDimensions()
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<loginForm> = ({
-    username,
-    password,
-  }: enrollForm) => {
-    console.log({ username: username, password: password })
+  const onSubmit = async (values: loginForm) => {
+    const loginData = await signIn("credentials", {
+      username: values.username,
+      password: values.password,
+      callbackUrl: "/",
+      redirect: false,
+    })
+    const session = await getSession()
+    if (!session) {
+      console.error("Sign in failed")
+    }
+
+    if (loginData?.error) {
+      console.error(loginData.error)
+    } else {
+      router.push("/")
+    }
   }
 
   const {
@@ -33,7 +46,7 @@ const Page = () => {
       username: "",
       password: "",
     },
-    resolver: zodResolver(enrollSchema),
+    resolver: zodResolver(loginSchema),
   })
 
   return (
