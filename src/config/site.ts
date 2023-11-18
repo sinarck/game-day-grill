@@ -25,7 +25,7 @@ export const siteConfig = {
     },
     {
       title: "Log in",
-      href: "/signup",
+      href: "/login",
     },
   ],
   links: {

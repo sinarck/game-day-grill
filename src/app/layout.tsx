@@ -16,9 +16,11 @@ export const metadata: Metadata = {
       type: "image/ico",
     },
     shortcut: { url: "/favicon.png", type: "image/png" },
-    apple: "/apple-touch-icon.png",
+    // apple: "/apple-touch-icon.png",
   },
 }
+
+export const runtime = "edge"
 
 export default function RootLayout({
   children,
