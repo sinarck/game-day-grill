@@ -2,38 +2,13 @@ import { db } from "@/lib/db"
 import { NextResponse } from "next/server"
 import { hash } from "bcrypt"
 import * as z from "zod"
-
-// Schema validation throguh zod
-const userSchema = z.object({
-  username: z.string().min(1, "Username is required").max(100),
-  email: z.string().min(1, "Email is required").email("Invalid email"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must have more than 8 characters"),
-})
+import { userSchema } from "@/schema/auth"
+import { Response } from "@/types/auth"
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { email, username, password } = userSchema.parse(body)
-
-    // check for duplicate emails
-    const existingEmail = await db.user.findUnique({
-      where: { email: email },
-    })
-
-    if (existingEmail) {
-      return NextResponse.json(
-        {
-          user: null,
-          error: "Email is already taken",
-        },
-        {
-          status: 409,
-        }
-      )
-    }
+    const { username, password } = userSchema.parse(body)
 
     // check for duplicate usernames
     const existingUsername = await db.user.findUnique({
@@ -41,7 +16,7 @@ export async function POST(request: Request) {
     })
 
     if (existingUsername) {
-      return NextResponse.json(
+      return NextResponse.json<Response>(
         {
           user: null,
           message: "Username is already taken",
@@ -58,7 +33,6 @@ export async function POST(request: Request) {
     const newUser = await db.user.create({
       data: {
         username,
-        email,
         password: hashedPassword,
       },
     })
@@ -66,7 +40,7 @@ export async function POST(request: Request) {
     // remove password from response
     const { password: _, ...user } = newUser
 
-    return NextResponse.json(
+    return NextResponse.json<Response>(
       {
         user: user,
         message: "User created successfully",
@@ -78,6 +52,7 @@ export async function POST(request: Request) {
   } catch (e) {
     return NextResponse.json(
       {
+        user: null,
         message: "Something went wrong",
       },
       {
