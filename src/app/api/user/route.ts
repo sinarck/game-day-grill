@@ -1,9 +1,8 @@
 import { db } from "@/lib/db"
-import { NextResponse } from "next/server"
-import { hash } from "bcrypt"
-import * as z from "zod"
 import { userSchema } from "@/schema/auth"
 import { Response } from "@/types/auth"
+import { hash } from "bcrypt"
+import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   try {
