@@ -1,9 +1,9 @@
 import { LucideProps, Moon, SunMedium } from "lucide-react"
 
 export const Icons = {
-  sun: SunMedium,
-  moon: Moon,
-  spinner: (props: LucideProps) => (
+  Sun: SunMedium,
+  Moon: Moon,
+  Spinner: (props: LucideProps) => (
     <svg
       width="24"
       height="24"
@@ -26,7 +26,7 @@ export const Icons = {
       </path>
     </svg>
   ),
-  logo: (props: LucideProps) => (
+  Logo: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -43,7 +43,7 @@ export const Icons = {
       />
     </svg>
   ),
-  gitHub: (props: LucideProps) => (
+  GitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path
         fill="currentColor"
