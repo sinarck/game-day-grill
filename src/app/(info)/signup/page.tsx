@@ -2,40 +2,34 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
 import Form from "@/components/form/form"
+import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
-import { enrollForm } from "@/types/auth"
+import { Response, enrollForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
 
 const Page = () => {
-  const [loading, setLoading] = useState(false)
+  const { data, error, errorMessage, loading, fetch } = useFetch<Response>()
   const router = useRouter()
 
   const onSubmit = async ({ username, password }: enrollForm) => {
-    setLoading(true)
-
-    const response = await fetch("/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
+    await fetch({
+      endpoint: "/api/user",
+      password: password,
+      username: username,
     })
-
-    setLoading(false)
-
-    if (response.ok) {
-      router.push("/")
-    } else {
-      console.error("Registration failed")
-    }
   }
+
+  useEffect(() => {
+    console.log(data?.status)
+
+    if (data?.status === 201) {
+      router.push("/")
+    }
+  }, [data])
 
   const {
     register,
