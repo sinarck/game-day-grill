@@ -50,9 +50,9 @@ const Page = () => {
   })
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center max-h-screen mt-28">
       <motion.div
-        className="align-middle justify-center items-center flex flex-col overscroll-none bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg"
+        className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg"
         // animate={{ y: -100 }}
       >
         <Form
