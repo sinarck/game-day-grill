@@ -4,17 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 import Form from "@/components/form/Form"
-import { authOptions } from "@/lib/auth"
 import { loginSchema } from "@/schema/form"
 import { loginForm } from "@/types/auth"
-import { getServerSession } from "next-auth"
 import { signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 const Page = () => {
-  const router = useRouter()
+  const [update, setUpdate] = useState(0)
 
   const onSubmit = async (values: loginForm) => {
     const loginData = await signIn("credentials", {
@@ -25,11 +23,8 @@ const Page = () => {
     })
 
     if (loginData?.error) {
-      console.error(loginData.error)
-    } else {
-      console.log("SUCCESSFUL SIGNIN!!!")
-      // onLogin()
-      router.push("/")
+      console.error("error occured:", loginData.error)
+      setUpdate(update + 1)
     }
   }
 
@@ -61,6 +56,7 @@ const Page = () => {
       <div className="flex flex-col items-center sm:w-1/2 w-full">
         <Form
           errors={errors}
+          shake={update}
           handleSubmit={handleSubmit}
           heading="Welcome Back!"
           buttonText="Log in"

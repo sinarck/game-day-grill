@@ -14,6 +14,7 @@ interface FormProps {
   loading: boolean
   heading: string
   buttonText: string
+  shake?: number
   errors: FieldErrors<enrollForm>
 }
 
@@ -24,6 +25,7 @@ const Form = ({
   loading,
   heading,
   buttonText,
+  shake,
   errors,
 }: FormProps) => {
   return (
@@ -47,7 +49,13 @@ const Form = ({
           />
         </div>
         <div className="pt-8">
-          <Button loading={loading} label={buttonText} type="submit" />
+          <Button
+            key={shake}
+            loading={loading}
+            label={buttonText}
+            type="submit"
+            shake={shake}
+          />
         </div>
       </form>
     </div>
