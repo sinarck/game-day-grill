@@ -1,6 +1,7 @@
 import { enrollForm } from "@/types/auth"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
+import { motion } from "framer-motion"
 
 interface InputProps {
   fieldName: keyof enrollForm
@@ -62,7 +63,6 @@ const Input = ({
           {labelName}
         </label>
       )}
-
       <div className="flex">
         <input
           type={type === "password" ? inputType : "text"}
@@ -97,10 +97,13 @@ const Input = ({
           </span>
         )}
       </div>
-
-      {errors?.[fieldName] && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: errors?.[fieldName] ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+      >
         <p className="text-xs text-red-600">{errors?.[fieldName]?.message}</p>
-      )}
+      </motion.div>
     </div>
   )
 }
