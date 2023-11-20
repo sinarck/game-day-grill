@@ -6,7 +6,7 @@ const Page = async () => {
   const session = await getServerSession(authOptions)
   return (
     <div>
-      <p>{session?.user.username}</p>
+      <p>User can order food here</p>
     </div>
   )
 }

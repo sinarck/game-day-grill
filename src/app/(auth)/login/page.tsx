@@ -10,8 +10,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import Form from "@/components/auth/form"
+import { useRouter } from "next/navigation"
 
 const Page = () => {
+  const router = useRouter()
   const [update, setUpdate] = useState(0)
 
   const onSubmit = async (values: loginForm) => {
@@ -26,7 +28,8 @@ const Page = () => {
       console.error("error occured:", loginData.error)
       setUpdate(update + 1)
     } else {
-      console.log("Succesfful")
+      console.log("Login successfully completed")
+      router.push("/")
     }
   }
 
