@@ -1,21 +1,23 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import Form from "@/components/form/Form"
-import { useWindowDimensions } from "@/lib/dimensions"
+import { authOptions } from "@/lib/auth"
 import { loginSchema } from "@/schema/form"
 import { loginForm } from "@/types/auth"
-import { getSession, signIn } from "next-auth/react"
+import { getServerSession } from "next-auth"
+import { signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 const Page = () => {
-  const [isAdvanced, setIsAdvanced] = useState(false)
-  const { height, width } = useWindowDimensions()
+  const onLogin = async () => {
+    const session = await getServerSession(authOptions)
+  }
+
   const router = useRouter()
 
   const onSubmit = async (values: loginForm) => {
@@ -25,14 +27,12 @@ const Page = () => {
       callbackUrl: "/",
       redirect: false,
     })
-    const session = await getSession()
-    if (!session) {
-      console.error("Sign in failed")
-    }
 
     if (loginData?.error) {
       console.error(loginData.error)
     } else {
+      console.log("SUCCESSFUL SIGNIN!!!")
+      // onLogin()
       router.push("/")
     }
   }
@@ -56,13 +56,13 @@ const Page = () => {
         <Image
           alt="Barbeque Stock image"
           src="/barbeque.jpg"
-          className="object-cover"
+          className="object-cover sm:block hidden"
           fill
           priority
         />
       </div>
 
-      <div className="flex flex-col items-center w-1/2">
+      <div className="flex flex-col items-center sm:w-1/2 w-full">
         <Form
           errors={errors}
           handleSubmit={handleSubmit}
