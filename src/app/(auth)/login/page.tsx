@@ -14,10 +14,6 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 const Page = () => {
-  const onLogin = async () => {
-    const session = await getServerSession(authOptions)
-  }
-
   const router = useRouter()
 
   const onSubmit = async (values: loginForm) => {
