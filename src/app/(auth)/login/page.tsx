@@ -25,6 +25,8 @@ const Page = () => {
     if (loginData?.error) {
       console.error("error occured:", loginData.error)
       setUpdate(update + 1)
+    } else {
+      console.log("Succesfful")
     }
   }
 
@@ -41,19 +43,8 @@ const Page = () => {
   })
 
   return (
-    <div className="flex justify-center pt-10 h-screen items-center align-middle">
-      {/* attribution to macrovector on FreePik (will be added in footer later) */}
-      <div className="relative w-1/2 h-full">
-        <Image
-          alt="Barbeque Stock image"
-          src="/barbeque.jpg"
-          className="object-cover sm:block hidden"
-          fill
-          priority
-        />
-      </div>
-
-      <div className="flex flex-col items-center sm:w-1/2 w-full">
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-1/2 flex flex-col items-center justify-center">
         <Form
           errors={errors}
           shake={update}
@@ -67,6 +58,15 @@ const Page = () => {
         <Link href="/signup">
           <p>Or create an account</p>
         </Link>
+      </div>
+      <div className="relative w-1/2 h-full hidden sm:block">
+        <Image
+          alt="Barbeque Stock image"
+          src="/barbeque.jpg"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
       </div>
     </div>
   )
