@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
-import { NavBar } from "@/components/navigation/nav-bar"
+import NavBar from "@/components/navigation/nav-bar"
 
 export const metadata: Metadata = {
   title: {
