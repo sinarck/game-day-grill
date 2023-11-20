@@ -13,6 +13,7 @@ interface FormProps {
   register: UseFormRegister<enrollForm>
   loading: boolean
   heading: string
+  buttonText: string
   errors: FieldErrors<enrollForm>
 }
 
@@ -22,6 +23,7 @@ const Form = ({
   register,
   loading,
   heading,
+  buttonText,
   errors,
 }: FormProps) => {
   return (
@@ -45,7 +47,7 @@ const Form = ({
           />
         </div>
         <div className="pt-8">
-          <Button loading={loading} label="Create Account" type="submit" />
+          <Button loading={loading} label={buttonText} type="submit" />
         </div>
       </form>
     </>

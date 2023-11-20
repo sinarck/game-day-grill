@@ -24,8 +24,6 @@ const Page = () => {
   }
 
   useEffect(() => {
-    console.log(data?.status)
-
     if (data?.status === 201) {
       router.push("/")
     }
@@ -53,6 +51,7 @@ const Page = () => {
           errors={errors}
           handleSubmit={handleSubmit}
           loading={loading}
+          buttonText="Create Account"
           heading="Ready to join the family?"
           onSubmit={onSubmit}
           register={register}
