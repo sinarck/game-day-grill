@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site"
 
-import NavLinks from "@/components/navigation/NavLinks"
+import NavLinks from "@/components/navigation/nav-menu"
 
 export const NavBar = () => {
   return (

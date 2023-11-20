@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
-import Form from "@/components/form/Form"
+import Form from "@/components/auth/form"
 import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
 import { Response, enrollForm } from "@/types/auth"

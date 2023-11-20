@@ -3,9 +3,9 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form"
-import Input from "./Input"
+import Input from "./input"
 import { enrollForm } from "@/types/auth"
-import Button from "../ui/Button"
+import Button from "../ui/button"
 
 interface FormProps {
   onSubmit: ({ username, password }: enrollForm) => Promise<void>

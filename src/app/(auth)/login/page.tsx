@@ -3,13 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import Form from "@/components/form/Form"
 import { loginSchema } from "@/schema/form"
 import { loginForm } from "@/types/auth"
 import { signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
+import Form from "@/components/auth/form"
 
 const Page = () => {
   const [update, setUpdate] = useState(0)
