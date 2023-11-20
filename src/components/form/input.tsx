@@ -1,7 +1,7 @@
 import { enrollForm } from "@/types/auth"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 
 interface InputProps {
   fieldName: keyof enrollForm
@@ -10,7 +10,8 @@ interface InputProps {
   type: React.HTMLInputTypeAttribute
   register: UseFormRegister<any>
 }
-import { useState } from "react"
+
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/merge"
 
 // ...
@@ -22,6 +23,10 @@ const Input = ({
   errors,
   register,
 }: InputProps) => {
+  useEffect(() => {
+    console.log(errors)
+  }, [errors])
+
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
   const [inputType, setInputType] =
@@ -83,13 +88,13 @@ const Input = ({
           <span className="flex justify-around items-center">
             {iconType === EyeOffIcon ? (
               <EyeOffIcon
-                className="mt-7 absolute mr-4"
+                className="mt-7 absolute mr-4 cursor-pointer"
                 size={18}
                 onClick={handleVisibility}
               />
             ) : (
               <EyeIcon
-                className="mt-7 absolute mr-4"
+                className="mt-7 absolute mr-4 cursor-pointer"
                 size={18}
                 onClick={handleVisibility}
               />
@@ -97,13 +102,21 @@ const Input = ({
           </span>
         )}
       </div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: errors?.[fieldName] ? 1 : 0 }}
-        transition={{ duration: 0.2 }}
-      >
-        <p className="text-xs text-red-600">{errors?.[fieldName]?.message}</p>
-      </motion.div>
+      <AnimatePresence>
+        {errors?.[fieldName] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeIn", duration: 0.2 }}
+            className="w-full"
+          >
+            <p className="text-[10px] text-red-600">
+              {errors?.[fieldName]?.message}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

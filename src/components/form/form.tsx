@@ -27,14 +27,14 @@ const Form = ({
   errors,
 }: FormProps) => {
   return (
-    <>
+    <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
       <h1 className="mb-4 font-bold text-lg">{heading}</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <Input
             fieldName="username"
             labelName="Username"
-            type=""
+            type="text"
             errors={errors}
             register={register}
           />
@@ -50,7 +50,7 @@ const Form = ({
           <Button loading={loading} label={buttonText} type="submit" />
         </div>
       </form>
-    </>
+    </div>
   )
 }
 

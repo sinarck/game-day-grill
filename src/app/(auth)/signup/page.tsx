@@ -42,17 +42,15 @@ const Page = () => {
 
   return (
     <div className="flex items-center justify-center max-h-screen mt-28">
-      <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
-        <Form
-          errors={errors}
-          handleSubmit={handleSubmit}
-          loading={loading}
-          buttonText="Create Account"
-          heading="Ready to join the family?"
-          onSubmit={onSubmit}
-          register={register}
-        />
-      </div>
+      <Form
+        errors={errors}
+        handleSubmit={handleSubmit}
+        loading={loading}
+        buttonText="Create Account"
+        heading="Ready to join the family?"
+        onSubmit={onSubmit}
+        register={register}
+      />
     </div>
   )
 }
