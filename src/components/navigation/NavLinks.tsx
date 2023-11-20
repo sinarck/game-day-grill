@@ -1,6 +1,6 @@
 import { NavItem } from "@/types/navigation"
 import Link from "next/link"
-import { Icons } from "./icons"
+import { Icons } from "../icons"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/merge"
 
@@ -8,7 +8,7 @@ interface MainNavProps {
   items?: NavItem[]
 }
 
-const MainNav = ({ items }: MainNavProps) => {
+const NavLinks = ({ items }: MainNavProps) => {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
@@ -40,4 +40,4 @@ const MainNav = ({ items }: MainNavProps) => {
   )
 }
 
-export default MainNav
+export default NavLinks

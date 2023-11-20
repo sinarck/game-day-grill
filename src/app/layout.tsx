@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
-import { SiteHeader } from "@/components/site-header"
+import { NavBar } from "@/components/navigation/NavBar"
 
 export const metadata: Metadata = {
   title: {
@@ -28,8 +28,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <SiteHeader />
+      <body className="antialiased">
+        <NavBar />
         {children}
       </body>
     </html>

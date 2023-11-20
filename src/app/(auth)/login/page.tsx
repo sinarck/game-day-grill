@@ -1,18 +1,17 @@
 "use client"
 
-import React, { useState } from "react"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 
-import Input from "@/components/form/input"
+import Form from "@/components/form/Form"
+import { useWindowDimensions } from "@/lib/dimensions"
 import { loginSchema } from "@/schema/form"
 import { loginForm } from "@/types/auth"
-import { useWindowDimensions } from "@/lib/dimensions"
-import { useRouter } from "next/navigation"
 import { getSession, signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-import Form from "@/components/form/form"
+import { useRouter } from "next/navigation"
 
 const Page = () => {
   const [isAdvanced, setIsAdvanced] = useState(false)

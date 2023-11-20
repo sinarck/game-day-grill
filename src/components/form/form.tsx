@@ -3,7 +3,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form"
-import Input from "./input"
+import Input from "./Input"
 import { enrollForm } from "@/types/auth"
 import Button from "../ui/Button"
 

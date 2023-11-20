@@ -1,7 +1,7 @@
 import { enrollForm } from "@/types/auth"
-import { FieldErrors, UseFormRegister } from "react-hook-form"
-import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
+import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
+import { FieldErrors, UseFormRegister } from "react-hook-form"
 
 interface InputProps {
   fieldName: keyof enrollForm
@@ -11,8 +11,8 @@ interface InputProps {
   register: UseFormRegister<any>
 }
 
-import { useEffect, useState } from "react"
 import { cn } from "@/lib/merge"
+import { useState } from "react"
 
 // ...
 
@@ -23,10 +23,6 @@ const Input = ({
   errors,
   register,
 }: InputProps) => {
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
-
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
   const [inputType, setInputType] =
