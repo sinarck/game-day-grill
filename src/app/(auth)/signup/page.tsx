@@ -1,7 +1,6 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { motion } from "framer-motion"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
@@ -43,10 +42,7 @@ const Page = () => {
 
   return (
     <div className="flex items-center justify-center max-h-screen mt-28">
-      <motion.div
-        className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg"
-        // animate={{ y: -100 }}
-      >
+      <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
         <Form
           errors={errors}
           handleSubmit={handleSubmit}
@@ -56,7 +52,7 @@ const Page = () => {
           onSubmit={onSubmit}
           register={register}
         />
-      </motion.div>
+      </div>
     </div>
   )
 }
