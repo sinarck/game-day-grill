@@ -29,7 +29,6 @@ const useFetch = <T = any>() => {
         { signal: controller.signal }
       )
       .then((res) => {
-        console.log(res.data)
         setResponse(res)
       })
       .catch((err) => {

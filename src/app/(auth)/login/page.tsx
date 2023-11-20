@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import { getSession, signIn } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+import Form from "@/components/form/form"
 
 const Page = () => {
   const [isAdvanced, setIsAdvanced] = useState(false)
@@ -63,35 +64,15 @@ const Page = () => {
       </div>
 
       <div className="flex flex-col items-center w-1/2">
-        <h1 className="mb-4 font-bold text-lg">Welcome Back!</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col">
-            <Input
-              fieldName="username"
-              labelName="Username"
-              type=""
-              placeholderText="Username"
-              register={register}
-            />
-            {errors?.username && <p>{errors.username.message}</p>}
-            <Input
-              fieldName="password"
-              labelName="Password"
-              type="password"
-              placeholderText="Password"
-              register={register}
-            />
-            {errors?.password && <p>{errors.password.message}</p>}
-          </div>
-          <div className="pt-5">
-            <button
-              type="submit"
-              className="rounded-lg bg-black text-white p-2 px-11"
-            >
-              Log In
-            </button>
-          </div>
-        </form>
+        <Form
+          errors={errors}
+          handleSubmit={handleSubmit}
+          heading="Welcome Back!"
+          buttonText="Log in"
+          loading={false}
+          onSubmit={onSubmit}
+          register={register}
+        />
         <Link href="/signup">
           <p>Or create an account</p>
         </Link>

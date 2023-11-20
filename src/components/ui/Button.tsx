@@ -13,8 +13,7 @@ const Button = ({ loading, label, type }: ButtonProps) => {
     <button
       type={type}
       className={cn(
-        "rounded-md bg-black text-white p-2 px-8 flex gap-2 items-center align-middle justify-center outline-none focus:bg-gray-800 hover:bg-gray-800 ease-in transition-colors duration-200",
-        loading && "px-[19px]"
+        "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black ease-in transition-all duration-200"
       )}
     >
       {loading && <Icons.Spinner />}
