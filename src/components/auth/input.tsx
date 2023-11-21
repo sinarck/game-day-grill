@@ -14,7 +14,7 @@ import { cn } from "@/lib/merge"
 import { InputHTMLAttributes, forwardRef, useState } from "react"
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ fieldName, labelName, errors, register, ...props }, ref) => {
+  ({ fieldName, labelName, errors, register, ...props }) => {
     const [isFocused, setIsFocused] = useState(false)
     const [hasValue, setHasValue] = useState(false)
     const [inputType, setInputType] =
@@ -58,9 +58,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="flex">
           <input
-            {...props}
+            // {...props}
             type={props.type === "password" ? inputType : "text"}
-            {...(register(fieldName), { ref })}
+            {...register(fieldName)}
             onFocus={handleFocus}
             onBlur={handleBlur}
             style={{

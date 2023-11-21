@@ -56,6 +56,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
           </div>
           <div className="pt-8">
             <Button
+              variant="default"
               key={shake}
               loading={loading}
               label={buttonText}
