@@ -3,8 +3,8 @@ export const siteConfig = {
   description: "BPA Website Design Team 2023",
   mainNav: [
     {
-      title: "Menus",
-      href: "/menus",
+      title: "Menu",
+      href: "/menu",
     },
     {
       title: "Locations",

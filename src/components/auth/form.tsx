@@ -65,5 +65,4 @@ const Form = ({
     </div>
   )
 }
-Form.displayName = "Form"
 export default Form

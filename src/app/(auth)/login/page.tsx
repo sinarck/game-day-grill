@@ -1,16 +1,14 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-
+import Form from "@/components/auth/form"
 import { loginSchema } from "@/schema/form"
 import { loginForm } from "@/types/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
-import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
-import Form from "@/components/auth/form"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 
 const Page = () => {
   const router = useRouter()
@@ -23,7 +21,7 @@ const Page = () => {
       username: values.username,
       password: values.password,
       callbackUrl: "/",
-      redirect: false,
+      redirect: true,
     })
 
     setLoading(false)
@@ -50,8 +48,8 @@ const Page = () => {
   })
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-1/2 flex flex-col items-center justify-center">
+    <div className="flex justify-center items-center">
+      <div className="flex flex-col items-center justify-center">
         <Form
           errors={errors}
           shake={update}
@@ -65,15 +63,6 @@ const Page = () => {
         <Link href="/signup">
           <p>Or create an account</p>
         </Link>
-      </div>
-      <div className="relative w-1/2 h-full hidden sm:block">
-        <Image
-          alt="Barbeque Stock image"
-          src="/barbeque.jpg"
-          layout="fill"
-          objectFit="cover"
-          priority
-        />
       </div>
     </div>
   )
