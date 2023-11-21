@@ -11,21 +11,12 @@ export const siteConfig = {
       href: "/locations",
     },
     {
-      title: "Events",
-      href: "/events",
-    },
-
-    {
       title: "Reservations",
       href: "/reservations",
     },
     {
       title: "Order",
       href: "/order",
-    },
-    {
-      title: "Log in",
-      href: "/login",
     },
   ],
   links: {

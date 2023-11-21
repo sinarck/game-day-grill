@@ -55,7 +55,7 @@ const Page = () => {
           heading="Welcome Back!"
           buttonText="Log in"
           loading={false}
-          onSubmit={onSubmit}
+          _onSubmit={onSubmit}
           register={register}
         />
         <Link href="/signup">

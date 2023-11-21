@@ -48,7 +48,7 @@ const Page = () => {
         loading={loading}
         buttonText="Create Account"
         heading="Ready to join the family?"
-        onSubmit={onSubmit}
+        _onSubmit={onSubmit}
         register={register}
       />
     </div>
