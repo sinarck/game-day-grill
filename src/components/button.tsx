@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react"
 import { motion } from "framer-motion"
-import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react"
+import { ButtonHTMLAttributes, ReactNode } from "react"
 import { Icons } from "./icons"
 
 const buttonVariants = {
@@ -17,33 +17,38 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: keyof typeof buttonVariants
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, shake, label, children, loading, variant, ...props }, ref) => {
-    return (
-      <motion.div
-        animate={
-          shake && shake > 0 ? { x: [-15, 15, -15, 15, -15, 15, 0] } : { x: 0 }
-        }
-        transition={{ type: "spring", stiffness: 700, damping: 10 }}
-      >
-        <button {...props} ref={ref} className={buttonVariants[variant]}>
-          <Transition
-            show={loading}
-            enter="transition-opacity duration-200"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Icons.Spinner />
-          </Transition>
-          {label && <p>{label}</p>}
-          {children}
-        </button>
-      </motion.div>
-    )
-  }
-)
-Button.displayName = "Button"
+const Button = ({
+  className,
+  shake,
+  label,
+  children,
+  loading,
+  variant,
+  ...props
+}: ButtonProps) => {
+  return (
+    <motion.div
+      animate={
+        shake && shake > 0 ? { x: [-15, 15, -15, 15, -15, 15, 0] } : { x: 0 }
+      }
+      transition={{ type: "spring", stiffness: 700, damping: 10 }}
+    >
+      <button {...props} className={buttonVariants[variant]}>
+        <Transition
+          show={loading}
+          enter="transition-opacity duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Icons.Spinner />
+        </Transition>
+        {label && <p>{label}</p>}
+        {children}
+      </button>
+    </motion.div>
+  )
+}
 export default Button
