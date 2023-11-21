@@ -9,6 +9,7 @@ import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
 import { Response, enrollForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 
 const Page = () => {
   const { data, error, errorMessage, loading, fetch } = useFetch<Response>()
@@ -48,7 +49,7 @@ const Page = () => {
         loading={loading}
         buttonText="Create Account"
         heading="Ready to join the family?"
-        _onSubmit={onSubmit}
+        _onsubmit={onSubmit}
         register={register}
       />
     </div>

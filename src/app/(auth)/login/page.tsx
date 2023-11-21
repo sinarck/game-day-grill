@@ -14,15 +14,19 @@ import { useRouter } from "next/navigation"
 
 const Page = () => {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(0)
 
   const onSubmit = async (values: loginForm) => {
+    setLoading(true)
     const loginData = await signIn("credentials", {
       username: values.username,
       password: values.password,
       callbackUrl: "/",
       redirect: false,
     })
+
+    setLoading(false)
 
     if (loginData?.error) {
       console.error("error occured:", loginData.error)
@@ -54,8 +58,8 @@ const Page = () => {
           handleSubmit={handleSubmit}
           heading="Welcome Back!"
           buttonText="Log in"
-          loading={false}
-          _onSubmit={onSubmit}
+          loading={loading}
+          _onsubmit={onSubmit}
           register={register}
         />
         <Link href="/signup">

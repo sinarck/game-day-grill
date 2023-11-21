@@ -9,7 +9,7 @@ import Button from "../ui/button"
 import { FormHTMLAttributes, forwardRef } from "react"
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
-  _onSubmit: ({ username, password }: enrollForm) => Promise<void>
+  _onsubmit: ({ username, password }: enrollForm) => Promise<void>
   handleSubmit: UseFormHandleSubmit<enrollForm>
   register: UseFormRegister<enrollForm>
   loading: boolean
@@ -37,7 +37,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
     return (
       <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
         <h1 className="mb-4 font-bold text-lg">{heading}</h1>
-        <form onSubmit={handleSubmit(props._onSubmit)} {...props} ref={ref}>
+        <form onSubmit={handleSubmit(props._onsubmit)} {...props} ref={ref}>
           <div className="flex flex-col">
             <Input
               fieldName="username"

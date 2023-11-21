@@ -1,7 +1,8 @@
-import { Metadata } from "next"
+import NavBar from "@/components/navigation/nav-bar"
+import Provider from "@/components/provider"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
-import NavBar from "@/components/navigation/nav-bar"
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: {
@@ -15,11 +16,8 @@ export const metadata: Metadata = {
       type: "image/ico",
     },
     shortcut: { url: "/favicon.png", type: "image/png" },
-    // apple: "/apple-touch-icon.png",
   },
 }
-
-// export const runtime = "edge"
 
 export default function RootLayout({
   children,
@@ -29,8 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased h-screen">
-        <NavBar />
-        {children}
+        <Provider>
+          <NavBar />
+          {children}
+        </Provider>
       </body>
     </html>
   )

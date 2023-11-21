@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios, { AxiosResponse } from "axios"
 import { Response, enrollForm } from "@/types/auth"
 import { useRouter } from "next/router"
+import { signIn } from "next-auth/react"
 
 interface FetchProps {
   endpoint: string
@@ -30,6 +31,14 @@ const useFetch = <T = any>() => {
       )
       .then((res) => {
         setResponse(res)
+        ;(async () => {
+          await signIn("credentials", {
+            username: username,
+            password: password,
+            callbackUrl: "/",
+            redirect: false,
+          })
+        })()
       })
       .catch((err) => {
         setError(true)

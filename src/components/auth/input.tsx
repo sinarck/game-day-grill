@@ -14,7 +14,7 @@ import { cn } from "@/lib/merge"
 import { InputHTMLAttributes, forwardRef, useState } from "react"
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ fieldName, labelName, errors, register, ...props }) => {
+  ({ fieldName, labelName, errors, register, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false)
     const [hasValue, setHasValue] = useState(false)
     const [inputType, setInputType] =
