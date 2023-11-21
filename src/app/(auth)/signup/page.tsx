@@ -9,10 +9,9 @@ import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
 import { Response, enrollForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
 
 const Page = () => {
-  const { data, error, errorMessage, loading, fetch } = useFetch<Response>()
+  const { data, loading, fetch } = useFetch<Response>()
   const router = useRouter()
 
   const onSubmit = async ({ username, password }: enrollForm) => {
@@ -27,7 +26,7 @@ const Page = () => {
     if (data?.status === 201) {
       router.push("/")
     }
-  }, [data])
+  }, [data, router])
 
   const {
     register,

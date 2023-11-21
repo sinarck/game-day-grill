@@ -5,7 +5,7 @@ import {
 } from "react-hook-form"
 import Input from "./input"
 import { enrollForm } from "@/types/auth"
-import Button from "../ui/button"
+import Button from "../button"
 import { FormHTMLAttributes, forwardRef } from "react"
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
@@ -69,4 +69,5 @@ const Form = forwardRef<HTMLFormElement, FormProps>(
     )
   }
 )
+Form.displayName = "Form"
 export default Form

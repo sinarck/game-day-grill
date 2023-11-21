@@ -1,12 +1,7 @@
 import { Transition } from "@headlessui/react"
 import { motion } from "framer-motion"
-import {
-  ButtonHTMLAttributes,
-  ComponentProps,
-  ReactNode,
-  forwardRef,
-} from "react"
-import { Icons } from "../icons"
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react"
+import { Icons } from "./icons"
 
 const buttonVariants = {
   default:
@@ -50,4 +45,5 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     )
   }
 )
+Button.displayName = "Button"
 export default Button
