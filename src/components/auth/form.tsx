@@ -8,8 +8,9 @@ import {
 import Button from "../button"
 import Input from "./input"
 
-interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
-  _onsubmit: ({ username, password }: enrollForm) => Promise<void>
+interface FormProps
+  extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+  onSubmit: (data: enrollForm) => Promise<void>
   handleSubmit: UseFormHandleSubmit<enrollForm>
   register: UseFormRegister<enrollForm>
   loading: boolean
@@ -33,7 +34,7 @@ const Form = ({
   return (
     <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
       <h1 className="mb-4 font-bold text-lg">{heading}</h1>
-      <form onSubmit={handleSubmit(props._onsubmit)} {...props}>
+      <form onSubmit={handleSubmit(onSubmit)} {...props}>
         <div className="flex flex-col">
           <Input
             fieldName="username"

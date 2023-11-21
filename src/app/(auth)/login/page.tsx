@@ -59,7 +59,7 @@ const Page = () => {
           heading="Welcome Back!"
           buttonText="Log in"
           loading={loading}
-          _onsubmit={onSubmit}
+          onSubmit={onSubmit}
           register={register}
         />
         <Link href="/signup">
