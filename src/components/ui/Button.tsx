@@ -1,35 +1,20 @@
-import { cn } from "@/lib/merge"
-import { Icons } from "../icons"
-import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react"
 import { Transition } from "@headlessui/react"
 import { motion } from "framer-motion"
-import { cva } from "class-variance-authority"
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react"
+import { Icons } from "../icons"
 
+const buttonVariants = {
+  default:
+    "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black ease-in transition-all duration-200",
+}
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading: boolean
   label?: string
   shake?: number
   children?: ReactNode
+  variant: keyof typeof buttonVariants
 }
 
-const buttonVariants = cva(
-  "p-2 w-[171px] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all disabled:pointer-events-none disabled:opacity-50 duration-200",
-  {
-    variants: {
-      variant: {
-        default: "bg-gray-900 text-white focus:bg-black hover:bg-black ease-in",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-    },
-  }
-)
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, shake, label, children, loading, ...props }, ref) => {
     return (
@@ -39,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         }
         transition={{ type: "spring", stiffness: 700, damping: 10 }}
       >
-        <button className={""} {...props} ref={ref}>
+        <button {...props} ref={ref} className={buttonVariants.default}>
           <Transition
             show={loading}
             enter="transition-opacity duration-200"
