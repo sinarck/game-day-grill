@@ -36,15 +36,6 @@ const Page = () => {
 
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
-      <Link
-        href="/"
-        className="flex items-center align-middle justify-center absolute left-4 top-4 md:left-8 md:top-8"
-      >
-        <div className="items-center align-middle justify-center flex">
-          <Icons.ChevronLeft className="h-4 w-4" />
-          Back
-        </div>
-      </Link>
       <div className="flex flex-col items-center justify-center">
         <Form
           schema={loginSchema}

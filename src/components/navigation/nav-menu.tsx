@@ -29,11 +29,13 @@ const NavLinks = ({ items }: MainNavProps) => {
                   key={title}
                   href={href}
                   className={cn(
-                    "flex items-center text-lg font-semibold text-gray-600 sm:text-sm hover:text-gray-900 ease-in duration-200 transition-all",
+                    "group flex items-center font-semibold text-gray-600 sm:text-sm hover:text-gray-900 ease-in duration-200 transition-all",
                     disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
-                  {title}
+                  <span className="text-md bg-bottom bg-gradient-to-l from-gray-700 to-gray-700 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-200 ease-in">
+                    {title}
+                  </span>
                 </Link>
               )
           )}
