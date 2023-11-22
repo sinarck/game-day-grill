@@ -4,12 +4,10 @@ import Form from "@/components/auth/form"
 import { Icons } from "@/components/icons"
 import { loginSchema } from "@/schema/form"
 import { authForm } from "@/types/auth"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
 
 const Page = () => {
   const router = useRouter()
@@ -32,7 +30,7 @@ const Page = () => {
       setUpdate(update + 1)
     } else {
       console.log("Login successfully completed")
-      router.push("/")
+      router.back()
     }
   }
 
