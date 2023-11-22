@@ -1,20 +1,22 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import Form from "@/components/auth/form"
 import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
-import { Response, enrollForm } from "@/types/auth"
+import { Response, authForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
 
 const Page = () => {
-  const { data, loading, fetch } = useFetch<Response>()
+  const { data, error, errorMessage, loading, fetch, status } =
+    useFetch<Response>()
+  const [shake, setShake] = useState(0)
   const router = useRouter()
 
-  const onSubmit = async ({ username, password }: enrollForm) => {
+  const onSubmit = async ({ username, password }: authForm) => {
     await fetch({
       endpoint: "/api/user",
       password: password,
@@ -23,33 +25,30 @@ const Page = () => {
   }
 
   useEffect(() => {
+    if (data?.status === 409) {
+      console.log("error")
+    }
     if (data?.status === 201) {
       router.push("/")
     }
   }, [data, router])
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<enrollForm>({
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-    resolver: zodResolver(enrollSchema),
-  })
+  useEffect(() => {
+    if (error && errorMessage !== null) {
+      setShake(shake + 1)
+    }
+  }, [error, errorMessage])
 
   return (
-    <div className="flex items-center justify-center max-h-screen mt-28">
+    <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Form
-        errors={errors}
-        handleSubmit={handleSubmit}
+        apiError={errorMessage}
+        schema={enrollSchema}
+        shake={shake}
         loading={loading}
         buttonText="Create Account"
         heading="Ready to join the family?"
         onSubmit={onSubmit}
-        register={register}
       />
     </div>
   )

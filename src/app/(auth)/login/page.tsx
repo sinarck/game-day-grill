@@ -1,8 +1,9 @@
 "use client"
 
 import Form from "@/components/auth/form"
+import { Icons } from "@/components/icons"
 import { loginSchema } from "@/schema/form"
-import { loginForm } from "@/types/auth"
+import { authForm } from "@/types/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
@@ -15,13 +16,13 @@ const Page = () => {
   const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(0)
 
-  const onSubmit = async (values: loginForm) => {
+  const onSubmit = async (values: authForm) => {
     setLoading(true)
     const loginData = await signIn("credentials", {
       username: values.username,
       password: values.password,
       callbackUrl: "/",
-      redirect: true,
+      redirect: false,
     })
 
     setLoading(false)
@@ -35,33 +36,28 @@ const Page = () => {
     }
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<loginForm>({
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-    resolver: zodResolver(loginSchema),
-  })
-
   return (
-    <div className="flex justify-center items-center">
+    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+      <Link
+        href="/"
+        className="flex items-center align-middle justify-center absolute left-4 top-4 md:left-8 md:top-8"
+      >
+        <div className="items-center align-middle justify-center flex">
+          <Icons.ChevronLeft className="h-4 w-4" />
+          Back
+        </div>
+      </Link>
       <div className="flex flex-col items-center justify-center">
         <Form
-          errors={errors}
+          schema={loginSchema}
           shake={update}
-          handleSubmit={handleSubmit}
           heading="Welcome Back!"
           buttonText="Log in"
           loading={loading}
           onSubmit={onSubmit}
-          register={register}
         />
-        <Link href="/signup">
-          <p>Or create an account</p>
+        <Link href="/signup" className="underline pt-5">
+          <p>Don't have an account?</p>
         </Link>
       </div>
     </div>

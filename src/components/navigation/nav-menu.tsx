@@ -13,7 +13,7 @@ const NavLinks = ({ items }: MainNavProps) => {
     <div className="flex gap-6 md:gap-10">
       <Link
         href="/"
-        className="pl-5 items-center space-x-2 flex align-middle justify-center"
+        className="items-center space-x-2 flex align-middle justify-center"
       >
         <Icons.Logo className="h-8 w-8 md:h-6 md:w-6" />
         <span className="text-md font-bold sm:text-lg">{siteConfig.name}</span>
@@ -29,7 +29,7 @@ const NavLinks = ({ items }: MainNavProps) => {
                   key={title}
                   href={href}
                   className={cn(
-                    "flex items-center text-lg font-semibold text-muted-foreground sm:text-sm",
+                    "flex items-center text-lg font-semibold text-gray-600 sm:text-sm hover:text-gray-900 ease-in duration-200 transition-all",
                     disabled && "cursor-not-allowed opacity-80"
                   )}
                 >

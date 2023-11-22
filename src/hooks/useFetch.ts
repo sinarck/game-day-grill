@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import axios, { AxiosResponse } from "axios"
-import { Response, enrollForm } from "@/types/auth"
+import { Response, authForm } from "@/types/auth"
 import { useRouter } from "next/router"
 import { signIn } from "next-auth/react"
 
 interface FetchProps {
   endpoint: string
-  username: enrollForm["username"]
-  password: enrollForm["password"]
+  username: authForm["username"]
+  password: authForm["password"]
 }
 
 const useFetch = <T = any>() => {
@@ -19,9 +19,11 @@ const useFetch = <T = any>() => {
   const fetch = async ({ endpoint, password, username }: FetchProps) => {
     const controller = new AbortController()
     setLoading(true)
+    setError(false)
+    setErrorMessage(null)
 
-    axios
-      .post(
+    try {
+      const res = await axios.post(
         endpoint,
         {
           username: username,
@@ -29,25 +31,31 @@ const useFetch = <T = any>() => {
         },
         { signal: controller.signal }
       )
-      .then((res) => {
-        setResponse(res)
-        ;(async () => {
-          await signIn("credentials", {
-            username: username,
-            password: password,
-            callbackUrl: "/",
-            redirect: false,
-          })
-        })()
+
+      setResponse(res)
+
+      await signIn("credentials", {
+        username: username,
+        password: password,
+        callbackUrl: "/",
+        redirect: false,
       })
-      .catch((err) => {
-        setError(true)
-        setErrorMessage(err)
-      })
-      .finally(() => setLoading(false))
+    } catch (err) {
+      setError(true)
+      setErrorMessage(err.response.data.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  return { fetch, data: response, error, errorMessage, loading }
+  return {
+    fetch,
+    data: response,
+    error,
+    errorMessage,
+    loading,
+    status: response?.status,
+  }
 }
 
 export default useFetch

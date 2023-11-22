@@ -14,11 +14,11 @@ const NavBar = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur-md">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <NavLinks items={siteConfig.mainNav} />
-        <div className="flex flex-1 items-center justify-end space-x-4 pr-6">
+        <div className="flex flex-1 items-center justify-end space-x-4 pr-3">
           {status === "authenticated" ? (
             <Profile />
           ) : (
-            <Button loading={false} type="button" variant="outline">
+            <Button loading={false} type="button" variant="secondary">
               <Link
                 href="/login"
                 className="flex items-center text-lg font-semibold text-muted-foreground sm:text-sm"

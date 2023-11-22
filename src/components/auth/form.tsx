@@ -1,42 +1,51 @@
-import { enrollForm } from "@/types/auth"
+import { authForm } from "@/types/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { FormHTMLAttributes } from "react"
-import {
-  FieldErrors,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form"
+import { useForm } from "react-hook-form"
+import { ZodType } from "zod"
 import Button from "../button"
 import Input from "./input"
 
 interface FormProps
   extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
-  onSubmit: (data: enrollForm) => Promise<void>
-  handleSubmit: UseFormHandleSubmit<enrollForm>
-  register: UseFormRegister<enrollForm>
+  onSubmit: (data: authForm) => Promise<void>
+  schema: ZodType<any, any, any>
+  apiError?: string | null
   loading: boolean
   heading: string
   buttonText: string
   shake?: number
-  errors: FieldErrors<enrollForm>
 }
 
 const Form = ({
   onSubmit,
-  handleSubmit,
-  register,
   loading,
   heading,
+  schema,
+  apiError,
   buttonText,
   shake,
-  errors,
   ...props
 }: FormProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<authForm>({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+    resolver: zodResolver(schema),
+  })
+
   return (
     <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
       <h1 className="mb-4 font-bold text-lg">{heading}</h1>
       <form onSubmit={handleSubmit(onSubmit)} {...props}>
         <div className="flex flex-col">
           <Input
+            apiError={apiError}
             fieldName="username"
             labelName="Username"
             type="text"

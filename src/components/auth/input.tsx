@@ -1,20 +1,23 @@
 import { cn } from "@/lib/merge"
-import { enrollForm } from "@/types/auth"
+import { authForm } from "@/types/auth"
 import { AnimatePresence, motion } from "framer-motion"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
 import { InputHTMLAttributes, useState } from "react"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  fieldName: keyof enrollForm
+interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "register"> {
+  fieldName: keyof authForm
   labelName?: string
-  errors: FieldErrors<enrollForm>
+  apiError?: string | null
+  errors: FieldErrors<authForm>
   register: UseFormRegister<any>
 }
 
 const Input = ({
   fieldName,
   labelName,
+  apiError,
   errors,
   register,
   ...props
@@ -24,15 +27,6 @@ const Input = ({
   const [inputType, setInputType] =
     useState<React.HTMLInputTypeAttribute>("password")
   const [iconType, setIconType] = useState<LucideIcon>(EyeOffIcon)
-
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
-
-  const handleBlur = (e) => {
-    setIsFocused(false)
-    setHasValue(e.target.value !== "")
-  }
 
   const handleVisibility = () => {
     if (props.type === "password") {
@@ -65,16 +59,21 @@ const Input = ({
           {...props}
           type={props.type === "password" ? inputType : "text"}
           {...register(fieldName)}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          onFocus={() => {
+            setIsFocused(true)
+          }}
+          onBlur={(e) => {
+            setIsFocused(false)
+            setHasValue(e.target.value !== "")
+          }}
           style={{
             fontSize: 14,
           }}
           className={cn(
             "bg-gray-100 border-gray-300 border-b-2 pt-8 outline-none ease-in transition-all duration-200",
-            errors?.[fieldName] && "border-red-300",
-            errors?.[fieldName] && isFocused && "border-red-600",
-            !errors?.[fieldName] && "focus:border-gray-600"
+            (errors?.[fieldName] || apiError) && "border-red-300",
+            (errors?.[fieldName] || apiError) && isFocused && "border-red-600",
+            !(errors?.[fieldName] || apiError) && "focus:border-gray-600"
           )}
         />
         {fieldName === "password" && (
@@ -96,7 +95,7 @@ const Input = ({
         )}
       </div>
       <AnimatePresence>
-        {errors?.[fieldName] && (
+        {(errors?.[fieldName] || apiError !== null) && (
           <motion.div
             initial={{ opacity: 0 }}
             exit={{ opacity: 0 }}
@@ -106,6 +105,7 @@ const Input = ({
           >
             <p className="text-[10px] text-red-600">
               {errors?.[fieldName]?.message}
+              {apiError}
             </p>
           </motion.div>
         )}

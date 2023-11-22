@@ -5,9 +5,9 @@ import { Icons } from "./icons"
 
 const buttonVariants = {
   default:
-    "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black ease-in transition-all duration-200",
-  outline:
-    "rounded-md border-gray-300 border-2 p-2 flex gap-2 items-center align-middle justify-center outline-none ease-in transition-all duration-200",
+    "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black transition-all duration-200",
+  secondary:
+    "rounded-md bg-gray-300 text-gray-600 hover:bg-gray-400 p-2 flex gap-2 items-center align-middle justify-center outline-none transition-all duration-200",
 }
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading: boolean
