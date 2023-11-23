@@ -2,6 +2,7 @@ import { Transition } from "@headlessui/react"
 import { motion } from "framer-motion"
 import { ButtonHTMLAttributes, ReactNode } from "react"
 import { Icons } from "./icons"
+import { cn } from "@/lib/merge"
 
 const buttonVariants = {
   default:
