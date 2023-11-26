@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import axios, { AxiosResponse } from "axios"
 import { Response, authForm } from "@/types/auth"
 import { useRouter } from "next/router"
@@ -16,37 +16,40 @@ const useFetch = <T = any>() => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const fetch = async ({ endpoint, password, username }: FetchProps) => {
-    const controller = new AbortController()
-    setLoading(true)
-    setError(false)
-    setErrorMessage(null)
+  const fetch = useCallback(
+    async ({ endpoint, password, username }: FetchProps) => {
+      const controller = new AbortController()
+      setLoading(true)
+      setError(false)
+      setErrorMessage(null)
 
-    try {
-      const res = await axios.post(
-        endpoint,
-        {
+      try {
+        const res = await axios.post(
+          endpoint,
+          {
+            username: username,
+            password: password,
+          },
+          { signal: controller.signal }
+        )
+
+        setResponse(res)
+
+        await signIn("credentials", {
           username: username,
           password: password,
-        },
-        { signal: controller.signal }
-      )
-
-      setResponse(res)
-
-      await signIn("credentials", {
-        username: username,
-        password: password,
-        callbackUrl: "/",
-        redirect: false,
-      })
-    } catch (err) {
-      setError(true)
-      setErrorMessage(err.response.data.message)
-    } finally {
-      setLoading(false)
-    }
-  }
+          callbackUrl: "/",
+          redirect: false,
+        })
+      } catch (err) {
+        setError(true)
+        setErrorMessage(err.response.data.message)
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
 
   return {
     fetch,

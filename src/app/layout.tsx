@@ -2,6 +2,7 @@ import Provider from "@/components/provider"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import Script from "next/script"
 import { ReactNode } from "react"
 
 interface RootLayoutProps {
@@ -30,6 +31,7 @@ export default function RootLayout({
 }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en">
+      <head />
       <body className="antialiased h-screen">
         <Provider>{children}</Provider>
       </body>

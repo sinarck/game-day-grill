@@ -2,7 +2,6 @@ import { Transition } from "@headlessui/react"
 import { motion } from "framer-motion"
 import { ButtonHTMLAttributes, ReactNode } from "react"
 import { Icons } from "./icons"
-import { cn } from "@/lib/merge"
 
 const buttonVariants = {
   default:
@@ -35,17 +34,47 @@ const Button = ({
       transition={{ type: "spring", stiffness: 700, damping: 10 }}
     >
       <button {...props} className={buttonVariants[variant]}>
-        <Transition
-          show={loading}
-          enter="transition-opacity duration-200"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Icons.Spinner />
-        </Transition>
+        {loading && (
+          <motion.svg
+            className="h-5 w-5"
+            height="24"
+            viewBox="0 0 50 50"
+            width="24"
+            animate={{ rotate: 360, opacity: [0.5, 1] }}
+            transition={{
+              ease: "linear",
+              repeat: Infinity,
+              duration: 2,
+              opacity: { ease: "easeIn", duration: 0.25 },
+            }}
+            style={{ originX: "center", originY: "center" }}
+          >
+            <circle
+              className="opacity-40 bg-pink-900"
+              cx="25"
+              cy="25"
+              fill="none"
+              r="20"
+              stroke="currentColor"
+              strokeWidth="6"
+              strokeLinecap="round"
+            />
+            <motion.circle
+              cx="25"
+              cy="25"
+              fill="none"
+              r="20"
+              stroke="currentColor"
+              strokeWidth="6"
+              strokeLinecap="round"
+              animate={{
+                strokeDasharray: ["1, 150", "90, 150", "90, 150"],
+                strokeDashoffset: [0, -35, -125],
+              }}
+              transition={{ ease: "easeInOut", repeat: Infinity, duration: 2 }}
+            />
+          </motion.svg>
+        )}
         {label && <p>{label}</p>}
         {children}
       </button>

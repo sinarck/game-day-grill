@@ -1,4 +1,4 @@
-// credits to shadcn's taxonomy
+// Credits to shadcn's taxonomy
 
 import { getToken } from "next-auth/jwt"
 import { withAuth } from "next-auth/middleware"

@@ -11,51 +11,77 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// Authentication Models
-model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
+// Authentication Model
+
+enum tier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+model user {
+  id        Int         @id @default(autoincrement())
+  username  String      @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  points    Int         @default(0)
+  tier      tier?
+  favorites menu_item[]
+  orders    orders[]
+}
+
+// Restaurant Models
+
+model restaurant {
+  id      Int         @id @default(autoincrement())
+  name    String
+  address String
+  phone   String
+  menu    menu_item[]
+  orders  orders[]
 }
 
 // Restaurant Models
 enum food_category {
-  DRINK
-  APPETIZER
-  ENTREE
-  DESSERT
+  APPETIZERS
+  WINGS
+  FAJITAS
+  BURGERS
+  STEAKS
+  SEAFOOD
+  BEVERAGES
+  DESSERTS
 }
 
 enum items {
-  FAJITA
-  GRILLED_CHEESE
-  GRILLED_VEGETABLES
-  BURRITO
-  TACO
-  QUESADILLA
-  PALAK_PANEER
-  NACHOS
-  CHIPS_AND_SALSA
-  GUACAMOLE
-  QUESO
+  CLUB_SANDWICH
+  CHICKEN_WINGS
 }
 
 model menu_item {
-  id          Int           @id @default(autoincrement())
-  name        items         @unique
-  price       Float
-  description String
-  category    food_category
-  order       order?        @relation(fields: [orderId], references: [id])
-  orderId     Int?
+  id                Int           @id @default(autoincrement())
+  name              items         @unique
+  price             Float
+  description       String
+  category          food_category
+  favorited_by_user user?         @relation(fields: [userId], references: [id])
+  userId            Int?
+  restaurant        restaurant?   @relation(fields: [restaurantId], references: [id])
+  restaurantId      Int?
 }
 
-model order {
-  id          Int         @id @default(autoincrement())
-  items       menu_item[]
-  total_price Float
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+// Business Models
+
+model orders {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  restaurantId Int
+  total        Decimal    @db.Decimal(10, 2)
+  user         user       @relation(fields: [userId], references: [id])
+  restaurant   restaurant @relation(fields: [restaurantId], references: [id])
+
+  @@index([userId], name: "userId")
+  @@index([restaurantId], name: "restaurantId")
 }
