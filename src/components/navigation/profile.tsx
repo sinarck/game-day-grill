@@ -6,6 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Avvvatars from "avvvatars-react"
 import { signOut } from "next-auth/react"
 import { useToast } from "../ui/use-toast"
 
@@ -14,7 +15,9 @@ const Profile = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+      <DropdownMenuTrigger>
+        <Avvvatars value="best_user@gmail.com" />
+      </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
