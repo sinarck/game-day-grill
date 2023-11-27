@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -36,7 +37,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.2.1",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.9.0",
     "clsx": "^2.0.0",

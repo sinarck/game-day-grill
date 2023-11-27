@@ -4,6 +4,7 @@
 /node_modules
 .yarn
 /.pnp
+.pnpm-store/**
 .pnp.js
 
 # testing
