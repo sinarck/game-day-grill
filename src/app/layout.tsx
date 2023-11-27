@@ -1,8 +1,8 @@
 import Provider from "@/components/provider"
+import { Toaster } from "@/components/ui/toaster"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import Script from "next/script"
 import { ReactNode } from "react"
 
 interface RootLayoutProps {
@@ -34,6 +34,7 @@ export default function RootLayout({
       <head />
       <body className="antialiased h-screen">
         <Provider>{children}</Provider>
+        <Toaster />
       </body>
     </html>
   )

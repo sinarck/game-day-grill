@@ -1,7 +1,7 @@
 "use client"
 
 import Form from "@/components/auth/form"
-import { Icons } from "@/components/icons"
+import { useToast } from "@/components/ui/use-toast"
 import { loginSchema } from "@/schema/form"
 import { authForm } from "@/types/auth"
 import { signIn } from "next-auth/react"
@@ -10,9 +10,13 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 const Page = () => {
-  const router = useRouter()
+  // State management
   const [loading, setLoading] = useState(false)
   const [update, setUpdate] = useState(0)
+
+  // Hooks
+  const router = useRouter()
+  const { toast } = useToast()
 
   const onSubmit = async (values: authForm) => {
     setLoading(true)
@@ -30,6 +34,11 @@ const Page = () => {
       setUpdate(update + 1)
     } else {
       console.log("Login successfully completed")
+      toast({
+        title: "Login successfully completed",
+        description: "Welcome to the family",
+        variant: "default",
+      })
       router.back()
     }
   }

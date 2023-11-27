@@ -1,23 +1,22 @@
 "use client"
 
 import Form from "@/components/auth/form"
-import useFetch from "@/hooks/useFetch"
+import useAxios from "@/hooks/useAxios"
 import { enrollSchema } from "@/schema/form"
 import { FormAPIResponse, authForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const Page = () => {
-  const { data, error, errorMessage, loading, fetch, status } =
-    useFetch<FormAPIResponse>()
+  const { data, errorMessage, loading, fetch } = useAxios<FormAPIResponse>()
   const [shake, setShake] = useState(0)
   const router = useRouter()
 
   useEffect(() => {
-    if (status === 409) {
+    if (data?.status === 409) {
       console.log("error")
     }
-    if (status === 201) {
+    if (data?.status === 201) {
       router.push("/")
     }
   }, [data, router])
