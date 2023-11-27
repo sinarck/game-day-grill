@@ -13,39 +13,45 @@ datasource db {
 
 // Authentication Model
 
-enum tier {
+enum Tier {
   BRONZE
   SILVER
   GOLD
   PLATINUM
+
+  @@map("tier")
 }
 
-model user {
-  id        Int         @id @default(autoincrement())
-  username  String      @unique
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
   password  String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  points    Int         @default(0)
-  tier      tier?
-  favorites menu_item[]
-  orders    orders[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  points    Int        @default(0)
+  tier      Tier?
+  favorites MenuItem[]
+  orders    Orders[]
+
+  @@map("user")
 }
 
 // Restaurant Models
 
-model restaurant {
+model Restaurant {
   id      Int      @id @default(autoincrement())
   name    String
   address String
   phone   String
-  menu    menu     @relation(fields: [menuId], references: [id])
+  menu    Menu     @relation(fields: [menuId], references: [id])
   menuId  Int      @unique
-  orders  orders[]
+  orders  Orders[]
+
+  @@map("restaurant")
 }
 
 // Food Models
-enum food_category {
+enum FoodCategory {
   APPETIZERS
   WINGS
   FAJITAS
@@ -54,38 +60,44 @@ enum food_category {
   SEAFOOD
   BEVERAGES
   DESSERTS
+
+  @@map("food_category")
 }
 
-model menu_item {
-  id                Int           @id @default(autoincrement())
-  name              String        @unique
+model MenuItem {
+  id                Int          @id @default(autoincrement())
+  name              String       @unique
   price             Float
   description       String
-  category          food_category
-  favorited_by_user user?         @relation(fields: [userId], references: [id])
+  category          FoodCategory
+  favorited_by_user User?        @relation(fields: [userId], references: [id])
   userId            Int?
 
-  menu   menu? @relation(fields: [menuId], references: [id])
+  menu   Menu? @relation(fields: [menuId], references: [id])
   menuId Int?
+
+  @@map("menu_item")
 }
 
-model menu {
+model Menu {
   id                  Int         @id @default(autoincrement())
-  items               menu_item[]
-  found_at_restaurant restaurant?
+  items               MenuItem[]
+  found_at_restaurant Restaurant?
   restaurantId        Int?
+
+  @@map("menu")
 }
 
 // Business Models
-
-model orders {
+model Orders {
   id           Int        @id @default(autoincrement())
   userId       Int
   restaurantId Int
   total        Decimal    @db.Decimal(10, 2)
-  user         user       @relation(fields: [userId], references: [id])
-  restaurant   restaurant @relation(fields: [restaurantId], references: [id])
+  user         User       @relation(fields: [userId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
   @@index([userId], name: "userId")
   @@index([restaurantId], name: "restaurantId")
+  @@map("orders")
 }

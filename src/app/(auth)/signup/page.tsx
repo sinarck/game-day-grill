@@ -22,13 +22,13 @@ const Page = () => {
     }
   }, [data, router])
 
-  const onSubmit = useCallback(async ({ username, password }: authForm) => {
+  const onSubmit = async ({ username, password }: authForm) => {
     await fetch({
       endpoint: "/api/user",
       password: password,
       username: username,
     })
-  }, [])
+  }
 
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">

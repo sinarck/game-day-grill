@@ -15,7 +15,7 @@ const useFetch = <T = any>() => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const fetch = useCallback(
+  const authFetch = useCallback(
     async ({ endpoint, password, username }: FetchProps) => {
       const controller = new AbortController()
       setLoading(true)
@@ -51,7 +51,7 @@ const useFetch = <T = any>() => {
   )
 
   return {
-    fetch,
+    fetch: authFetch,
     data: response,
     error,
     errorMessage,

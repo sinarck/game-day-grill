@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       )
     }
 
-    // hash password
+    // Hash password
     const hashedPassword = await hash(password, 10)
 
     const newUser = await db.user.create({
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       },
     })
 
-    // remove password from response
+    // Remove password from response
     const { password: _, ...user } = newUser
 
     return NextResponse.json<FormAPIResponse>(
