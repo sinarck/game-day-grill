@@ -7,8 +7,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { signOut } from "next-auth/react"
+import { useToast } from "../ui/use-toast"
 
 const Profile = () => {
+  const { toast } = useToast()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>Open</DropdownMenuTrigger>
@@ -22,7 +25,16 @@ const Profile = () => {
         >
           Log out
         </DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            toast({
+              title: "Welcome to the family",
+              description: "Account successfully created and activated",
+            })
+          }}
+        >
+          Toast
+        </DropdownMenuItem>
         <DropdownMenuItem>Team</DropdownMenuItem>
         <DropdownMenuItem>Subscription</DropdownMenuItem>
       </DropdownMenuContent>

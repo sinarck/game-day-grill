@@ -18,10 +18,10 @@ const NavBar = () => {
           {status === "authenticated" ? (
             <Profile />
           ) : (
-            <Button loading={false} type="button" variant="secondary">
+            <Button loading={false} type="button" variant="outline">
               <Link
                 href="/login"
-                className="flex items-center text-lg font-semibold text-muted-foreground sm:text-sm"
+                className="flex items-center text-lg font-semibold text-gray-600 sm:text-sm"
               >
                 Log in
               </Link>

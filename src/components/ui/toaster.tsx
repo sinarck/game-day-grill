@@ -13,6 +13,8 @@ import { useToast } from "@/components/ui/use-toast"
 export function Toaster() {
   const { toasts } = useToast()
 
+  // TODO: Add Game Day Grill Logo to the left of the toast content
+
   return (
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
