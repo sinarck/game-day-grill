@@ -1,6 +1,6 @@
 import { db } from "@/lib/db"
 import { userSchema } from "@/schema/auth"
-import { Response } from "@/types/auth"
+import { FormAPIResponse } from "@/types/auth"
 import { hash } from "bcrypt"
 import { NextResponse } from "next/server"
 
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     })
 
     if (existingUsername) {
-      return NextResponse.json<Response>(
+      return NextResponse.json<FormAPIResponse>(
         {
           user: null,
           message: "Username is already taken",
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     // remove password from response
     const { password: _, ...user } = newUser
 
-    return NextResponse.json<Response>(
+    return NextResponse.json<FormAPIResponse>(
       {
         user: user,
         message: "User created successfully",
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       }
     )
   } catch (e) {
-    return NextResponse.json(
+    return NextResponse.json<FormAPIResponse>(
       {
         user: null,
         message: "Something went wrong",

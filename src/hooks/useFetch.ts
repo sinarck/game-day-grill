@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from "react"
+import { authForm } from "@/types/auth"
 import axios, { AxiosResponse } from "axios"
-import { Response, authForm } from "@/types/auth"
-import { useRouter } from "next/router"
 import { signIn } from "next-auth/react"
+import { useCallback, useState } from "react"
 
 interface FetchProps {
   endpoint: string

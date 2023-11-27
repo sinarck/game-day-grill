@@ -3,21 +3,21 @@
 import Form from "@/components/auth/form"
 import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
-import { Response, authForm } from "@/types/auth"
+import { FormAPIResponse, authForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 
 const Page = () => {
   const { data, error, errorMessage, loading, fetch, status } =
-    useFetch<Response>()
+    useFetch<FormAPIResponse>()
   const [shake, setShake] = useState(0)
   const router = useRouter()
 
   useEffect(() => {
-    if (data?.status === 409) {
+    if (status === 409) {
       console.log("error")
     }
-    if (data?.status === 201) {
+    if (status === 201) {
       router.push("/")
     }
   }, [data, router])

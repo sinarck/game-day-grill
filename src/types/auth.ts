@@ -7,7 +7,7 @@ export type authForm = z.infer<typeof enrollSchema>
 
 export type User = Omit<z.infer<typeof userSchema>, "password">
 
-export interface Response {
+export interface FormAPIResponse {
   user: User | null
   message: string
 }

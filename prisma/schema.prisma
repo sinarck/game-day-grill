@@ -35,15 +35,16 @@ model user {
 // Restaurant Models
 
 model restaurant {
-  id      Int         @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   name    String
   address String
   phone   String
-  menu    menu_item[]
+  menu    menu     @relation(fields: [menuId], references: [id])
+  menuId  Int      @unique
   orders  orders[]
 }
 
-// Restaurant Models
+// Food Models
 enum food_category {
   APPETIZERS
   WINGS
@@ -55,21 +56,24 @@ enum food_category {
   DESSERTS
 }
 
-enum items {
-  CLUB_SANDWICH
-  CHICKEN_WINGS
-}
-
 model menu_item {
   id                Int           @id @default(autoincrement())
-  name              items         @unique
+  name              String        @unique
   price             Float
   description       String
   category          food_category
   favorited_by_user user?         @relation(fields: [userId], references: [id])
   userId            Int?
-  restaurant        restaurant?   @relation(fields: [restaurantId], references: [id])
-  restaurantId      Int?
+
+  menu   menu? @relation(fields: [menuId], references: [id])
+  menuId Int?
+}
+
+model menu {
+  id                  Int         @id @default(autoincrement())
+  items               menu_item[]
+  found_at_restaurant restaurant?
+  restaurantId        Int?
 }
 
 // Business Models
