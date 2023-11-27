@@ -10,9 +10,9 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
     <div className="min-h-screen">
       <Link
         href="/"
-        className="flex items-center align-middle justify-center absolute left-4 top-4 md:left-8 md:top-8"
+        className="absolute left-4 top-4 flex items-center justify-center align-middle md:left-8 md:top-8"
       >
-        <div className="items-center align-middle justify-center flex">
+        <div className="flex items-center justify-center align-middle">
           <Icons.ChevronLeft className="h-4 w-4" />
           Back
         </div>

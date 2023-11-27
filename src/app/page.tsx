@@ -5,7 +5,7 @@ export default function Home() {
     <div>
       <NavBar />
       <main
-        className={" m-0 h-full min-h-full flex items-center justify-center"}
+        className={" m-0 flex h-full min-h-full items-center justify-center"}
       >
         <p className="">Placeholder text for now</p>
       </main>

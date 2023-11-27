@@ -45,10 +45,10 @@ const Input = ({
       {labelName && (
         <label
           className={cn(
-            "absolute top-0 left-0 ease-in transition-all duration-200 pointer-events-none focus:text-xs focus:text-gray-500 focus:mt-2",
+            "pointer-events-none absolute left-0 top-0 transition-all duration-200 ease-in focus:mt-2 focus:text-xs focus:text-gray-500",
             isFocused || hasValue
-              ? "text-xs text-gray-500 mt-4"
-              : "text-base text-black mt-7"
+              ? "mt-4 text-xs text-gray-500"
+              : "mt-7 text-base text-black"
           )}
         >
           {labelName}
@@ -70,23 +70,23 @@ const Input = ({
             fontSize: 14,
           }}
           className={cn(
-            "bg-gray-100 border-gray-300 border-b-2 pt-8 outline-none ease-in transition-all duration-200",
+            "border-b-2 border-gray-300 bg-gray-100 pt-8 outline-none transition-all duration-200 ease-in",
             (errors?.[fieldName] || apiError) && "border-red-300",
             (errors?.[fieldName] || apiError) && isFocused && "border-red-600",
             !(errors?.[fieldName] || apiError) && "focus:border-gray-600"
           )}
         />
         {fieldName === "password" && (
-          <span className="flex justify-around items-center">
+          <span className="flex items-center justify-around">
             {iconType === EyeOffIcon ? (
               <EyeOffIcon
-                className="mt-7 absolute mr-4 cursor-pointer"
+                className="absolute mr-4 mt-7 cursor-pointer"
                 size={18}
                 onClick={handleVisibility}
               />
             ) : (
               <EyeIcon
-                className="mt-7 absolute mr-4 cursor-pointer"
+                className="absolute mr-4 mt-7 cursor-pointer"
                 size={18}
                 onClick={handleVisibility}
               />

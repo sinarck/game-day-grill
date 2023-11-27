@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="antialiased h-screen">
+      <body className="h-screen antialiased">
         <Provider>{children}</Provider>
         <Toaster />
       </body>

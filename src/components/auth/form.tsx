@@ -40,8 +40,8 @@ const Form = ({
   })
 
   return (
-    <div className="align-middle justify-center items-center flex flex-col bg-gray-100 rounded-xl max-h-80 w-50 p-10 shadow-lg">
-      <h1 className="mb-4 font-bold text-lg">{heading}</h1>
+    <div className="w-50 flex max-h-80 flex-col items-center justify-center rounded-xl bg-gray-100 p-10 align-middle shadow-lg">
+      <h1 className="mb-4 text-lg font-bold">{heading}</h1>
       <form onSubmit={handleSubmit(onSubmit)} {...props}>
         <div className="flex flex-col">
           <Input

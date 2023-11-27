@@ -5,7 +5,7 @@ const buttonVariants = {
   default:
     "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black transition-all duration-200",
   outline:
-    "rounded-md border-[1px] hover:border-[1px] hover:border-gray-300 text-gray-600 p-2 flex gap-2 items-center align-middle justify-center outline-none transition-all duration-200",
+    "hover:border-gray-300 rounded-md border-[1px] hover:border-[1px]  text-gray-600 p-2 flex gap-2 items-center align-middle justify-center outline-none transition-all duration-200",
 }
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading: boolean
@@ -48,7 +48,7 @@ const Button = ({
             style={{ originX: "center", originY: "center" }}
           >
             <circle
-              className="opacity-40 bg-pink-900"
+              className="bg-pink-900 opacity-40"
               cx="25"
               cy="25"
               fill="none"

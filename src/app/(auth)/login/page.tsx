@@ -54,7 +54,7 @@ const Page = () => {
           loading={loading}
           onSubmit={onSubmit}
         />
-        <Link href="/signup" className="underline pt-5">
+        <Link href="/signup" className="pt-5 underline">
           <p>Don't have an account?</p>
         </Link>
       </div>
