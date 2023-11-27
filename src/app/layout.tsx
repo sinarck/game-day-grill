@@ -2,7 +2,6 @@ import Provider from "@/components/provider"
 import { Toaster } from "@/components/ui/toaster"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
-import { Analytics } from "@vercel/analytics/react"
 import { Metadata } from "next"
 import { ReactNode } from "react"
 
@@ -35,7 +34,6 @@ export default function RootLayout({
       <head />
       <body className="h-screen antialiased">
         <Provider>{children}</Provider>
-        <Analytics />
         <Toaster />
       </body>
     </html>
