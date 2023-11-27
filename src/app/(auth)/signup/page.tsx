@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch"
 import { enrollSchema } from "@/schema/form"
 import { FormAPIResponse, authForm } from "@/types/auth"
 import { useRouter } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 const Page = () => {
   const { data, error, errorMessage, loading, fetch, status } =
