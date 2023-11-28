@@ -1,6 +1,7 @@
 "use client"
 
 import Form from "@/components/auth/form"
+import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { enrollSchema } from "@/schema/form"
 import { FormAPIResponse, authForm } from "@/types/auth"
@@ -10,6 +11,7 @@ import { useEffect, useState } from "react"
 const Page = () => {
   const { data, errorMessage, loading, fetch } = useAxios<FormAPIResponse>()
   const [shake, setShake] = useState(0)
+  const { toast } = useToast()
   const router = useRouter()
 
   useEffect(() => {
@@ -18,6 +20,11 @@ const Page = () => {
     }
     if (data?.status === 201) {
       router.push("/")
+      toast({
+        title: "Login successfully completed",
+        description: "Welcome to the family",
+        variant: "default",
+      })
     }
   }, [data, router])
 

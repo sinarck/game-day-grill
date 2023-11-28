@@ -8,13 +8,13 @@ import Button from "../button"
 import Profile from "./profile"
 
 const NavBar = () => {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
 
   return (
-    <header className="bg-background sticky top-0 z-50 w-full border-b backdrop-blur-md">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
+    <header className="bg-background sticky top-0 z-50 w-full border-b px-3 backdrop-blur-md">
+      <div className="flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <NavLinks items={siteConfig.mainNav} />
-        <div className="flex flex-1 items-center justify-end space-x-4 pr-3">
+        <div className="flex flex-1 items-center justify-end space-x-4">
           {status === "authenticated" ? (
             <Profile />
           ) : (
