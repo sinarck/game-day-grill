@@ -7,7 +7,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col">
-      Here is my example page with example menu fetching:
+      <p>Here is my example page with example menu fetching:</p>
       <button
         onClick={async () => {
           const response = await fetch("/api/menu", {
@@ -17,8 +17,9 @@ const Page = () => {
               restaurantId: "1",
             }),
           })
-          const data = await response.json()
-          setData(data)
+          const responseData = await response.json()
+          setData(responseData)
+          console.log("inside client", responseData)
         }}
       >
         Click here to test

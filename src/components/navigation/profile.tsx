@@ -21,12 +21,15 @@ const Profile = () => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         {status === "authenticated" && (
-          <Avvvatars
-            value={session.user.username}
-            shadow
-            style={"character"}
-            size={36}
-          />
+          <div className="flex items-center justify-center gap-3 align-middle">
+            <p className="hidden md:block">{session.user.username}</p>
+            <Avvvatars
+              value={session.user.username}
+              shadow
+              style={"character"}
+              size={36}
+            />
+          </div>
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
