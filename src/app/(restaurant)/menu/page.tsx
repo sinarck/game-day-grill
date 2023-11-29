@@ -9,17 +9,18 @@ const Page = () => {
     <div className="flex flex-col">
       <p>Here is my example page with example menu fetching:</p>
       <button
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         onClick={async () => {
           const response = await fetch("/api/menu", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              restaurantId: "1",
+              restaurantId: 1,
             }),
           })
           const responseData = await response.json()
           setData(responseData)
-          console.log("inside client", responseData)
+          console.log(responseData)
         }}
       >
         Click here to test

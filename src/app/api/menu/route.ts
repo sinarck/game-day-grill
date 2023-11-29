@@ -1,3 +1,4 @@
+import { db } from "@/lib/db"
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
@@ -6,9 +7,28 @@ export async function POST(request: Request) {
 
     const { restaurantId } = body
 
+    console.log("restaurantId", restaurantId)
+
+    const existingMenu = await db.menu.findFirst({
+      where: { restaurantId: restaurantId },
+      include: { items: true },
+    })
+
+    if (!existingMenu) {
+      return NextResponse.json(
+        {
+          menu: null,
+          message: "No menu found for restaurant with id of " + restaurantId,
+        },
+        {
+          status: 404,
+        }
+      )
+    }
+
     return NextResponse.json(
       {
-        menu: null,
+        menu: existingMenu,
         message: "Menu returned successfully",
       },
       {

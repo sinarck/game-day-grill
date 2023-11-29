@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { enrollSchema } from "@/schema/form"
 import { FormAPIResponse, authForm } from "@/types/auth"
+import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -31,8 +32,16 @@ const Page = () => {
   const onSubmit = async ({ username, password }: authForm) => {
     await fetch({
       endpoint: "/api/user",
-      password: password,
-      username: username,
+      body: {
+        username: username,
+        password: password,
+      },
+      callbackFunction: signIn("credentials", {
+        username: username,
+        password: password,
+        callbackUrl: "/",
+        redirect: false,
+      }),
     })
   }
 
