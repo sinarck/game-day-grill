@@ -1,8 +1,8 @@
+import { siteConfig } from "@/config/site"
+import { cn } from "@/lib/merge"
 import { NavItem } from "@/types/navigation"
 import Link from "next/link"
 import { Icons } from "../icons"
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/merge"
 
 interface MainNavProps {
   items?: NavItem[]
@@ -10,7 +10,7 @@ interface MainNavProps {
 
 const NavLinks = ({ items }: MainNavProps) => {
   return (
-    <div className="flex gap-6 md:gap-10">
+    <div className="flex md:gap-5">
       <Link
         href="/"
         className="flex items-center justify-center space-x-2 align-middle"
@@ -21,7 +21,7 @@ const NavLinks = ({ items }: MainNavProps) => {
       {/* TODO: Make Mobile NavBar */}
 
       {items?.length ? (
-        <nav className="hidden gap-6 md:flex">
+        <nav className="hidden gap-4 md:flex">
           {items?.map(
             ({ href, title, disabled }) =>
               href && (

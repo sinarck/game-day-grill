@@ -1,10 +1,13 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { compare } from "bcrypt"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "./db"
-import { compare } from "bcrypt"
 
 export const authOptions: NextAuthOptions = {
+  // The following line causes errors with Prisma Accelerate
+  // Ignore it for now, there is no fix
+  // @ts-ignore
   adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
@@ -26,6 +29,7 @@ export const authOptions: NextAuthOptions = {
 
         const user = await db.user.findUnique({
           where: { username: credentials?.username },
+          cacheStrategy: { ttl: 60 },
         })
         if (!user) {
           return null
