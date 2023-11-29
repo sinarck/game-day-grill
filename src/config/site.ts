@@ -15,8 +15,12 @@ export const siteConfig = {
       href: "/reservations",
     },
     {
-      title: "Order",
-      href: "/order",
+      title: "Our Story",
+      href: "/our-story",
+    },
+    {
+      title: "Events",
+      href: "/events",
     },
   ],
   links: {

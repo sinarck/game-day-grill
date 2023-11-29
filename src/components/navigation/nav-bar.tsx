@@ -2,13 +2,16 @@
 
 import NavLinks from "@/components/navigation/nav-menu"
 import { siteConfig } from "@/config/site"
+import { ShoppingCart } from "lucide-react"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import Button from "../button"
 import Profile from "./profile"
 
 const NavBar = () => {
   const { status } = useSession()
+  const router = useRouter()
 
   return (
     <header className="bg-background sticky top-0 z-50 w-full border-b px-3 backdrop-blur-md">
@@ -27,6 +30,12 @@ const NavBar = () => {
               </Link>
             </Button>
           )}
+          <ShoppingCart
+            onClick={() => {
+              router.push("/cart")
+            }}
+            className="cursor-pointer"
+          />
         </div>
       </div>
     </header>

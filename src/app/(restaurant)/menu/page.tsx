@@ -1,5 +1,6 @@
 "use client"
 
+import MenuItem from "@/components/menu-item"
 import useAxios from "@/hooks/useAxios"
 import { MenuAPIResponse } from "@/types/api"
 
@@ -23,7 +24,10 @@ const Page = () => {
       >
         Click here to test
       </button>
-      {data && <pre>{JSON.stringify(data.data, null, 2)}</pre>}
+      {data &&
+        data.data.menu.items.map((item, i) => (
+          <MenuItem key={i} menuItem={item} />
+        ))}
     </>
   )
 }
