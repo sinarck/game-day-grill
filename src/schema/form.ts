@@ -13,8 +13,13 @@ export const enrollSchema = z.object({
 })
 
 export const loginSchema = z.object({
-  username: z.string().min(1, "Username is required").max(100),
+  username: z
+    .string()
+    .min(1, "Username is required")
+    .max(100)
+    .refine((s) => !s.includes(" "), "Username cannot contain spaces"),
   password: z.string().min(1, "Password is required"),
-}) // Authentication form types
+})
 
+// Inferring types of either schema works
 export type authForm = z.infer<typeof enrollSchema>
