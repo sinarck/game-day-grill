@@ -33,6 +33,8 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body className="h-screen antialiased">
+        {/* Firefox FOUC Workaround */}
+        <script>0</script>
         <Provider>{children}</Provider>
         <Toaster />
       </body>
