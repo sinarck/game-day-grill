@@ -1,31 +1,30 @@
 "use client"
 
-import { useState } from "react"
+import useAxios from "@/hooks/useAxios"
+import { MenuAPIResponse } from "@/types/api"
 
 const Page = () => {
-  const [data, setData] = useState(null)
+  const { data, error, errorMessage, fetch, loading } =
+    useAxios<MenuAPIResponse>()
 
   return (
-    <div className="flex flex-col">
+    <>
       <p>Here is my example page with example menu fetching:</p>
       <button
         className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         onClick={async () => {
-          const response = await fetch("/api/menu", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+          await fetch({
+            endpoint: "/api/menu",
             body: JSON.stringify({
               restaurantId: 1,
             }),
           })
-          const responseData = await response.json()
-          setData(responseData)
-          console.log(responseData)
         }}
       >
         Click here to test
       </button>
-    </div>
+      {data && <pre>{JSON.stringify(data.data, null, 2)}</pre>}
+    </>
   )
 }
 

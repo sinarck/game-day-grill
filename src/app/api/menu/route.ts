@@ -4,10 +4,7 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-
     const { restaurantId } = body
-
-    console.log("restaurantId", restaurantId)
 
     const existingMenu = await db.menu.findFirst({
       where: { restaurantId: restaurantId },
@@ -36,6 +33,8 @@ export async function POST(request: Request) {
       }
     )
   } catch (e) {
+    console.error(e)
+
     return NextResponse.json(
       {
         menu: null,

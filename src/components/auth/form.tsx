@@ -1,4 +1,4 @@
-import { authForm } from "@/types/auth"
+import { authForm } from "@/schema/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormHTMLAttributes } from "react"
 import { useForm } from "react-hook-form"

@@ -4,8 +4,8 @@ import { useCallback, useState } from "react"
 
 interface FetchProps {
   endpoint: string
-  body: { username: string; password: string }
-  callbackFunction: Promise<SignInResponse | undefined>
+  body: { username: string; password: string } | string
+  callbackFunction?: Promise<SignInResponse | undefined>
 }
 
 const useAxios = <T = any>() => {
@@ -28,7 +28,9 @@ const useAxios = <T = any>() => {
 
         setResponse(res)
 
-        await callbackFunction
+        if (callbackFunction) {
+          await callbackFunction
+        }
       } catch (err) {
         setError(true)
         setErrorMessage(err.response.data.message)

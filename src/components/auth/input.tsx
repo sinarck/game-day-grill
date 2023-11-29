@@ -1,5 +1,5 @@
 import { cn } from "@/lib/merge"
-import { authForm } from "@/types/auth"
+import { authForm } from "@/schema/form"
 import { AnimatePresence, motion } from "framer-motion"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
 import { InputHTMLAttributes, useState } from "react"

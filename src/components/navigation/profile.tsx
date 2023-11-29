@@ -51,10 +51,11 @@ const Profile = () => {
           onClick={() => {
             signOut()
           }}
+          destructive
         >
           <div className="flex flex-1 items-center justify-between">
             <div>
-              <p className="text-red-500">Log out</p>
+              <p className="">Log out</p>
             </div>
             <div>
               <LogOut color="#CC3333" size={20} />

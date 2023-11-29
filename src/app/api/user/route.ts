@@ -1,13 +1,13 @@
 import { db } from "@/lib/db"
-import { userSchema } from "@/schema/auth"
-import { FormAPIResponse } from "@/types/auth"
+import { enrollSchema } from "@/schema/form"
+import { FormAPIResponse } from "@/types/api"
 import { hash } from "bcrypt"
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { username, password } = userSchema.parse(body)
+    const { username, password } = enrollSchema.parse(body)
 
     // check for duplicate usernames
     const existingUsername = await db.user.findUnique({
@@ -49,6 +49,8 @@ export async function POST(request: Request) {
       }
     )
   } catch (e) {
+    console.error(e)
+
     return NextResponse.json<FormAPIResponse>(
       {
         user: null,

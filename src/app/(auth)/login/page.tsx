@@ -2,8 +2,7 @@
 
 import Form from "@/components/auth/form"
 import { useToast } from "@/components/ui/use-toast"
-import { loginSchema } from "@/schema/form"
-import { authForm } from "@/types/auth"
+import { authForm, loginSchema } from "@/schema/form"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
