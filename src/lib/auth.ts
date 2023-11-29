@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
 
         const user = await db.user.findUnique({
           where: { username: credentials?.username },
-          cacheStrategy: { ttl: 60 },
+          cacheStrategy: { ttl: 60, swr: 60 },
         })
         if (!user) {
           return null

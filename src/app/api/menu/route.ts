@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const existingMenu = await db.menu.findFirst({
       where: { restaurantId: restaurantId },
       include: { items: true },
-      cacheStrategy: { ttl: 60 },
+      cacheStrategy: { ttl: 60, swr: 60 },
     })
 
     if (!existingMenu) {

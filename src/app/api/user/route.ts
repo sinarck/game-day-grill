@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     // check for duplicate usernames
     const existingUsername = await db.user.findUnique({
       where: { username: username },
-      cacheStrategy: { ttl: 60 },
+      cacheStrategy: { ttl: 60, swr: 60 },
     })
 
     if (existingUsername) {
