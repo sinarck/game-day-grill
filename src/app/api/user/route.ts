@@ -1,10 +1,12 @@
 import { db } from "@/lib/db"
 import { enrollSchema } from "@/schema/form"
-import { AuthAPIResponse } from "@/types/api"
+import { APIError, AuthAPIResponse } from "@/types/api"
 import { hash } from "bcrypt"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  await db.$connect()
+
   try {
     const body = await request.json()
     const { username, password } = enrollSchema.parse(body)
@@ -52,7 +54,7 @@ export async function POST(request: Request) {
   } catch (e) {
     console.error(e)
 
-    return NextResponse.json<AuthAPIResponse>(
+    return NextResponse.json<APIError<AuthAPIResponse>>(
       {
         user: null,
         message: "Something went wrong",

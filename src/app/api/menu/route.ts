@@ -1,4 +1,6 @@
 import { db } from "@/lib/db"
+import { menuSchema } from "@/schema/api"
+import { APIError, MenuAPIResponse } from "@/types/api"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
@@ -6,7 +8,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { restaurantId } = body
+    const { restaurantId } = menuSchema.parse(body)
 
     const existingMenu = await db.menu.findFirst({
       where: { restaurantId: restaurantId },
@@ -15,7 +17,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (!existingMenu) {
-      return NextResponse.json(
+      return NextResponse.json<MenuAPIResponse>(
         {
           menu: null,
           message: "No menu found for restaurant with id of " + restaurantId,
@@ -26,6 +28,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // TODO: Fully type out tihs response
     return NextResponse.json(
       {
         menu: existingMenu,
@@ -38,7 +41,7 @@ export async function POST(request: NextRequest) {
   } catch (e) {
     console.error(e)
 
-    return NextResponse.json(
+    return NextResponse.json<APIError<MenuAPIResponse>>(
       {
         menu: null,
         message: "Something went wrong",

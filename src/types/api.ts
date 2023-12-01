@@ -1,7 +1,13 @@
 import { Prisma } from "@prisma/client"
 import { User } from "./user"
 
-export interface APIError {
+export type APIError<T> = {
+  [K in keyof T]: T[K] | null
+} & {
+  message: string
+}
+
+export interface AuthAPIError {
   response: {
     data: {
       message: {
@@ -24,7 +30,7 @@ export interface MenuAPIResponse extends APIResponse {
     select: {
       [K in keyof Required<Prisma.MenuSelect>]: true
     }
-  }>
+  }> | null
 }
 
 export interface OrderAPIResponse extends APIResponse {
@@ -32,5 +38,5 @@ export interface OrderAPIResponse extends APIResponse {
     select: {
       [K in keyof Required<Prisma.MenuSelect>]: true
     }
-  }>
+  }> | null
 }
