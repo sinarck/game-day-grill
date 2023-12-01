@@ -4,15 +4,13 @@ import { useSession } from "next-auth/react"
 import Button from "./button"
 
 interface MenuItemProps {
-  menuItem: MenuAPIResponse["menu"]["items"][0]
+  menuItem: NonNullable<MenuAPIResponse["menu"]>["items"][0]
 }
 
 const MenuItem = ({ menuItem }: MenuItemProps) => {
   const { status } = useSession()
   const { data, error, errorMessage, fetch, loading } =
     useAxios<OrderAPIResponse>()
-
-  console.log(error)
 
   const handleOrder = async () => {
     await fetch({

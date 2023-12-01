@@ -33,7 +33,11 @@ const Button = ({
       }
       transition={{ type: "spring", stiffness: 700, damping: 10 }}
     >
-      <button {...props} className={buttonVariants["variants"][variant]}>
+      <button
+        {...props}
+        className={buttonVariants["variants"][variant]}
+        disabled={loading}
+      >
         {loading && (
           <motion.svg
             className="h-5 w-5"

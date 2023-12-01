@@ -32,7 +32,7 @@ const Page = () => {
       </Button>
       <div className="flex gap-3">
         {data &&
-          data.data.menu.items.map((item, i) => (
+          data.data.menu?.items.map((item, i) => (
             <MenuItem key={i} menuItem={item} />
           ))}
       </div>
