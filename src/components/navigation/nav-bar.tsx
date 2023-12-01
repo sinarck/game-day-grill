@@ -21,14 +21,19 @@ const NavBar = () => {
           {status === "authenticated" ? (
             <Profile />
           ) : (
-            <Button loading={false} type="button" variant="outline">
-              <Link
-                href="/login"
-                className="flex items-center text-lg font-semibold text-gray-600 sm:text-sm"
+            <Link
+              href="/login"
+              className="text-lg font-semibold text-gray-600 sm:text-sm"
+            >
+              <Button
+                loading={false}
+                type="button"
+                variant="outline"
+                className="flex flex-1 items-center"
               >
                 Log in
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           )}
           <ShoppingCart
             onClick={() => {
