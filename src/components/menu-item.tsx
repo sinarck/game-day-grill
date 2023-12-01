@@ -1,11 +1,46 @@
-import { MenuAPIResponse } from "@/types/api"
+import useAxios from "@/hooks/useAxios"
+import { MenuAPIResponse, OrderAPIResponse } from "@/types/api"
+import { useSession } from "next-auth/react"
+import Button from "./button"
 
 interface MenuItemProps {
   menuItem: MenuAPIResponse["menu"]["items"][0]
 }
 
 const MenuItem = ({ menuItem }: MenuItemProps) => {
-  return <div>{menuItem.name}</div>
+  const { status } = useSession()
+  const { data, error, errorMessage, fetch, loading } =
+    useAxios<OrderAPIResponse>()
+
+  console.log(error)
+
+  const handleOrder = async () => {
+    await fetch({
+      endpoint: "/api/order",
+      body: JSON.stringify({
+        restaurantId: 1,
+        menuItemId: menuItem.id,
+      }),
+    })
+  }
+
+  return (
+    <div className="rounded-md border-[1px] border-neutral-100 shadow-sm">
+      <div className="text-lg text-black">{menuItem.name}</div>
+      <div>{menuItem.description}</div>
+      <div>{menuItem.price}</div>
+      <div>{menuItem.category}</div>
+      <Button
+        variant="default"
+        loading={loading}
+        onClick={() => {
+          handleOrder()
+        }}
+      >
+        Add to cart
+      </Button>
+    </div>
+  )
 }
 
 export default MenuItem

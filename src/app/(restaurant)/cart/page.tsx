@@ -1,8 +1,4 @@
-import { authOptions } from "@/lib/auth"
-import { getServerSession } from "next-auth"
-
-const Page = async () => {
-  const session = await getServerSession(authOptions)
+const Page = () => {
   return (
     <div>
       <p>User's cart is here</p>

@@ -4,13 +4,13 @@ import Form from "@/components/auth/form"
 import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { authForm, enrollSchema } from "@/schema/form"
-import { FormAPIResponse } from "@/types/api"
+import { AuthAPIResponse } from "@/types/api"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const Page = () => {
-  const { data, errorMessage, loading, fetch } = useAxios<FormAPIResponse>()
+  const { data, errorMessage, loading, fetch } = useAxios<AuthAPIResponse>()
   const [shake, setShake] = useState(0)
   const { toast } = useToast()
   const router = useRouter()

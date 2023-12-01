@@ -1,25 +1,36 @@
 import { Prisma } from "@prisma/client"
 import { User } from "./user"
 
-export interface FormAPIResponse {
-  user: User | null
-  message: string
-}
-export interface FetchError {
+export interface APIError {
   response: {
     data: {
       message: {
-        user: FormAPIResponse
-        message: FormAPIResponse
+        user: AuthAPIResponse
+        message: AuthAPIResponse
       }
     }
   }
 }
-export interface MenuAPIResponse {
+export interface APIResponse {
+  message: string
+}
+
+export interface AuthAPIResponse extends APIResponse {
+  user: User | null
+}
+
+export interface MenuAPIResponse extends APIResponse {
   menu: Prisma.MenuGetPayload<{
     select: {
       [K in keyof Required<Prisma.MenuSelect>]: true
     }
   }>
-  message: string
+}
+
+export interface OrderAPIResponse extends APIResponse {
+  order: Prisma.MenuGetPayload<{
+    select: {
+      [K in keyof Required<Prisma.MenuSelect>]: true
+    }
+  }>
 }

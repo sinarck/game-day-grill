@@ -2,17 +2,19 @@ import { motion } from "framer-motion"
 import { ButtonHTMLAttributes, ReactNode } from "react"
 
 const buttonVariants = {
-  default:
-    "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black transition-all duration-200",
-  outline:
-    "hover:border-gray-300 rounded-md border-[1px] hover:border-[1px]  text-gray-600 p-2 flex gap-2 items-center align-middle justify-center outline-none transition-all duration-200",
+  variants: {
+    default:
+      "rounded-md bg-gray-900 text-white p-2 w-[171px] flex gap-2 items-center align-middle justify-center outline-none focus:bg-black hover:bg-black transition-all duration-200",
+    outline:
+      "hover:border-gray-300 rounded-md border-[1px] hover:border-[1px]  text-gray-600 p-2 flex gap-2 items-center align-middle justify-center outline-none transition-all duration-200",
+  },
 }
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading: boolean
   label?: string
   shake?: number
   children?: ReactNode
-  variant: keyof typeof buttonVariants
+  variant: keyof (typeof buttonVariants)["variants"]
 }
 
 const Button = ({
@@ -31,7 +33,7 @@ const Button = ({
       }
       transition={{ type: "spring", stiffness: 700, damping: 10 }}
     >
-      <button {...props} className={buttonVariants[variant]}>
+      <button {...props} className={buttonVariants["variants"][variant]}>
         {loading && (
           <motion.svg
             className="h-5 w-5"

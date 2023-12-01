@@ -32,10 +32,9 @@ const Page = () => {
       console.error("error occured:", loginData.error)
       setUpdate(update + 1)
     } else {
-      console.log("Login successfully completed")
       toast({
-        title: "Login successfully completed",
-        description: "Welcome to the family",
+        title: "Welcome Back",
+        description: "Login successfully completed",
         variant: "default",
       })
       router.back()
