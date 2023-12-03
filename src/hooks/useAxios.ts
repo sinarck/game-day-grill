@@ -1,4 +1,5 @@
 import { ToastProps } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 import axios, { AxiosResponse } from "axios"
 import { SignInResponse } from "next-auth/react"
 import { useCallback, useState } from "react"
@@ -14,6 +15,8 @@ interface FetchProps<T> {
 }
 
 const useAxios = <T = any>() => {
+  const { toast } = useToast()
+
   const [response, setResponse] = useState<AxiosResponse<T> | null>(null)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
@@ -37,6 +40,11 @@ const useAxios = <T = any>() => {
           await callbackFunction
         }
       } catch (err) {
+        toast({
+          title: "Something went wrong",
+          description: "Please try again later",
+        })
+
         setError(true)
         setErrorMessage(err.response.data.message)
       } finally {

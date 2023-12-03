@@ -17,8 +17,14 @@ const Page = () => {
   useEffect(() => {
     if (data) {
       toast({
-        title: "Reservation made for " + data.data.reservations?.name,
-        description: "Party of " + data.data.reservations?.size + " at ",
+        title: "Reservation made for " + data?.data.reservations?.name,
+        description:
+          "Party of " +
+          data?.data.reservations?.size +
+          " on  " +
+          new Date(String(data?.data.reservations?.date)).toLocaleDateString() +
+          " at " +
+          new Date(String(data?.data.reservations?.date)).toLocaleTimeString(),
       })
     }
   }, [data])
