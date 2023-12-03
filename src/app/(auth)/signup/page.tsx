@@ -7,12 +7,11 @@ import { authForm, enrollSchema, loginSchema } from "@/schema/form"
 import { AuthAPIResponse } from "@/types/api"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { z } from "zod"
 
 const Page = () => {
   const { data, errorMessage, loading, fetch } = useAxios<AuthAPIResponse>()
-  const [shake, setShake] = useState(0)
   const { toast } = useToast()
   const router = useRouter()
 
@@ -51,7 +50,6 @@ const Page = () => {
       <Form
         apiError={errorMessage}
         schema={enrollSchema}
-        shake={shake}
         loading={loading}
         buttonText="Create Account"
         heading="Ready to join the family?"

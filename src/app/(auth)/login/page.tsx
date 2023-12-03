@@ -11,7 +11,6 @@ import { useState } from "react"
 const Page = () => {
   // State management
   const [loading, setLoading] = useState(false)
-  const [update, setUpdate] = useState(0)
 
   // Hooks
   const router = useRouter()
@@ -30,7 +29,6 @@ const Page = () => {
 
     if (loginData?.error) {
       console.error("error occured:", loginData.error)
-      setUpdate(update + 1)
     } else {
       toast({
         title: "Welcome Back",
@@ -46,7 +44,6 @@ const Page = () => {
       <div className="flex flex-col items-center justify-center">
         <Form
           schema={loginSchema}
-          shake={update}
           heading="Welcome Back!"
           buttonText="Log in"
           loading={loading}

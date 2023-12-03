@@ -14,7 +14,6 @@ interface FormProps
   loading: boolean
   heading: string
   buttonText: string
-  shake?: number
 }
 
 const Form = ({
@@ -24,7 +23,6 @@ const Form = ({
   schema,
   apiError,
   buttonText,
-  shake,
   ...props
 }: FormProps) => {
   const {
@@ -64,11 +62,9 @@ const Form = ({
           <Button
             variant="default"
             size="wide"
-            key={shake}
             loading={loading}
             label={buttonText}
             type="submit"
-            shake={shake}
           />
         </div>
       </form>

@@ -8,7 +8,6 @@ interface ButtonProps
     VariantProps<typeof buttonVariants> {
   loading: boolean
   label?: string
-  shake?: number
   children?: ReactNode
 }
 
@@ -46,7 +45,6 @@ export const buttonVariants = cva(
 
 const Button = ({
   className,
-  shake,
   label,
   children,
   loading,
@@ -56,9 +54,9 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <motion.div
-      animate={
-        shake && shake > 0 ? { x: [-15, 15, -15, 15, -15, 15, 0] } : { x: 0 }
-      }
+      // animate={
+      //   shake && shake > 0 ? { x: [-15, 15, -15, 15, -15, 15, 0] } : { x: 0 }
+      // }
       transition={{ type: "spring", stiffness: 700, damping: 10 }}
     >
       <button
