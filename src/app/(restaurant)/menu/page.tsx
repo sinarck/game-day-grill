@@ -1,7 +1,7 @@
 "use client"
 
-import Button from "@/components/button"
 import MenuItem from "@/components/menu-item"
+import Button from "@/components/ui/button"
 import useAxios from "@/hooks/useAxios"
 import { menuSchema } from "@/schema/api"
 import { MenuAPIResponse } from "@/types/api"

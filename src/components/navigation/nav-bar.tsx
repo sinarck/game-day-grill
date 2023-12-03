@@ -6,7 +6,7 @@ import { ShoppingCart } from "lucide-react"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import Button from "../button"
+import Button from "../ui/button"
 import Profile from "./profile"
 
 const NavBar = () => {
@@ -30,6 +30,7 @@ const NavBar = () => {
                 type="button"
                 variant="outline"
                 className="flex flex-1 items-center"
+                size={"sm"}
               >
                 Log in
               </Button>

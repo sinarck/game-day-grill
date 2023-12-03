@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { FormHTMLAttributes } from "react"
 import { useForm } from "react-hook-form"
 import { ZodType } from "zod"
-import Button from "../button"
+import Button from "../ui/button"
 import Input from "./input"
 
 interface FormProps
@@ -63,6 +63,7 @@ const Form = ({
         <div className="pt-8">
           <Button
             variant="default"
+            size="wide"
             key={shake}
             loading={loading}
             label={buttonText}

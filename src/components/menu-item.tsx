@@ -1,7 +1,7 @@
 import useAxios from "@/hooks/useAxios"
 import { MenuAPIResponse, OrderAPIResponse } from "@/types/api"
 import { useSession } from "next-auth/react"
-import Button from "./button"
+import Button from "./ui/button"
 
 interface MenuItemProps {
   menuItem: NonNullable<MenuAPIResponse["menu"]>["items"][0]

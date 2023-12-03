@@ -1,6 +1,6 @@
 "use client"
 
-import Button from "@/components/button"
+import Button from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { reservationsSchema } from "@/schema/api"
