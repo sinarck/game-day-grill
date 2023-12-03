@@ -73,7 +73,7 @@ const Input = ({
             "border-b-2 border-gray-300 bg-gray-100 pt-8 outline-none transition-all duration-200 ease-in",
             (errors?.[fieldName] || apiError) && "border-red-300",
             (errors?.[fieldName] || apiError) && isFocused && "border-red-600",
-            !(errors?.[fieldName] || apiError) && "focus:border-gray-600"
+            !(errors?.[fieldName] ?? apiError) && "focus:border-gray-600"
           )}
         />
         {fieldName === "password" && (

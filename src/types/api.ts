@@ -40,3 +40,11 @@ export interface OrderAPIResponse extends APIResponse {
     }
   }> | null
 }
+
+export interface ReservationsAPIResponse extends APIResponse {
+  reservations: Prisma.ReservationsGetPayload<{
+    select: {
+      [K in keyof Required<Omit<Prisma.ReservationsSelect, "restaurant">>]: true
+    }
+  }> | null
+}

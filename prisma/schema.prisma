@@ -35,13 +35,14 @@ model User {
 // Restaurant Models
 
 model Restaurant {
-  id      Int      @id @default(autoincrement())
-  name    String
-  address String
-  phone   String
-  menu    Menu     @relation(fields: [menuId], references: [id])
-  menuId  Int      @unique
-  orders  Orders[]
+  id           Int            @id @default(autoincrement())
+  name         String
+  address      String
+  phone        String
+  menu         Menu           @relation(fields: [menuId], references: [id])
+  menuId       Int            @unique
+  orders       Orders[]
+  Reservations Reservations[]
 
   @@map("restaurant")
 }
@@ -94,4 +95,15 @@ model Orders {
   @@index([userId], name: "userId")
   @@index([restaurantId], name: "restaurantId")
   @@map("orders")
+}
+
+model Reservations {
+  id           Int         @id @default(autoincrement())
+  name         String
+  date         DateTime
+  size         Int
+  restaurantId Int
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+
+  @@map("reservations")
 }
