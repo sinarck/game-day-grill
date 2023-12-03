@@ -1,4 +1,4 @@
-import { cn } from "@/lib/merge"
+import { cn } from "@/lib/utils"
 import { VariantProps, cva } from "class-variance-authority"
 import { motion } from "framer-motion"
 import { ButtonHTMLAttributes, ReactNode } from "react"

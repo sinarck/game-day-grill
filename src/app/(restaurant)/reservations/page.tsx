@@ -1,14 +1,16 @@
 "use client"
 
 import Button from "@/components/ui/button"
+import { DatePicker } from "@/components/ui/date-picker"
 import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { reservationsSchema } from "@/schema/api"
 import { ReservationsAPIResponse } from "@/types/api"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { z } from "zod"
 
 const Page = () => {
+  const [date, setDate] = useState<Date | undefined>(new Date())
   const { data, error, errorMessage, fetch, loading } =
     useAxios<ReservationsAPIResponse>()
 
@@ -43,9 +45,11 @@ const Page = () => {
 
   return (
     <div>
+      <DatePicker />
       <Button
         loading={loading}
         variant="default"
+        size="lg"
         onClick={() => handleReservation()}
       >
         Make a reservation

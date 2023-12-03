@@ -1,4 +1,4 @@
-import { cn } from "@/lib/merge"
+import { cn } from "@/lib/utils"
 import { authForm } from "@/schema/form"
 import { AnimatePresence, motion } from "framer-motion"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"

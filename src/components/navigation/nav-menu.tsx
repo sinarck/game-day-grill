@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/merge"
+import { cn } from "@/lib/utils"
 import { NavItem } from "@/types/navigation"
 import Link from "next/link"
 import { Icons } from "../icons"
