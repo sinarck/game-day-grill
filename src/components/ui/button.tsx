@@ -1,17 +1,16 @@
 import { cn } from "@/lib/utils"
-import { VariantProps, cva } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority"
 import { motion } from "framer-motion"
-import { ButtonHTMLAttributes, ReactNode } from "react"
+import { ButtonHTMLAttributes, forwardRef } from "react"
 
 interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   loading: boolean
-  label?: string
-  children?: ReactNode
+  children?: React.ReactNode
 }
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 focus-visible:bg-black ease-in",
   {
     variants: {
@@ -43,26 +42,17 @@ export const buttonVariants = cva(
   }
 )
 
-const Button = ({
-  className,
-  label,
-  children,
-  loading,
-  size,
-  variant,
-  ...props
-}: ButtonProps) => {
-  return (
-    <motion.div
-      // animate={
-      //   shake && shake > 0 ? { x: [-15, 15, -15, 15, -15, 15, 0] } : { x: 0 }
-      // }
-      transition={{ type: "spring", stiffness: 700, damping: 10 }}
-    >
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    { className, variant, size, loading, children, ...props }: ButtonProps,
+    ref
+  ) => {
+    return (
       <button
-        {...props}
-        className={cn(buttonVariants({ variant, size, className }))}
         disabled={loading}
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
       >
         {loading && (
           <motion.svg
@@ -105,10 +95,11 @@ const Button = ({
             />
           </motion.svg>
         )}
-        {label && !loading && <p>{label}</p>}
         {!loading && children}
       </button>
-    </motion.div>
-  )
-}
-export default Button
+    )
+  }
+)
+Button.displayName = "Button"
+
+export { Button, buttonVariants }

@@ -1,6 +1,6 @@
 "use client"
 
-import Button from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { DatePicker } from "@/components/ui/date-picker"
 import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"

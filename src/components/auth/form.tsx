@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { FormHTMLAttributes } from "react"
 import { useForm } from "react-hook-form"
 import { ZodType } from "zod"
-import Button from "../ui/button"
+import { Button } from "../ui/button"
 import Input from "./input"
 
 interface FormProps
@@ -59,13 +59,9 @@ const Form = ({
           />
         </div>
         <div className="pt-8">
-          <Button
-            variant="default"
-            size="wide"
-            loading={loading}
-            label={buttonText}
-            type="submit"
-          />
+          <Button variant="default" size="wide" loading={loading} type="submit">
+            {buttonText}
+          </Button>
         </div>
       </form>
     </div>
