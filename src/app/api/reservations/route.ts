@@ -7,10 +7,10 @@ export async function POST(request: NextRequest) {
   // Supposedly, awaiting a db.$connect() speeds up the connection
   await db.$connect()
 
-  const body = await request.json()
-  const { date, restaurantId, size, name } = reservationsSchema.parse(body)
-
   try {
+    const body = await request.json()
+    const { date, restaurantId, size, name } = reservationsSchema.parse(body)
+
     const existingReservation = await db.reservations.findFirst({
       where: {
         restaurantId: restaurantId,
@@ -22,10 +22,15 @@ export async function POST(request: NextRequest) {
 
     if (existingReservation) {
       // Gracefully fail if the reservation already exists
-      return NextResponse.json<APIError<ReservationsAPIResponse>>({
-        reservations: null,
-        message: "Reservation already exists",
-      })
+      return NextResponse.json<APIError<ReservationsAPIResponse>>(
+        {
+          reservations: null,
+          message: "Reservation already exists",
+        },
+        {
+          status: 409,
+        }
+      )
     }
 
     const reservation = await db.reservations.create({
@@ -37,16 +42,26 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json<ReservationsAPIResponse>({
-      reservations: reservation,
-      message: "Reservation created",
-    })
+    return NextResponse.json<ReservationsAPIResponse>(
+      {
+        reservations: reservation,
+        message: "Reservation created",
+      },
+      {
+        status: 201,
+      }
+    )
   } catch (e) {
     console.error(e)
 
-    return NextResponse.json<APIError<ReservationsAPIResponse>>({
-      reservations: null,
-      message: "Something went wrong",
-    })
+    return NextResponse.json<APIError<ReservationsAPIResponse>>(
+      {
+        reservations: null,
+        message: "Something went wrong",
+      },
+      {
+        status: 500,
+      }
+    )
   }
 }

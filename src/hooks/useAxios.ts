@@ -1,3 +1,4 @@
+import { ToastProps } from "@/components/ui/toast"
 import axios, { AxiosResponse } from "axios"
 import { SignInResponse } from "next-auth/react"
 import { useCallback, useState } from "react"
@@ -5,7 +6,11 @@ import { useCallback, useState } from "react"
 interface FetchProps<T> {
   endpoint: string
   body: T
-  callbackFunction?: Promise<SignInResponse | undefined>
+  callbackFunction?: Promise<
+    | SignInResponse
+    | { id: string; dismiss: () => void; update: (props: ToastProps) => void }
+    | undefined
+  >
 }
 
 const useAxios = <T = any>() => {

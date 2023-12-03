@@ -1,12 +1,17 @@
 import { Prisma } from "@prisma/client"
 import { User } from "./user"
 
-export type APIError<T> = {
-  [K in keyof T]: T[K] | null
-} & {
+export interface APIResponse {
   message: string
 }
 
+export type APIError<T> = APIResponse & {
+  [K in keyof T]: T[K] | null
+}
+
+export interface AuthAPIResponse extends APIResponse {
+  user: User | null
+}
 export interface AuthAPIError {
   response: {
     data: {
@@ -16,13 +21,6 @@ export interface AuthAPIError {
       }
     }
   }
-}
-export interface APIResponse {
-  message: string
-}
-
-export interface AuthAPIResponse extends APIResponse {
-  user: User | null
 }
 
 export interface MenuAPIResponse extends APIResponse {
