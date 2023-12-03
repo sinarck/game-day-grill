@@ -3,18 +3,20 @@
 import Button from "@/components/button"
 import MenuItem from "@/components/menu-item"
 import useAxios from "@/hooks/useAxios"
+import { menuSchema } from "@/schema/api"
 import { MenuAPIResponse } from "@/types/api"
+import { z } from "zod"
 
 const Page = () => {
   const { data, error, errorMessage, fetch, loading } =
     useAxios<MenuAPIResponse>()
 
   const getMenu = async () => {
-    await fetch({
+    await fetch<z.infer<typeof menuSchema>>({
       endpoint: "/api/menu",
-      body: JSON.stringify({
+      body: {
         restaurantId: 1,
-      }),
+      },
     })
   }
 

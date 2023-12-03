@@ -12,13 +12,14 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
   const { data, error, errorMessage, fetch, loading } =
     useAxios<OrderAPIResponse>()
 
+  // TODO: strongly type the fetch function
   const handleOrder = async () => {
     await fetch({
       endpoint: "/api/order",
-      body: JSON.stringify({
+      body: {
         restaurantId: 1,
         menuItemId: menuItem.id,
-      }),
+      },
     })
   }
 

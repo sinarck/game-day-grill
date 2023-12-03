@@ -2,9 +2,9 @@ import axios, { AxiosResponse } from "axios"
 import { SignInResponse } from "next-auth/react"
 import { useCallback, useState } from "react"
 
-interface FetchProps {
+interface FetchProps<T> {
   endpoint: string
-  body: { username: string; password: string } | string
+  body: T
   callbackFunction?: Promise<SignInResponse | undefined>
 }
 
@@ -15,7 +15,7 @@ const useAxios = <T = any>() => {
   const [loading, setLoading] = useState(false)
 
   const fetch = useCallback(
-    async ({ endpoint, body, callbackFunction }: FetchProps) => {
+    async <K>({ endpoint, body, callbackFunction }: FetchProps<K>) => {
       const controller = new AbortController()
       setLoading(true)
       setError(false)

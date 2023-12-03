@@ -3,11 +3,12 @@
 import Form from "@/components/auth/form"
 import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
-import { authForm, enrollSchema } from "@/schema/form"
+import { authForm, enrollSchema, loginSchema } from "@/schema/form"
 import { AuthAPIResponse } from "@/types/api"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { z } from "zod"
 
 const Page = () => {
   const { data, errorMessage, loading, fetch } = useAxios<AuthAPIResponse>()
@@ -30,7 +31,7 @@ const Page = () => {
   }, [data, router])
 
   const onSubmit = async ({ username, password }: authForm) => {
-    await fetch({
+    await fetch<z.infer<typeof loginSchema>>({
       endpoint: "/api/user",
       body: {
         username: username,
