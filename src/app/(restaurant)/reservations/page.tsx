@@ -70,6 +70,8 @@ const Page = () => {
     resolver: zodResolver(reservationsSchema.omit({ date: true })),
   })
 
+  // TODO: migrate to Form component and use it here
+  // TODO: make Form component generic
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
