@@ -10,18 +10,20 @@ interface MainNavProps {
 
 const NavLinks = ({ items }: MainNavProps) => {
   return (
-    <div className="flex md:gap-5">
+    <div className="flex sm:gap-5">
       <Link
         href="/"
         className="flex items-center justify-center space-x-2 align-middle"
       >
         <Icons.Logo className="h-8 w-8 md:h-6 md:w-6" />
-        <span className="text-md font-bold sm:text-lg">{siteConfig.name}</span>
+        <span className="text-md hidden font-bold sm:block sm:text-lg">
+          {siteConfig.name}
+        </span>
       </Link>
       {/* TODO: Make Mobile NavBar */}
 
       {items?.length ? (
-        <nav className="hidden gap-4 md:flex">
+        <nav className="hidden gap-1 sm:flex sm:gap-4">
           {items?.map(
             ({ href, title, disabled }) =>
               href && (
@@ -33,7 +35,7 @@ const NavLinks = ({ items }: MainNavProps) => {
                     disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
-                  <span className="text-md bg-gradient-to-l from-gray-700 to-gray-700 bg-[length:0%_2px] bg-bottom bg-no-repeat transition-all duration-200 ease-in group-hover:bg-[length:100%_2px]">
+                  <span className="bg-gradient-to-l from-gray-700 to-gray-700 bg-[length:0%_2px] bg-bottom bg-no-repeat text-xs transition-all duration-200 ease-in group-hover:bg-[length:100%_2px] sm:text-xs md:text-sm">
                     {title}
                   </span>
                 </Link>

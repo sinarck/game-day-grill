@@ -23,7 +23,7 @@ const NavBar = () => {
           ) : (
             <Link
               href="/login"
-              className="text-lg font-semibold text-gray-600 sm:text-sm"
+              className="hidden text-lg font-semibold text-gray-600 sm:block sm:text-sm"
             >
               <Button
                 loading={false}
@@ -36,12 +36,16 @@ const NavBar = () => {
               </Button>
             </Link>
           )}
-          <ShoppingCart
+          <Button
+            loading={false}
+            variant={"ghost"}
+            size={"icon"}
             onClick={() => {
               router.push("/cart")
             }}
-            className="cursor-pointer"
-          />
+          >
+            <ShoppingCart className="cursor-pointer" />
+          </Button>
         </div>
       </div>
     </header>
