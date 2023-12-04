@@ -1,27 +1,26 @@
 import { cn } from "@/lib/utils"
-import { authForm } from "@/schema/form"
 import { AnimatePresence, motion } from "framer-motion"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
 import { InputHTMLAttributes, useState } from "react"
-import { FieldErrors, UseFormRegister } from "react-hook-form"
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 
-interface InputProps
+interface InputProps<T extends FieldValues = FieldValues>
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "register"> {
-  fieldName: keyof authForm
+  fieldName: keyof T
   labelName?: string
   apiError?: string | null
-  errors: FieldErrors<authForm>
+  errors: FieldErrors<T>
   register: UseFormRegister<any>
 }
 
-const Input = ({
+const Input = <K extends FieldValues>({
   fieldName,
   labelName,
   apiError,
   errors,
   register,
   ...props
-}: InputProps) => {
+}: InputProps<K>) => {
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
   const [inputType, setInputType] =
@@ -58,7 +57,7 @@ const Input = ({
         <input
           {...props}
           type={props.type === "password" ? inputType : "text"}
-          {...register(fieldName)}
+          {...register(String(fieldName))}
           onFocus={() => {
             setIsFocused(true)
           }}
@@ -104,7 +103,7 @@ const Input = ({
             className="w-full"
           >
             <p className="text-[10px] text-red-600">
-              {errors?.[fieldName]?.message}
+              {String(errors?.[fieldName]?.message) !== "undefined"}
               {apiError}
             </p>
           </motion.div>

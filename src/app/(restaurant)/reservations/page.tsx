@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button"
 import { DatePicker } from "@/components/ui/date-picker"
 import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
+import { useForm } from "react-hook-form"
+
 import { reservationsSchema } from "@/schema/api"
 import { ReservationsAPIResponse } from "@/types/api"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect, useState } from "react"
 import { z } from "zod"
 
 const Page = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date())
+  const [date, setDate] = useState<Date | null>(null)
   const { data, error, errorMessage, fetch, loading } =
     useAxios<ReservationsAPIResponse>()
 
@@ -31,30 +34,70 @@ const Page = () => {
     }
   }, [data])
 
-  const handleReservation = async () => {
-    await fetch<z.infer<typeof reservationsSchema>>({
-      endpoint: "/api/reservations",
-      body: {
-        name: "John Doe",
-        date: new Date(),
-        restaurantId: 1,
-        size: 3,
-      },
-    })
+  const onSubmit = async ({
+    name,
+    restaurantId,
+    size,
+  }: Omit<z.infer<typeof reservationsSchema>, "date">) => {
+    // Check if date is not null to make typescript happy
+    if (date) {
+      await fetch<z.infer<typeof reservationsSchema>>({
+        endpoint: "/api/reservations",
+        body: {
+          name: name,
+          date: date,
+          restaurantId: restaurantId,
+          size: size,
+        },
+      })
+    }
   }
 
+  const handleDateChange = (date: Date) => {
+    setDate(date)
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Omit<z.infer<typeof reservationsSchema>, "date">>({
+    defaultValues: {
+      restaurantId: undefined,
+      name: "",
+      size: undefined,
+    },
+    resolver: zodResolver(reservationsSchema.omit({ date: true })),
+  })
+
   return (
-    <div>
-      <DatePicker />
-      <Button
-        loading={loading}
-        variant="default"
-        size="lg"
-        onClick={() => handleReservation()}
-      >
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center justify-center rounded-xl bg-gray-100 p-10 align-middle shadow-lg"
+    >
+      <label>
+        Name:
+        <input {...register("name")} />
+        {errors.name && <p>{errors.name.message}</p>}
+      </label>
+      <label>
+        Restaurant ID:
+        <input
+          {...register("restaurantId", { valueAsNumber: true })}
+          type="number"
+        />
+        {errors.restaurantId && <p>{errors.restaurantId.message}</p>}
+      </label>
+      <label>
+        Size:
+        <input {...register("size", { valueAsNumber: true })} type="number" />
+        {errors.size && <p>{errors.size.message}</p>}
+      </label>
+      <DatePicker onDateChange={handleDateChange} />
+      <Button loading={loading} variant="default" size="lg" type="submit">
         Make a reservation
       </Button>
-    </div>
+    </form>
   )
 }
 
