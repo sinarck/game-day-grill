@@ -1,7 +1,7 @@
 import { db } from "@/lib/db"
 import { enrollSchema } from "@/schema/form"
 import { APIError, AuthAPIResponse } from "@/types/api"
-import { hash } from "bcrypt"
+import { hash } from "bcryptjs"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "edge"
