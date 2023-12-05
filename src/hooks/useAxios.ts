@@ -40,10 +40,14 @@ const useAxios = <T = any>() => {
           await callbackFunction
         }
       } catch (err) {
-        toast({
-          title: "Something went wrong",
-          description: "Please try again later",
-        })
+        console.error(err)
+
+        if (err.response.data.message !== "Username is already taken") {
+          toast({
+            title: "Something went wrong",
+            description: "Please try again later",
+          })
+        }
 
         setError(true)
         setErrorMessage(err.response.data.message)
