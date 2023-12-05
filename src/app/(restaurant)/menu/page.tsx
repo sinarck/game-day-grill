@@ -7,6 +7,8 @@ import { menuSchema } from "@/schema/api"
 import { MenuAPIResponse } from "@/types/api"
 import { z } from "zod"
 
+export const runtime = "edge"
+
 const Page = () => {
   const { data, error, errorMessage, fetch, loading } =
     useAxios<MenuAPIResponse>()

@@ -1,15 +1,16 @@
-import Provider from "@/components/provider"
-import { Footer } from "@/components/site-footer"
-import { Toaster } from "@/components/ui/toaster"
-import { siteConfig } from "@/config/site"
-import "@/styles/globals.css"
-import { Metadata } from "next"
-import { ReactNode } from "react"
+import Provider from "@/components/provider";
+import { Footer } from "@/components/site-footer";
+import { Toaster } from "@/components/ui/toaster";
+import { siteConfig } from "@/config/site";
+import "@/styles/globals.css";
+import { Metadata } from "next";
+import { ReactNode } from "react";
 
 interface RootLayoutProps {
   children: ReactNode
   params?: boolean
 }
+
 
 export const metadata: Metadata = {
   title: {

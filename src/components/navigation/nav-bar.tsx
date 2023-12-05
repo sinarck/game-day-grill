@@ -1,6 +1,6 @@
 "use client"
 
-import NavLinks from "@/components/navigation/nav-menu"
+import NavMenu from "@/components/navigation/nav-menu"
 import { siteConfig } from "@/config/site"
 import { ShoppingCart } from "lucide-react"
 import { useSession } from "next-auth/react"
@@ -16,7 +16,7 @@ const NavBar = () => {
   return (
     <header className="bg-background sticky top-0 z-50 w-full border-b px-3 backdrop-blur-md">
       <div className="flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <NavLinks items={siteConfig.mainNav} />
+        <NavMenu items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
           {status === "authenticated" ? (
             <Profile />
@@ -43,8 +43,9 @@ const NavBar = () => {
             onClick={() => {
               router.push("/cart")
             }}
+            className="hidden sm:inline-block"
           >
-            <ShoppingCart className="cursor-pointer" />
+            <ShoppingCart className="hidden cursor-pointer sm:inline-block" />
           </Button>
         </div>
       </div>

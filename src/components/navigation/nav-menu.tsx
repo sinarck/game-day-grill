@@ -1,26 +1,40 @@
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { NavItem } from "@/types/navigation"
+import { Menu } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Icons } from "../icons"
+import { Button } from "../ui/button"
 
 interface MainNavProps {
   items?: NavItem[]
 }
 
-const NavLinks = ({ items }: MainNavProps) => {
+const NavMenu = ({ items }: MainNavProps) => {
+  const router = useRouter()
+
   return (
-    <div className="flex sm:gap-5">
-      <Link
-        href="/"
-        className="flex items-center justify-center space-x-2 align-middle"
-      >
+    <div className="flex w-full items-center justify-between align-middle sm:w-auto sm:gap-5">
+      <Link href="/">
         <Icons.Logo className="h-8 w-8 md:h-6 md:w-6" />
-        <span className="text-md hidden font-bold sm:block sm:text-lg">
+      </Link>
+      <Link href="/">
+        <span className="text-md text-center font-bold tracking-wide sm:block sm:text-left sm:text-lg">
           {siteConfig.name}
         </span>
       </Link>
-      {/* TODO: Make Mobile NavBar */}
+      <Button
+        loading={false}
+        variant={"ghost"}
+        size={"icon"}
+        onClick={() => {
+          router.push("/cart")
+        }}
+        className="block sm:hidden"
+      >
+        <Menu className="inline-block cursor-pointer sm:hidden" />
+      </Button>
 
       {items?.length ? (
         <nav className="hidden gap-1 sm:flex sm:gap-4">
@@ -47,4 +61,4 @@ const NavLinks = ({ items }: MainNavProps) => {
   )
 }
 
-export default NavLinks
+export default NavMenu
