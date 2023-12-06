@@ -27,9 +27,7 @@ const Page = () => {
 
     setLoading(false)
 
-    if (loginData?.error) {
-      console.error("error occured:", loginData.error)
-    } else {
+    if (!loginData?.error) {
       toast({
         title: "Welcome Back",
         description: "Login successfully completed",
