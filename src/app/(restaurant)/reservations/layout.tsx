@@ -1,4 +1,3 @@
-import NavBar from "@/components/navigation/nav-bar"
 import { Metadata } from "next"
 
 interface ReservationLayoutProps {
@@ -13,10 +12,5 @@ export const metadata: Metadata = {
 export default function ReservationLayout({
   children,
 }: Readonly<ReservationLayoutProps>) {
-  return (
-    <div className="min-h-screen">
-      <NavBar />
-      {children}
-    </div>
-  )
+  return <div className="min-h-screen">{children}</div>
 }

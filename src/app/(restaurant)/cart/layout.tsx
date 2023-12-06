@@ -1,4 +1,3 @@
-import NavBar from "@/components/navigation/nav-bar"
 import { Metadata } from "next"
 
 interface OrderLayoutProps {
@@ -11,10 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function OrderLayout({ children }: Readonly<OrderLayoutProps>) {
-  return (
-    <div className="min-h-screen">
-      <NavBar />
-      {children}
-    </div>
-  )
+  return <div className="min-h-screen">{children}</div>
 }

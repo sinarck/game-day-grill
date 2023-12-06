@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils"
-import { AnimatePresence, motion } from "framer-motion"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
 import { InputHTMLAttributes, useState } from "react"
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
@@ -68,6 +67,10 @@ const Input = <K extends FieldValues>({
           style={{
             fontSize: 14,
           }}
+          autoCapitalize="off"
+          autoComplete="off"
+          autoCorrect="off"
+          aria-autocomplete="none"
           className={cn(
             "border-b-2 border-gray-300 bg-gray-100 pt-8 outline-none transition-all duration-200 ease-in",
             (errors?.[fieldName] || apiError) && "border-red-300",
@@ -93,22 +96,6 @@ const Input = <K extends FieldValues>({
           </span>
         )}
       </div>
-      <AnimatePresence>
-        {(errors?.[fieldName] || apiError !== null) && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ ease: "easeIn", duration: 0.2 }}
-            className="w-full"
-          >
-            <p className="text-[10px] text-red-600">
-              {String(errors?.[fieldName]?.message) !== "undefined"}
-              {apiError}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

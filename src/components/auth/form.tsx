@@ -1,5 +1,6 @@
 import { authForm } from "@/schema/form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { AnimatePresence, motion } from "framer-motion"
 import { FormHTMLAttributes } from "react"
 import { useForm } from "react-hook-form"
 import { ZodType } from "zod"
@@ -51,6 +52,7 @@ const Form = ({
             register={register}
           />
           <Input
+            apiError={apiError}
             fieldName="password"
             labelName="Password"
             type="password"
@@ -62,6 +64,24 @@ const Form = ({
           <Button variant="default" size="wide" loading={loading} type="submit">
             {buttonText}
           </Button>
+
+          <AnimatePresence>
+            {apiError !== undefined && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ ease: "easeIn", duration: 0.2 }}
+                className="w-full text-center"
+              >
+                <p className="w-full text-center text-[10px] text-red-600">
+                  {apiError === "CredentialsSignin"
+                    ? "Username or Password is incorrect"
+                    : apiError}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </form>
     </div>

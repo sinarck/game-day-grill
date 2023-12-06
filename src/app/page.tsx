@@ -1,10 +1,8 @@
-import NavBar from "@/components/navigation/nav-bar"
 import Image from "next/image"
 
 export default function Home() {
   return (
     <div className="relative">
-      <NavBar />
       <Image
         alt="Barbeque"
         src={"/restaurant.jpg"}

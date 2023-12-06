@@ -1,16 +1,17 @@
-import Provider from "@/components/provider";
-import { Footer } from "@/components/site-footer";
-import { Toaster } from "@/components/ui/toaster";
-import { siteConfig } from "@/config/site";
-import "@/styles/globals.css";
-import { Metadata } from "next";
-import { ReactNode } from "react";
+import NavBar from "@/components/navigation/nav-bar"
+import Provider from "@/components/provider"
+import { Footer } from "@/components/site-footer"
+import { Toaster } from "@/components/ui/toaster"
+import { siteConfig } from "@/config/site"
+import "@/styles/globals.css"
+import { Metadata } from "next"
+import { headers } from "next/headers"
+import { ReactNode } from "react"
 
 interface RootLayoutProps {
   children: ReactNode
   params?: boolean
 }
-
 
 export const metadata: Metadata = {
   title: {
@@ -27,17 +28,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-  params,
-}: Readonly<RootLayoutProps>) {
+export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+  const headersList = headers()
+  const pathName = headersList.get("x-invoke-path") || ""
+
+  console.log(pathName)
+
   return (
     <html lang="en">
       <head />
       <body className="h-screen antialiased">
         {/* Firefox FOUC Workaround */}
         <script>0</script>
-        <Provider>{children}</Provider>
+        <Provider>
+          <NavBar />
+          {children}
+        </Provider>
         <Toaster />
         <Footer />
       </body>

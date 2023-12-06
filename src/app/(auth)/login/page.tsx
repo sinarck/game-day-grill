@@ -11,6 +11,7 @@ import { useState } from "react"
 const Page = () => {
   // State management
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // Hooks
   const router = useRouter()
@@ -18,6 +19,7 @@ const Page = () => {
 
   const onSubmit = async (values: authForm) => {
     setLoading(true)
+
     const loginData = await signIn("credentials", {
       username: values.username,
       password: values.password,
@@ -27,13 +29,17 @@ const Page = () => {
 
     setLoading(false)
 
-    if (!loginData?.error) {
+    if (loginData && !loginData?.error) {
+      router.back()
+
       toast({
         title: "Welcome Back",
         description: "Login successfully completed",
         variant: "default",
       })
-      router.back()
+    } else if (loginData) {
+      console.log("after api call", loginData)
+      setError(loginData.error)
     }
   }
 
@@ -41,6 +47,7 @@ const Page = () => {
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <div className="flex flex-col items-center justify-center">
         <Form
+          apiError={error}
           schema={loginSchema}
           heading="Welcome Back!"
           buttonText="Log in"
