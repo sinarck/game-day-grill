@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { useForm } from "react-hook-form"
 
+import Input from "@/components/auth/input"
 import { reservationsSchema } from "@/schema/api"
 import { ReservationsAPIResponse } from "@/types/api"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -75,26 +76,28 @@ const Page = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center rounded-xl bg-gray-100 p-10 align-middle shadow-lg"
+      className="container flex w-96 flex-col items-center justify-center rounded-xl bg-gray-100 p-10 align-middle shadow-lg"
     >
-      <label>
-        Name:
-        <input {...register("name")} />
-        {errors.name && <p>{errors.name.message}</p>}
-      </label>
-      <label>
-        Restaurant ID:
-        <input
-          {...register("restaurantId", { valueAsNumber: true })}
-          type="number"
-        />
-        {errors.restaurantId && <p>{errors.restaurantId.message}</p>}
-      </label>
-      <label>
-        Size:
-        <input {...register("size", { valueAsNumber: true })} type="number" />
-        {errors.size && <p>{errors.size.message}</p>}
-      </label>
+      <Input<z.infer<typeof reservationsSchema>>
+        fieldName="name"
+        labelName="Name"
+        register={register}
+        errors={errors}
+      />
+      <Input<z.infer<typeof reservationsSchema>>
+        type="number"
+        fieldName="restaurantId"
+        labelName="Restaurant ID"
+        register={register}
+        errors={errors}
+      />
+      <Input<z.infer<typeof reservationsSchema>>
+        type="number"
+        fieldName="size"
+        labelName="Party Size"
+        register={register}
+        errors={errors}
+      />
       <DatePicker onDateChange={handleDateChange} />
       <Button loading={loading} variant="default" size="lg" type="submit">
         Make a reservation

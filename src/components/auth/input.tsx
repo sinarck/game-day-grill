@@ -56,7 +56,10 @@ const Input = <K extends FieldValues>({
         <input
           {...props}
           type={props.type === "password" ? inputType : "text"}
-          {...register(String(fieldName))}
+          {...register(
+            String(fieldName),
+            (props.type === "number" && { valueAsNumber: true }) || {}
+          )}
           onFocus={() => {
             setIsFocused(true)
           }}

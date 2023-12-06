@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
 import { Metadata } from "next"
-import { headers } from "next/headers"
 import { ReactNode } from "react"
 
 interface RootLayoutProps {
@@ -29,11 +28,6 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
-  const headersList = headers()
-  const pathName = headersList.get("x-invoke-path") || ""
-
-  console.log(pathName)
-
   return (
     <html lang="en">
       <head />

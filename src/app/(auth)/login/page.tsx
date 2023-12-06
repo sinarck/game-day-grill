@@ -38,7 +38,6 @@ const Page = () => {
         variant: "default",
       })
     } else if (loginData) {
-      console.log("after api call", loginData)
       setError(loginData.error)
     }
   }

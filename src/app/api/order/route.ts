@@ -15,8 +15,6 @@ export async function POST(request: NextRequest) {
 
   try {
   } catch (e) {
-    console.error(e)
-
     return NextResponse.json<APIError<OrderAPIResponse>>({
       order: null,
       message: "Something went wrong",

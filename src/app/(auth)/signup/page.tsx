@@ -16,9 +16,6 @@ const Page = () => {
   const router = useRouter()
 
   useEffect(() => {
-    if (data?.status === 409) {
-      console.log("error")
-    }
     if (data?.status === 201) {
       router.push("/")
       toast({
