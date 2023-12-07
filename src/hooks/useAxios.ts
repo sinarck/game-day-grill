@@ -29,21 +29,32 @@ const useAxios = <T = any>() => {
       setError(false)
       setErrorMessage(null)
 
-      try {
-        const res = await axios.post(endpoint, body, {
-          signal: controller.signal,
-        })
+      for (let i = 0; i < 3; i++) {
+        // Retry up to 3 times
+        try {
+          const res = await axios.post(endpoint, body, {
+            signal: controller.signal,
+          })
 
-        setResponse(res)
+          setResponse(res)
 
-        if (callbackFunction) {
-          await callbackFunction
+          if (callbackFunction) {
+            await callbackFunction
+          }
+
+          // If the request was successful, break the loop
+          break
+        } catch (err) {
+          // If this was the last retry, throw the error
+          if (i === 2) {
+            setError(true)
+            setErrorMessage(err.response.data.message)
+          } else {
+            await new Promise((resolve) => setTimeout(resolve, 1000)) // Wait for 1 second before retrying
+          }
+        } finally {
+          setLoading(false)
         }
-      } catch (err) {
-        setError(true)
-        setErrorMessage(err.response.data.message)
-      } finally {
-        setLoading(false)
       }
     },
     []

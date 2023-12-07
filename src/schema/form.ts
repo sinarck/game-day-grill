@@ -4,7 +4,7 @@ export const enrollSchema = z.object({
   username: z
     .string()
     .min(1, "Username is required")
-    .max(100)
+    .max(25, "Username is too long")
     .refine((s) => !s.includes(" "), "Username cannot contain spaces"),
   password: z
     .string()
