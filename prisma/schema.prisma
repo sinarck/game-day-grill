@@ -28,8 +28,19 @@ model User {
   points    Int      @default(0)
   tier      Tier?
   orders    Orders[]
+  cart      Cart?
 
   @@map("user")
+}
+
+model Cart {
+  id     Int        @id @default(autoincrement())
+  total  Decimal    @db.Decimal(10, 2)
+  userId Int        @unique
+  user   User       @relation(fields: [userId], references: [id])
+  items  MenuItem[]
+
+  @@map("cart")
 }
 
 // Restaurant Models
@@ -70,6 +81,8 @@ model MenuItem {
 
   menu   Menu? @relation(fields: [menuId], references: [id])
   menuId Int?
+  Cart   Cart? @relation(fields: [cartId], references: [id])
+  cartId Int?
 
   @@map("menu_item")
 }

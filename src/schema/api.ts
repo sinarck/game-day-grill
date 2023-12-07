@@ -30,9 +30,9 @@ export const menuSchema = z.object({
  */
 export const cartSchema = z.object({
   restaurantId: z.number().int().positive(),
-  orderId: z.number().int().positive(),
-  itemId: z.number().int().positive(),
-  quantity: z.number().int().positive(),
+  userId: z.number().int().positive(),
+  menuItemId: z.number().int().positive(),
+  total: z.number(),
 })
 
 /**

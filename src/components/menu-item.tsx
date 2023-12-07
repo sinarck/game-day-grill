@@ -1,4 +1,5 @@
 import useAxios from "@/hooks/useAxios"
+import { useCartStore } from "@/lib/store"
 import { MenuAPIResponse, OrderAPIResponse } from "@/types/api"
 import { useSession } from "next-auth/react"
 import { Button } from "./ui/button"
@@ -8,19 +9,24 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ menuItem }: MenuItemProps) => {
+  const store = useCartStore()
   const { status } = useSession()
   const { data, error, errorMessage, fetch, loading } =
     useAxios<OrderAPIResponse>()
 
   // TODO: strongly type the fetch function
-  const handleOrder = async () => {
-    await fetch({
-      endpoint: "/api/order",
-      body: {
-        restaurantId: 1,
-        menuItemId: menuItem.id,
-      },
-    })
+  const handleOrder = async (name: string) => {
+    store.add(name)
+
+    if (status === "authenticated") {
+      await fetch({
+        endpoint: "/api/order",
+        body: {
+          restaurantId: 1,
+          menuItemId: menuItem.id,
+        },
+      })
+    }
   }
 
   return (
@@ -33,7 +39,7 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
         variant="default"
         loading={loading}
         onClick={() => {
-          handleOrder()
+          handleOrder(menuItem.name)
         }}
       >
         Add to cart

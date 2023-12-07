@@ -84,3 +84,13 @@ export interface ReservationsAPIResponse extends APIResponse {
     }
   }> | null
 }
+
+export interface CartAPIResponse extends APIResponse {
+  cart: Partial<
+    Prisma.CartGetPayload<{
+      select: {
+        [K in keyof Required<Prisma.CartSelect>]: true
+      }
+    }>
+  > | null
+}

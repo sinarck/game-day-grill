@@ -6,7 +6,7 @@ interface CartStore {
   remove: (item: string) => void
 }
 
-const useCartStore = create<CartStore>()((set) => ({
+export const useCartStore = create<CartStore>()((set) => ({
   cart: [""],
   remove(item) {
     set((state) => ({ cart: state.cart.filter((i) => i !== item) }))
