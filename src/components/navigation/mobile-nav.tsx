@@ -1,5 +1,4 @@
-import { useClickAway } from "@uidotdev/usehooks";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion"
 import {
   ContactIcon,
   CornerDownLeft,
@@ -8,10 +7,10 @@ import {
   SettingsIcon,
   ShoppingCartIcon,
   User,
-} from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { Button } from "../ui/button";
+} from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useRef, useState } from "react"
+import { Button } from "../ui/button"
 
 const MobileNav = () => {
   const router = useRouter()
@@ -20,7 +19,7 @@ const MobileNav = () => {
   const ref = useRef(null)
 
   // Call setOpen(false) when a click event occurs outside of the element with ref
-  useClickAway(ref, () => setOpen(false))
+  // useClickAway(ref, () => setOpen(false))
 
   const toggleSidebar = () => {
     setOpen((prev) => !prev)
