@@ -16,16 +16,18 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
 
   // TODO: strongly type the fetch function
   const handleOrder = async (name: string) => {
-    store.add(name)
-
     if (status === "authenticated") {
       await fetch({
-        endpoint: "/api/order",
+        endpoint: "/api/cart",
         body: {
           restaurantId: 1,
           menuItemId: menuItem.id,
+          total: menuItem.price,
+          userId: 3,
         },
       })
+    } else {
+      store.add(name)
     }
   }
 
