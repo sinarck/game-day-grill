@@ -5,7 +5,7 @@ import { MenuItem } from "@prisma/client"
 import { useSession } from "next-auth/react"
 
 const Page = () => {
-  const session = useSession()
+  const { status } = useSession()
   const { cart, add, remove } = useCartStore()
 
   return (

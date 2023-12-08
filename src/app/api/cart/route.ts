@@ -10,6 +10,69 @@ import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "edge"
 
+export async function GET(request: NextRequest) {
+  // Supposedly, awaiting a db.$connect() speeds up the connection
+  await db.$connect()
+
+  try {
+    const url = new URL(request.url)
+    const userIdParam = url.searchParams.get("userId")
+    const userId = userIdParam ? +userIdParam : null
+
+    if (userId === null) {
+      return NextResponse.json<APIError<CartAPIResponse>>(
+        {
+          cart: null,
+          message: "User ID is required",
+        },
+        {
+          status: 400,
+        }
+      )
+    }
+
+    const cart = await db.cart.findFirst({
+      where: {
+        userId: userId,
+      },
+      include: {
+        _count: true,
+        items: true,
+        user: true,
+      },
+    })
+
+    if (!cart) {
+      return NextResponse.json<APIError<CartAPIResponse>>({
+        cart: null,
+        message: "Cart for user with id `" + userId + "` not found",
+      })
+    }
+
+    return NextResponse.json<CartAPIResponse>(
+      {
+        cart: cart,
+        message: "Cart items",
+      },
+      {
+        status: 200,
+      }
+    )
+  } catch (e) {
+    console.error(e)
+
+    return NextResponse.json<APIError<CartAPIResponse>>(
+      {
+        cart: null,
+        message: "Something went wrong",
+      },
+      {
+        status: 500,
+      }
+    )
+  }
+}
+
 export async function POST(request: NextRequest) {
   // Supposedly, awaiting a db.$connect() speeds up the connection
   await db.$connect()
