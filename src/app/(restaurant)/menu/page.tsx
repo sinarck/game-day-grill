@@ -19,6 +19,7 @@ const Page = () => {
       body: {
         restaurantId: 1,
       },
+      method: "POST",
     })
   }
 

@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json<CartAPIResponse>(
       {
         cart: cart,
-        message: "Cart items",
+        message: "Cart items successfully retrieved",
       },
       {
         status: 200,

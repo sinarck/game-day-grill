@@ -50,6 +50,7 @@ const Page = () => {
           restaurantId: restaurantId,
           size: size,
         },
+        method: "POST",
       })
     }
   }

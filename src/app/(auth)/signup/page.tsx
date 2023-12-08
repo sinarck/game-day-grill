@@ -32,6 +32,7 @@ const Page = () => {
         username: username,
         password: password,
       },
+      method: "POST",
     })
   }
 

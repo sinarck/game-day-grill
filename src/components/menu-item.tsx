@@ -25,6 +25,7 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
           total: menuItem.price,
           userId: data?.user.id,
         },
+        method: "POST",
       })
     } else {
       store.add(menuItem)

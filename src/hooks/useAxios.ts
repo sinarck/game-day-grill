@@ -11,6 +11,7 @@ interface FetchProps<T> {
     | { id: string; dismiss: () => void; update: (props: ToastProps) => void }
     | undefined
   >
+  method: "POST" | "GET"
 }
 
 const useAxios = <T = any>() => {
@@ -23,6 +24,7 @@ const useAxios = <T = any>() => {
     endpoint,
     body,
     callbackFunction,
+    method,
   }: FetchProps<K>) => {
     const controller = new AbortController()
     setLoading(true)
@@ -30,11 +32,17 @@ const useAxios = <T = any>() => {
     setErrorMessage(null)
 
     try {
-      const res = await axios.post(endpoint, body, {
-        signal: controller.signal,
-      })
-
-      setResponse(res)
+      if (method === "POST") {
+        const res = await axios.post(endpoint, body, {
+          signal: controller.signal,
+        })
+        setResponse(res)
+      } else {
+        const res = await axios.get(endpoint, {
+          signal: controller.signal,
+        })
+        setResponse(res)
+      }
 
       if (callbackFunction) {
         await callbackFunction
