@@ -5,7 +5,6 @@ import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { authForm, enrollSchema, loginSchema } from "@/schema/form"
 import { AuthAPIResponse } from "@/types/api"
-import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { z } from "zod"
@@ -33,12 +32,6 @@ const Page = () => {
         username: username,
         password: password,
       },
-      callbackFunction: signIn("credentials", {
-        username: username,
-        password: password,
-        callbackUrl: "/",
-        redirect: false,
-      }),
     })
   }
 

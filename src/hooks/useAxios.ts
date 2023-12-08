@@ -1,8 +1,7 @@
 import { ToastProps } from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
 import axios, { AxiosResponse } from "axios"
 import { SignInResponse } from "next-auth/react"
-import { useCallback, useState } from "react"
+import { useState } from "react"
 
 interface FetchProps<T> {
   endpoint: string
@@ -15,39 +14,38 @@ interface FetchProps<T> {
 }
 
 const useAxios = <T = any>() => {
-  const { toast } = useToast()
-
   const [response, setResponse] = useState<AxiosResponse<T> | null>(null)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const fetch = useCallback(
-    async <K>({ endpoint, body, callbackFunction }: FetchProps<K>) => {
-      const controller = new AbortController()
-      setLoading(true)
-      setError(false)
-      setErrorMessage(null)
+  const fetch = async <K>({
+    endpoint,
+    body,
+    callbackFunction,
+  }: FetchProps<K>) => {
+    const controller = new AbortController()
+    setLoading(true)
+    setError(false)
+    setErrorMessage(null)
 
-      try {
-        const res = await axios.post(endpoint, body, {
-          signal: controller.signal,
-        })
+    try {
+      const res = await axios.post(endpoint, body, {
+        signal: controller.signal,
+      })
 
-        setResponse(res)
+      setResponse(res)
 
-        if (callbackFunction) {
-          await callbackFunction
-        }
-      } catch (err) {
-        setError(true)
-        setErrorMessage(err.response.data.message)
-      } finally {
-        setLoading(false)
+      if (callbackFunction) {
+        await callbackFunction
       }
-    },
-    []
-  )
+    } catch (err) {
+      setError(true)
+      setErrorMessage(err.response.data.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return {
     fetch: fetch,
