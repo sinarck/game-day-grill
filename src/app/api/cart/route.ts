@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json<APIError<AuthAPIResponse>>(
         {
           user: null,
-          message: "User not found",
+          message: "User with ID `" + userId + "` not found",
         },
         {
           status: 404,
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json<APIError<MenuAPIResponse>>(
         {
           menu: null,
-          message: "Menu item not found",
+          message: "Menu item with ID `" + menuItemId + "`not found",
         },
         {
           status: 404,
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json<CartAPIResponse>(
         {
           cart: cart,
-          message: "Item added to cart",
+          message: "Item added to cart for user with ID `" + userId + "`",
         },
         {
           status: 201,
@@ -161,7 +161,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json<CartAPIResponse>(
         {
           cart: cart,
-          message: "Item added to cart",
+          message:
+            "Cart wasn't found for user with ID `" +
+            userId +
+            "`, cart created with items",
         },
         {
           status: 201,
