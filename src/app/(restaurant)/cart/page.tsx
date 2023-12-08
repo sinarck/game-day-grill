@@ -49,7 +49,7 @@ const Page = () => {
       </h1>
       <div className="flex">
         {cart.map((item: MenuItem) => (
-          <div key={item.id}>
+          <div key={item.id * Math.random()}>
             <div>{item.name}</div>
             <div>{item.description}</div>
             <div>{item.price}</div>
