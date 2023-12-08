@@ -36,7 +36,6 @@ export async function GET(request: NextRequest) {
         userId: userId,
       },
       include: {
-        _count: true,
         items: true,
         user: true,
       },
