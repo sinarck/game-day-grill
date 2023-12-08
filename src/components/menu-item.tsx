@@ -1,21 +1,21 @@
 import useAxios from "@/hooks/useAxios"
 import { useCartStore } from "@/lib/store"
-import { MenuAPIResponse, OrderAPIResponse } from "@/types/api"
+import { OrderAPIResponse } from "@/types/api"
+import { MenuItem } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { Button } from "./ui/button"
 
 interface MenuItemProps {
-  menuItem: NonNullable<MenuAPIResponse["menu"]>["items"][0]
+  menuItem: MenuItem
 }
 
 const MenuItem = ({ menuItem }: MenuItemProps) => {
   const store = useCartStore()
-  const { status } = useSession()
-  const { data, error, errorMessage, fetch, loading } =
-    useAxios<OrderAPIResponse>()
+  const { status, data } = useSession()
+  const { fetch, loading } = useAxios<OrderAPIResponse>()
 
   // TODO: strongly type the fetch function
-  const handleOrder = async (name: string) => {
+  const handleOrder = async (menuItem: MenuItemProps["menuItem"]) => {
     if (status === "authenticated") {
       await fetch({
         endpoint: "/api/cart",
@@ -23,11 +23,11 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
           restaurantId: 1,
           menuItemId: menuItem.id,
           total: menuItem.price,
-          userId: 3,
+          userId: data?.user.id,
         },
       })
     } else {
-      store.add(name)
+      store.add(menuItem)
     }
   }
 
@@ -41,7 +41,7 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
         variant="default"
         loading={loading}
         onClick={() => {
-          handleOrder(menuItem.name)
+          handleOrder(menuItem)
         }}
       >
         Add to cart

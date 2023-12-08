@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import "next-auth"
 
 declare module "next-auth" {
   interface User {
@@ -7,6 +7,7 @@ declare module "next-auth" {
   interface Session {
     user: User & {
       username: string
+      id: number
     }
     token: {
       username: string
