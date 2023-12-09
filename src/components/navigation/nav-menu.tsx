@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { NavItem } from "@/types/navigation"
 import Link from "next/link"
@@ -12,6 +13,11 @@ const NavMenu = ({ items }: MainNavProps) => {
 
   return (
     <div className="flex w-full items-center justify-between sm:w-auto">
+      <Link href="/">
+        <p className="hidden whitespace-nowrap pr-4 text-lg font-bold tracking-wide text-black sm:block">
+          {siteConfig.name}
+        </p>
+      </Link>
       {items?.length && (
         <nav className="hidden gap-4 sm:flex">
           {items.map(
@@ -21,11 +27,11 @@ const NavMenu = ({ items }: MainNavProps) => {
                   key={title}
                   href={href}
                   className={cn(
-                    "group flex items-center font-semibold text-gray-600 transition-all duration-200 ease-in hover:text-gray-900 sm:text-sm",
+                    "group flex items-center font-bold text-black transition-all duration-200 ease-in sm:text-xl",
                     disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
-                  <span className="bg-gradient-to-l from-gray-700 to-gray-700 bg-[length:0%_2px] bg-bottom bg-no-repeat text-xs transition-all duration-200 ease-in group-hover:bg-[length:100%_2px] sm:text-xs md:text-sm">
+                  <span className="bg-gradient-to-l from-amber-900 to-amber-900 bg-[length:0%_2px] bg-bottom bg-no-repeat text-xs transition-all duration-200 ease-in group-hover:bg-[length:100%_2px] sm:text-xs md:text-sm">
                     {title}
                   </span>
                 </Link>
