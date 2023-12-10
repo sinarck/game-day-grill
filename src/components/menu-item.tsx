@@ -35,7 +35,7 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
   return (
     <div className="rounded-md border-[1px] border-neutral-100 shadow-sm">
       <div className="text-lg text-black">{menuItem.name}</div>
-      <div>{menuItem.description}</div>
+      <div>{menuItem.name}</div>
       <div>{menuItem.price}</div>
       <div>{menuItem.category}</div>
       <Button
