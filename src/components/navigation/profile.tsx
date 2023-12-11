@@ -22,7 +22,9 @@ const Profile = () => {
       <DropdownMenuTrigger>
         {status === "authenticated" && (
           <div className="flex items-center justify-center gap-3 align-middle">
-            <p className="hidden md:block">{session.user.username}</p>
+            <p className="hidden md:block">
+              {session.user.username.length > 22 ? null : session.user.username}
+            </p>
             <div className="hidden sm:block">
               <Avvvatars
                 value={session.user.username}
