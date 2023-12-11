@@ -20,10 +20,10 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
     icon: {
-      url: "/favicon.ico",
-      type: "image/ico",
+      url: "/icon.png",
+      type: "image/png",
     },
-    shortcut: { url: "/favicon.png", type: "image/png" },
+    shortcut: { url: "/icon.png", type: "image/png" },
   },
 }
 

@@ -14,7 +14,7 @@ const NavMenu = ({ items }: MainNavProps) => {
   return (
     <div className="flex w-full items-center justify-between sm:w-auto">
       <Link href="/">
-        <p className="hidden whitespace-nowrap pr-4 text-lg font-bold tracking-wide text-black sm:block">
+        <p className="whitespace-nowrap pr-4 text-lg font-bold tracking-wide text-black sm:hidden">
           {siteConfig.name}
         </p>
       </Link>

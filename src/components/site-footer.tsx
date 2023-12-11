@@ -1,6 +1,7 @@
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
-import { Icons } from "./icons"
+import Logo from "../app/icon.png"
 
 export const Footer = () => {
   return (
@@ -13,7 +14,7 @@ export const Footer = () => {
             title="Company"
             className="inline-flex items-center"
           >
-            <Icons.Logo className="text-deep-purple-accent-400 h-8 w-auto sm:h-10" />
+            <Image height={42} width={42} alt="Logo" src={Logo} />
             <span className="ml-2 text-xl font-bold uppercase tracking-wide text-gray-800">
               Game Day Grill
             </span>
