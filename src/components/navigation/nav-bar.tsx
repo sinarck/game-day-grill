@@ -20,10 +20,13 @@ const NavBar = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-white px-3 shadow-sm">
       <div className="flex h-16 items-center space-x-4 sm:space-x-0">
         <MobileNav />
-        <div className="flex items-center justify-center gap-2 whitespace-nowrap pr-4 align-middle text-lg font-bold tracking-wide text-black">
+        <Link
+          href="/"
+          className="flex items-center justify-center gap-2 whitespace-nowrap pr-4 align-middle text-lg font-bold tracking-wide text-black"
+        >
           <Image height={42} width={42} alt="Logo" src={Logo} />
           {siteConfig.name}
-        </div>
+        </Link>
         <NavMenu items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
           {status === "authenticated" ? (
