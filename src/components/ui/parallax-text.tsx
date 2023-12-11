@@ -47,7 +47,7 @@ export const ParallaxText = ({ text, baseVelocity = 100 }: ParallaxProps) => {
   return (
     <div className="m-0 flex flex-nowrap overflow-hidden whitespace-nowrap leading-3 tracking-wide">
       <motion.div
-        className="flex flex-nowrap whitespace-nowrap text-7xl font-semibold uppercase"
+        className="flex flex-nowrap whitespace-nowrap text-5xl font-semibold uppercase"
         style={{ x }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

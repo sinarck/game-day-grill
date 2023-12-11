@@ -1,25 +1,27 @@
+import { useClickAway } from "@uidotdev/usehooks"
 import { AnimatePresence, motion } from "framer-motion"
 import {
-  ContactIcon,
+  Beef,
+  CalendarRange,
+  CalendarSearch,
   CornerDownLeft,
   Home,
+  MapPinned,
   Menu,
-  SettingsIcon,
-  ShoppingCartIcon,
-  User,
+  UtensilsCrossed,
 } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useRef, useState } from "react"
+import { RefObject, useState } from "react"
 import { Button } from "../ui/button"
 
 const MobileNav = () => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
-  const ref = useRef(null)
 
   // Call setOpen(false) when a click event occurs outside of the element with ref
-  // useClickAway(ref, () => setOpen(false))
+  const ref = useClickAway(() => setOpen(false)) as RefObject<HTMLDivElement>
 
   const toggleSidebar = () => {
     setOpen((prev) => !prev)
@@ -46,35 +48,44 @@ const MobileNav = () => {
             ></motion.div>
             <motion.div
               {...framerSidebarPanel}
-              className="fixed bottom-0 left-0 top-0 z-50 h-screen w-full max-w-xs border-r-2 border-zinc-800 bg-neutral-300"
+              className="fixed bottom-0 left-0 top-0 z-50 h-screen w-64 max-w-xs border-r-2 border-zinc-800 bg-neutral-200"
               ref={ref}
               aria-label="Sidebar"
+              drag="x"
+              onDragEnd={(event, info) => {
+                if (info.offset.x > 100) {
+                  toggleSidebar()
+                }
+              }}
             >
               <div className="flex items-center justify-between border-b-2 border-zinc-800 p-5">
                 <span>Welcome</span>
-                <button
+                <Button
+                  loading={false}
+                  variant="ghost"
+                  type="button"
+                  size="icon"
                   onClick={toggleSidebar}
-                  className="rounded-xl border-2 border-zinc-800 p-3"
                   aria-label="close sidebar"
                 >
                   <CornerDownLeft />
-                </button>
+                </Button>
               </div>
               <ul>
                 {items.map((item, idx) => {
                   const { title, href, Icon } = item
                   return (
                     <li key={title}>
-                      <a
+                      <Link
                         onClick={toggleSidebar}
                         href={href}
-                        className="flex items-center justify-between gap-5 border-b-2 border-zinc-800 p-5 transition-all hover:bg-zinc-900"
+                        className="flex items-center justify-between gap-5 border-b-2 border-zinc-800 p-5 transition-all"
                       >
                         <motion.span {...framerText(idx)}>{title}</motion.span>
                         <motion.div {...framerIcon}>
                           <Icon className="text-2xl" />
                         </motion.div>
-                      </a>
+                      </Link>
                     </li>
                   )
                 })}
@@ -89,10 +100,11 @@ const MobileNav = () => {
 
 const items = [
   { title: "Home", Icon: Home, href: "/" },
-  { title: "About", Icon: User },
-  { title: "Contact", Icon: ContactIcon, href: "/" },
-  { title: "Settings", Icon: SettingsIcon, href: "/" },
-  { title: "Shop", Icon: ShoppingCartIcon, href: "/" },
+  { title: "Menu", Icon: UtensilsCrossed, href: "/menu" },
+  { title: "Locations", Icon: MapPinned, href: "/locations" },
+  { title: "Reservations", Icon: CalendarRange, href: "/reservations" },
+  { title: "Our Story", Icon: Beef, href: "/" },
+  { title: "Events", Icon: CalendarSearch, href: "/" },
 ]
 
 const framerSidebarBackground = {
@@ -104,8 +116,8 @@ const framerSidebarBackground = {
 
 const framerSidebarPanel = {
   initial: { x: "-100%" },
-  animate: { x: 0 },
-  exit: { x: "-100%" },
+  animate: { x: -15 },
+  exit: { x: "-100%", transition: { duration: 0.1 } },
   transition: { duration: 0.3 },
 }
 
@@ -114,7 +126,7 @@ const framerText = (delay) => {
     initial: { opacity: 0, x: -50 },
     animate: { opacity: 1, x: 0 },
     transition: {
-      delay: 0.5 + delay / 10,
+      delay: 0.25 + delay / 10,
     },
   }
 }
@@ -126,7 +138,7 @@ const framerIcon = {
     type: "spring",
     stiffness: 260,
     damping: 20,
-    delay: 1.5,
+    delay: 0.75,
   },
 }
 

@@ -87,7 +87,7 @@
 
 @layer base {
   body {
-    @apply bg-white text-black;
+    @apply bg-[#fefefe] text-black;
     font-family: "Barlow", "sans-serif";
   }
 }

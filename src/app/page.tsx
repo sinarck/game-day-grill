@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { ParallaxText } from "@/components/ui/parallax-text"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -12,46 +12,41 @@ export default function Home() {
 
   return (
     <div className="relative h-screen overflow-hidden">
-      <div className="absolute inset-0 flex">
-        <main className="flex w-1/2 items-center justify-center p-24">
+      <div className="absolute inset-0 flex pb-16">
+        <main className="flex w-full items-center justify-center p-24 sm:w-1/2">
           <div className="pt-5">
-            <motion.h1
-              className="pb-5 text-7xl font-extrabold text-black"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-            >
-              Join now for a free gift
-            </motion.h1>
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-              <Link href="/">
+            <h1 className="flex-1 pb-5 text-4xl font-extrabold text-black sm:text-7xl">
+              Join now for 20% off
+            </h1>
+            <div>
+              <Link href="/signup">
                 <Button
                   loading={false}
                   type="button"
                   variant="default"
                   size={"lg"}
                 >
-                  Learn more
+                  Make an account
                 </Button>
               </Link>
-            </motion.div>
+            </div>
           </div>
         </main>
-        <motion.div
-          className="relative flex w-1/2 items-center justify-center p-24"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-        >
+        <div className="relative flex w-3/4 items-center justify-center">
           <Image
             alt="Gift cards"
-            src="/restaurant.jpg"
-            width={500}
-            height={300}
-            className="rounded-lg shadow-md"
+            src="/discount.jpg"
+            fill
+            draggable={false}
+            placeholder="blur"
+            blurDataURL="/discount.jpg"
+            className="hidden w-full object-contain sm:block"
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
-        </motion.div>
+        </div>
       </div>
-      <div className="absolute bottom-0">
-        <ParallaxText baseVelocity={5} text="FRISCO DALLAS PLANO" />
+      <div className="absolute bottom-0 select-none pt-10">
+        <ParallaxText baseVelocity={3} text="FRISCO · DALLAS · PLANO ·" />
       </div>
     </div>
   )
