@@ -81,7 +81,10 @@ export async function POST(request: NextRequest) {
     const { menuItemId, total, userId } = cartSchema.parse(body)
 
     // Check if the user id is valid exists
-    const user = await db.user.findUnique({ where: { id: userId } })
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      cacheStrategy: { ttl: 60, swr: 60 },
+    })
     if (!user) {
       return NextResponse.json<APIError<AuthAPIResponse>>(
         {
@@ -97,6 +100,7 @@ export async function POST(request: NextRequest) {
     // Check if the menuItem exists
     const menuItem = await db.menuItem.findUnique({
       where: { id: menuItemId },
+      cacheStrategy: { ttl: 60, swr: 60 },
     })
     if (!menuItem) {
       return NextResponse.json<APIError<MenuAPIResponse>>(
@@ -114,6 +118,7 @@ export async function POST(request: NextRequest) {
       where: {
         userId: userId,
       },
+      cacheStrategy: { ttl: 60, swr: 60 },
     })
 
     if (cartExists) {

@@ -4,6 +4,8 @@ import { Footer } from "@/components/site-footer"
 import { Toaster } from "@/components/ui/toaster"
 import { siteConfig } from "@/config/site"
 import "@/styles/globals.css"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 import { Metadata } from "next"
 import { ReactNode } from "react"
 
@@ -40,6 +42,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         </Provider>
         <Toaster />
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   )
