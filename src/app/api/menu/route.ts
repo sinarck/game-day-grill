@@ -41,6 +41,8 @@ export async function POST(request: NextRequest) {
       }
     )
   } catch (e) {
+    console.error(e)
+
     return NextResponse.json<APIError<MenuAPIResponse>>(
       {
         menu: null,
