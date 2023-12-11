@@ -7,10 +7,10 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-hidden">
       <Link
         href="/"
-        className="absolute left-4 top-4 flex items-center justify-center align-middle md:left-8 md:top-8"
+        className="absolute left-0 mt-4 flex items-center justify-center align-middle md:left-8 md:mt-8"
       >
         <div className="flex items-center justify-center align-middle">
           <Icons.ChevronLeft className="h-4 w-4" />

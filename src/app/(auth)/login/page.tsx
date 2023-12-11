@@ -1,6 +1,7 @@
 "use client"
 
 import Form from "@/components/auth/form"
+import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { authForm, loginSchema } from "@/schema/form"
 import { signIn } from "next-auth/react"
@@ -53,9 +54,11 @@ const Page = () => {
           loading={loading}
           onSubmit={onSubmit}
         />
-        <Link href="/signup" className="pt-5 underline">
-          <p>Don't have an account?</p>
-        </Link>
+        <Button loading={false} variant="link">
+          <Link href="/signup" className="pt-5">
+            <p>Don't have an account?</p>
+          </Link>
+        </Button>
       </div>
     </div>
   )
