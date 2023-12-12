@@ -14,7 +14,7 @@ export const Footer = () => {
             title="Company"
             className="inline-flex items-center"
           >
-            <Image height={42} width={42} alt="Logo" src={Logo} />
+            <Image height={42} alt="Logo" src={Logo} />
             <span className="ml-2 text-xl font-bold uppercase tracking-wide text-gray-800">
               Game Day Grill
             </span>

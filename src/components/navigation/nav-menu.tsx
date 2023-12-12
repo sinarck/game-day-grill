@@ -2,15 +2,12 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { NavItem } from "@/types/navigation"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 interface MainNavProps {
   items?: NavItem[]
 }
 
 const NavMenu = ({ items }: MainNavProps) => {
-  const router = useRouter()
-
   return (
     <div className="flex w-full items-center justify-between sm:w-auto">
       <Link href="/">

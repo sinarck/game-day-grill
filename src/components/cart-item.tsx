@@ -12,7 +12,7 @@ interface CartItemProps {
 }
 
 const CartItem = ({ item, quantity }: CartItemProps) => {
-  const { add, cart, remove } = useCartStore()
+  const { add, remove } = useCartStore()
 
   return (
     <div className="flex items-center justify-between align-middle">
