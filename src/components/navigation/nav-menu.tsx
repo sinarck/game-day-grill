@@ -1,4 +1,3 @@
-import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { NavItem } from "@/types/navigation"
 import Link from "next/link"
@@ -10,11 +9,6 @@ interface MainNavProps {
 const NavMenu = ({ items }: MainNavProps) => {
   return (
     <div className="flex w-full items-center justify-between sm:w-auto">
-      <Link href="/">
-        <p className="whitespace-nowrap pr-4 text-lg font-bold tracking-wide text-black sm:hidden">
-          {siteConfig.name}
-        </p>
-      </Link>
       {items?.length && (
         <nav className="hidden gap-4 sm:flex">
           {items.map(

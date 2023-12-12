@@ -1,28 +1,24 @@
 "use client"
 
-import NavMenu from "@/components/navigation/nav-menu"
 import { siteConfig } from "@/config/site"
-import Image from "next/image"
-import Link from "next/link"
-import Logo from "../../app/icon.png"
 import Auth from "./auth"
+import Branding from "./branding"
 import Cart from "./cart"
 import MobileNav from "./mobile-nav"
+import NavMenu from "./nav-menu"
 
 const NavBar = () => {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white px-3 shadow-sm">
-      <div className="flex h-16 items-center space-x-4 sm:space-x-0">
+    <header className="sticky top-0 z-50 flex items-center justify-between bg-white p-3 shadow-sm sm:px-6">
+      <div className="flex w-full items-center justify-between sm:hidden">
         <MobileNav />
-        <Link
-          href="/"
-          className="flex items-center justify-center gap-2 whitespace-nowrap pr-4 align-middle text-lg font-bold tracking-wide text-black"
-        >
-          <Image height={42} alt="Logo" src={Logo} />
-          {siteConfig.name}
-        </Link>
+        <Branding start="center" />
+        <Cart />
+      </div>
+      <div className="hidden w-full items-center justify-between sm:flex">
+        <Branding start="start" />
         <NavMenu items={siteConfig.mainNav} />
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex items-center space-x-4">
           <Auth />
           <Cart />
         </div>

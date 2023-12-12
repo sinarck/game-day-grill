@@ -50,7 +50,7 @@ const Cart = () => {
       <ShoppingCart className="h-8 w-8 cursor-pointer sm:h-6 sm:w-6" />
       {(session.status === "authenticated" && data?.data.cart) ||
       (session.status === "unauthenticated" && cart.length > 0) ? (
-        <Badge className="absolute right-2 top-2 h-2 w-2 items-center justify-center p-2 text-center">
+        <Badge className="absolute right-2 top-2 h-2 w-2 items-center justify-center p-2 text-center sm:right-4 sm:top-3">
           {session.status === "authenticated"
             ? data?.data.cart?.items?.length
             : cart.length}
