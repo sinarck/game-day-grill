@@ -2,14 +2,10 @@
 
 import { Button } from "@/components/ui/button"
 import { ParallaxText } from "@/components/ui/parallax-text"
-import { useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function Home() {
-  const { scrollYProgress } = useScroll()
-  const x = useTransform(scrollYProgress, [0, 1], [0, 1000])
-
   return (
     <div className="relative h-screen overflow-hidden">
       <div className="absolute inset-0 flex pb-16">

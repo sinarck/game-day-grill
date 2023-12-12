@@ -22,7 +22,7 @@ const NavMenu = ({ items }: MainNavProps) => {
                     disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
-                  <span className="bg-gradient-to-l from-amber-900 to-amber-900 bg-[length:0%_2px] bg-bottom bg-no-repeat text-xs transition-all duration-200 ease-in group-hover:bg-[length:100%_2px] sm:text-xs md:text-sm">
+                  <span className="bg-gradient-to-l from-neutral-500 to-neutral-500 bg-[length:0%_2px] bg-bottom bg-no-repeat text-xs transition-all duration-200 ease-in group-hover:bg-[length:100%_2px] sm:text-xs md:text-sm">
                     {title}
                   </span>
                 </Link>
