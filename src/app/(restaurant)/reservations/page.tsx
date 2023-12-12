@@ -33,7 +33,7 @@ const Page = () => {
           new Date(String(data?.data.reservations?.date)).toLocaleTimeString(),
       })
     }
-  }, [data])
+  }, [data, toast])
 
   const onSubmit = async ({
     name,

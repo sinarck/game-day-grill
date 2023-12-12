@@ -16,7 +16,7 @@ const NavBar = () => {
   const router = useRouter()
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white px-3 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white px-3 shadow-sm">
       <div className="flex h-16 items-center space-x-4 sm:space-x-0">
         <MobileNav />
         <Link

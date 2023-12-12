@@ -24,8 +24,8 @@ export const Footer = () => {
               The Game Day Grill is a restaurant that offers a comfortable and
               friendly atmosphere perfect for both game days and family dinners.
               We pride ourselves on our diverse menu that caters to all tastes,
-              with a special focus on grilled dishes. Whether you're here to
-              catch the game or enjoy a meal with loved ones, Game Day Grill
+              with a special focus on grilled dishes. Whether you&apos;re here
+              to catch the game or enjoy a meal with loved ones, Game Day Grill
               promises a memorable dining experience.
             </p>
           </div>

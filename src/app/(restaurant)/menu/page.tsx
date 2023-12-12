@@ -5,33 +5,31 @@ import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import useAxios from "@/hooks/useAxios"
-import { menuSchema } from "@/schema/api"
 import { MenuAPIResponse } from "@/types/api"
-import { useEffect } from "react"
-import { z } from "zod"
+import { useCallback, useEffect } from "react"
 
 export const runtime = "edge"
 
 const Page = () => {
-  const { data, fetch, loading } = useAxios<MenuAPIResponse>()
+  const { data, fetch } = useAxios<MenuAPIResponse>()
 
-  const getMenu = async () => {
-    await fetch<z.infer<typeof menuSchema>>({
+  const getMenu = useCallback(async () => {
+    await fetch({
       endpoint: "/api/menu",
       body: {
         restaurantId: 1,
       },
       method: "POST",
     })
-  }
+  }, [fetch]) // add any other dependencies here
 
   useEffect(() => {
     getMenu()
-  }, [])
+  }, [getMenu])
 
   return (
     <div className="min-h-screen gap-3 p-28 pb-0">
-      <h1 className="text-center text-2xl font-bold">Menu</h1>
+      <h1 className="text-center text-2xl font-bold tracking-wide">Menu</h1>
       <Tabs defaultValue="appetizers" className="w-full">
         <div className="flex w-full justify-center">
           <TabsList className="">
@@ -50,7 +48,7 @@ const Page = () => {
             data.data.menu?.items.map(
               (item, i) =>
                 item.category === "APPETIZERS" && (
-                  <MenuItem key={i} menuItem={item} />
+                  <MenuItem key={(item.id, i)} menuItem={item} />
                 )
             )}
         </TabsContent>
@@ -65,7 +63,7 @@ const Page = () => {
             data.data.menu?.items.map(
               (item, i) =>
                 item.category !== "APPETIZERS" && (
-                  <MenuItem key={i} menuItem={item} />
+                  <MenuItem key={(item.id, i)} menuItem={item} />
                 )
             )}
         </TabsContent>

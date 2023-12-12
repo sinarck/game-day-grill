@@ -36,7 +36,7 @@ const Cart = () => {
     }
 
     getCart()
-  }, [])
+  }, [fetch, session.data?.user.id, session.status])
 
   return (
     <Button

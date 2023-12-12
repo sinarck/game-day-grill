@@ -23,7 +23,7 @@ const Page = () => {
         variant: "default",
       })
     }
-  }, [data, router])
+  }, [data, router, toast])
 
   const onSubmit = async ({ username, password }: authForm) => {
     await fetch<z.infer<typeof loginSchema>>({

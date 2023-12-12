@@ -16,7 +16,7 @@ export default function Home() {
         <main className="flex w-full items-center justify-center p-24 sm:w-1/2">
           <div className="pt-5">
             <h1 className="flex-1 pb-5 text-4xl font-extrabold text-black sm:text-7xl">
-              Join now for 20% off
+              Join now for 20&#37; off
             </h1>
             <div>
               <Link href="/signup">

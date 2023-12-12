@@ -56,7 +56,7 @@ const Page = () => {
         />
         <Button loading={false} variant="link">
           <Link href="/signup" className="pt-5">
-            <p>Don't have an account?</p>
+            <p>Don&apos;t have an account?</p>
           </Link>
         </Button>
       </div>

@@ -1,9 +1,10 @@
 import { ToastProps } from "@/components/ui/toast"
 import axios, { AxiosResponse } from "axios"
 import { SignInResponse } from "next-auth/react"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 export const runtime = "edge"
+
 interface FetchProps<T> {
   endpoint: string
   body: T
@@ -21,40 +22,52 @@ const useAxios = <T = any>() => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const fetch = async <K>({
-    endpoint,
-    body,
-    callbackFunction,
-    method,
-  }: FetchProps<K>) => {
-    const controller = new AbortController()
-    setLoading(true)
-    setError(false)
-    setErrorMessage(null)
+  const fetch = useCallback(
+    async <K>({ endpoint, body, callbackFunction, method }: FetchProps<K>) => {
+      const controller = new AbortController()
+      setLoading(true)
+      setError(false)
+      setErrorMessage(null)
 
-    try {
-      if (method === "POST") {
-        const res = await axios.post(endpoint, body, {
-          signal: controller.signal,
-        })
-        setResponse(res)
-      } else {
-        const res = await axios.get(endpoint, {
-          signal: controller.signal,
-        })
-        setResponse(res)
+      const makeRequest = async () => {
+        if (method === "POST") {
+          return await axios.post(endpoint, body, {
+            signal: controller.signal,
+          })
+        } else {
+          return await axios.get(endpoint, {
+            signal: controller.signal,
+          })
+        }
       }
 
-      if (callbackFunction) {
-        await callbackFunction
+      try {
+        for (let i = 0; i < 3; i++) {
+          try {
+            const res = await makeRequest()
+            setResponse(res)
+            break
+          } catch (err) {
+            if (i === 2) {
+              setError(true)
+              setErrorMessage(err.response.data.message)
+            } else {
+              console.warn(
+                "[Data Fetching] Request failed, retrying request..."
+              )
+            }
+          }
+        }
+
+        if (callbackFunction) {
+          await callbackFunction
+        }
+      } finally {
+        setLoading(false)
       }
-    } catch (err) {
-      setError(true)
-      setErrorMessage(err.response.data.message)
-    } finally {
-      setLoading(false)
-    }
-  }
+    },
+    [setResponse, setError, setErrorMessage, setLoading]
+  )
 
   return {
     fetch: fetch,
