@@ -1,0 +1,6 @@
+#!/bin/sh
+# In file .husky/pre-commit
+
+. "$(dirname "$0")/_/husky.sh"
+
+npm run lint:write && npx lint-staged
