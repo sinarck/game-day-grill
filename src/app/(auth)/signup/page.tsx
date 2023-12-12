@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast"
 import useAxios from "@/hooks/useAxios"
 import { authForm, enrollSchema, loginSchema } from "@/schema/form"
 import { AuthAPIResponse } from "@/types/api"
+import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { z } from "zod"
@@ -33,6 +34,14 @@ const Page = () => {
         password: password,
       },
       method: "POST",
+      callbackFunction: async () => {
+        return await signIn("credentials", {
+          username: username,
+          password: password,
+          redirect: false,
+          callbackUrl: "/",
+        })
+      },
     })
   }
 

@@ -1,17 +1,19 @@
 "use client"
 
 import MenuItem from "@/components/menu-item"
+import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import useAxios from "@/hooks/useAxios"
 import { MenuAPIResponse } from "@/types/api"
+import { AlertTriangle } from "lucide-react"
 import { useCallback, useEffect } from "react"
 
 export const runtime = "edge"
 
 const Page = () => {
-  const { data, fetch } = useAxios<MenuAPIResponse>()
+  const { data, fetch, error } = useAxios<MenuAPIResponse>()
 
   const getMenu = useCallback(async () => {
     await fetch({
@@ -21,7 +23,7 @@ const Page = () => {
       },
       method: "POST",
     })
-  }, [fetch]) // add any other dependencies here
+  }, [fetch])
 
   useEffect(() => {
     getMenu()
@@ -32,7 +34,7 @@ const Page = () => {
       <h1 className="text-center text-2xl font-bold tracking-wide">Menu</h1>
       <Tabs defaultValue="appetizers" className="w-full">
         <div className="flex w-full justify-center">
-          <TabsList className="">
+          <TabsList>
             <TabsTrigger value="appetizers">Appetizers</TabsTrigger>
             <TabsTrigger value="else">Everything else</TabsTrigger>
           </TabsList>
@@ -44,13 +46,12 @@ const Page = () => {
               <Separator className="col-start-2 col-end-2" />{" "}
             </>
           )}
-          {data &&
-            data.data.menu?.items.map(
-              (item, i) =>
-                item.category === "APPETIZERS" && (
-                  <MenuItem key={(item.id, i)} menuItem={item} />
-                )
-            )}
+          {data?.data.menu?.items?.map(
+            (item, i) =>
+              item.category === "APPETIZERS" && (
+                <MenuItem key={(item.id, i)} menuItem={item} />
+              )
+          )}
         </TabsContent>
         <TabsContent value="else" className="grid grid-cols-2 gap-4">
           {data && (
@@ -59,16 +60,30 @@ const Page = () => {
               <Separator className="col-start-2 col-end-2" />{" "}
             </>
           )}
-          {data &&
-            data.data.menu?.items.map(
-              (item, i) =>
-                item.category !== "APPETIZERS" && (
-                  <MenuItem key={(item.id, i)} menuItem={item} />
-                )
-            )}
+          {data?.data.menu?.items.map(
+            (item, i) =>
+              item.category !== "APPETIZERS" && (
+                <MenuItem key={(item.id, i)} menuItem={item} />
+              )
+          )}
         </TabsContent>
       </Tabs>
-      {!data && (
+      {error && !data && (
+        <div className="mx-auto flex max-w-sm items-start gap-2 rounded-md border border-red-100 bg-red-50 p-5 align-middle shadow-sm">
+          <AlertTriangle className="h-16 w-16 self-center fill-red-100 stroke-red-400" />
+          <div>
+            <p className="text-red-400">Something went wrong</p>
+            <Button
+              loading={false}
+              onClick={getMenu}
+              className="w-25 h-9 rounded-md bg-red-300 hover:bg-red-400"
+            >
+              Try again
+            </Button>
+          </div>
+        </div>
+      )}
+      {!data && !error && (
         <div className="grid grid-cols-2 gap-4">
           {[...Array(6)].map((_, i) => (
             <div

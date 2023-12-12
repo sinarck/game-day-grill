@@ -60,11 +60,7 @@ const Form = ({
             register={register}
           />
         </div>
-        <div className="pt-8">
-          <Button variant="default" size="wide" loading={loading} type="submit">
-            {buttonText}
-          </Button>
-
+        <div className="pt-3">
           <AnimatePresence>
             {apiError !== undefined && (
               <motion.div
@@ -74,14 +70,17 @@ const Form = ({
                 transition={{ ease: "easeIn", duration: 0.2 }}
                 className="w-full text-center"
               >
-                <p className="w-full text-center text-[10px] text-red-600">
+                <p className="w-full pb-2 text-center text-[10px] text-red-600">
                   {apiError === "CredentialsSignin"
                     ? "Username or Password is incorrect"
-                    : apiError}
+                    : "Something went wrong"}
                 </p>
               </motion.div>
             )}
           </AnimatePresence>
+          <Button variant="default" size="wide" loading={loading} type="submit">
+            {buttonText}
+          </Button>
         </div>
       </form>
     </div>

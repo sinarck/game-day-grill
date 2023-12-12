@@ -15,8 +15,7 @@ const Cart = () => {
 
   const session = useSession()
 
-  const { data, error, errorMessage, fetch, loading } =
-    useAxios<CartAPIResponse>()
+  const { data, fetch } = useAxios<CartAPIResponse>()
 
   const addToCartSchema = z.object({
     userId: z.number(),
@@ -36,7 +35,12 @@ const Cart = () => {
     }
 
     getCart()
-  }, [fetch, session.data?.user.id, session.status])
+  }, [
+    fetch,
+    session.data?.user.id,
+    session.status,
+    data?.data.cart?.items?.length,
+  ])
 
   return (
     <Button

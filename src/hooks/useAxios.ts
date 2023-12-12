@@ -8,7 +8,7 @@ export const runtime = "edge"
 interface FetchProps<T> {
   endpoint: string
   body: T
-  callbackFunction?: Promise<
+  callbackFunction?: () => Promise<
     | SignInResponse
     | { id: string; dismiss: () => void; update: (props: ToastProps) => void }
     | undefined
@@ -45,7 +45,11 @@ const useAxios = <T = any>() => {
         for (let i = 0; i < 3; i++) {
           try {
             const res = await makeRequest()
+
             setResponse(res)
+            if (callbackFunction) {
+              callbackFunction()
+            }
             break
           } catch (err) {
             if (i === 2) {
@@ -58,10 +62,6 @@ const useAxios = <T = any>() => {
             }
           }
         }
-
-        if (callbackFunction) {
-          await callbackFunction
-        }
       } finally {
         setLoading(false)
       }
@@ -70,7 +70,7 @@ const useAxios = <T = any>() => {
   )
 
   return {
-    fetch: fetch,
+    fetch,
     data: response,
     error,
     errorMessage,
