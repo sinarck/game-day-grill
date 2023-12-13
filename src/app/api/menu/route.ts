@@ -30,7 +30,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // TODO: Fully type out tihs response
     return NextResponse.json(
       {
         menu: existingMenu,

@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client"
+import { CreateEmailResponse } from "resend/build/src/emails/interfaces"
 
 /**
  * Interface extended by all APIResponses returned by the API
@@ -93,4 +94,8 @@ export interface CartAPIResponse extends APIResponse {
       }
     }>
   > | null
+}
+
+export interface FeedbackAPIResponse extends APIResponse {
+  feedback: CreateEmailResponse
 }
