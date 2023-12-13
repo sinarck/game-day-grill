@@ -1,17 +1,13 @@
 "use client"
 
-import Input from "@/components/auth/input"
 import CartItem from "@/components/cart-item"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import useAxios from "@/hooks/useAxios"
 import { useCartStore } from "@/lib/store"
-import { detailsSchema } from "@/schema/payment"
 import { CartAPIResponse } from "@/types/api"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useSession } from "next-auth/react"
 import { useEffect } from "react"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 const Page = () => {
@@ -40,19 +36,6 @@ const Page = () => {
     getCart()
   }, [session.status, fetch, session.data?.user.id])
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<z.infer<typeof detailsSchema>>({
-    defaultValues: {
-      fullName: "",
-      location: "",
-      email: "",
-    },
-    resolver: zodResolver(detailsSchema),
-  })
-
   const countDuplicates = (items) => {
     const count = items.reduce((acc, item) => {
       acc[item.id] = (acc[item.id] || 0) + 1
@@ -72,37 +55,37 @@ const Page = () => {
         <h2 className="inline-block whitespace-nowrap pb-5 text-lg font-semibold tracking-wide">
           Details
         </h2>
-        <form className="border p-5">
-          <div className="flex gap-4">
-            <Input
-              labelName="Full Name"
-              fieldName="fullName"
-              errors={errors}
-              register={register}
-              className="w-1/3"
+        <form className="w-full rounded-sm border bg-gray-100 p-5 shadow-sm">
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              className="w-full rounded border p-2"
             />
-            <Input
-              labelName="Location"
-              fieldName="location"
-              errors={errors}
-              register={register}
-              className="w-1/3"
+            <input
+              type="text"
+              name="location"
+              placeholder="Location"
+              className="w-full rounded border p-2"
             />
-            <Input
-              labelName="Email"
-              fieldName="email"
-              errors={errors}
-              register={register}
-              className="w-1/3"
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              className="w-full rounded border p-2"
             />
           </div>
         </form>
       </div>
       <div className="col-end col-start-3">
-        <h2 className="col-start-3 col-end-3 inline-block whitespace-nowrap pb-5 text-lg font-semibold tracking-wide">
-          Order Summary
-        </h2>
-        <div className="rounded-md bg-neutral-50 shadow-sm">
+        <div className="flex justify-between">
+          <h2 className="col-start-3 col-end-3 inline-block whitespace-nowrap pb-5 text-lg font-semibold tracking-wide">
+            Order Summary
+          </h2>
+          <p>Progress</p>
+        </div>
+        <div className="rounded-sm border bg-gray-100 shadow-sm">
           {(session.status === "loading" || loading) && <div>Loading...</div>}
           {session.status === "authenticated" && data?.data.cart?.items && (
             <div>
@@ -112,24 +95,28 @@ const Page = () => {
             </div>
           )}
           {session.status === "unauthenticated" && cart.length > 0 && (
-            <div>
+            <div className="p-5">
               {countDuplicates(cart).map((item, idx) => (
-                <div className="p-5" key={(item.id, idx)}>
+                <>
                   <CartItem
                     key={(item.id, idx)}
                     item={item}
                     quantity={item.quantity}
                   />
                   {idx !== countDuplicates(cart).length - 1 && (
-                    <Separator className="h-px" />
+                    <div className="px-4 py-5">
+                      <Separator className="h-[2px]" />
+                    </div>
                   )}
-                </div>
+                </>
               ))}
             </div>
           )}
           {(session.status === "unauthenticated" && cart.length === 0) ||
-            (session.status === "authenticated" &&
-              data?.data.cart?.items?.length === 0 && <div>Cart is empty</div>)}
+          (session.status === "authenticated" &&
+            data?.data.cart?.items?.length === 0) ? (
+            <div>Cart is empty</div>
+          ) : null}
           <div className="p-5">
             <Button loading={false} size="wide" className="w-full">
               Proceed to checkout

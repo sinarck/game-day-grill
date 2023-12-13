@@ -62,7 +62,7 @@ const Form = ({
         </div>
         <div className="pt-3">
           <AnimatePresence>
-            {apiError !== undefined && (
+            {apiError !== null && (
               <motion.div
                 initial={{ opacity: 0 }}
                 exit={{ opacity: 0 }}
