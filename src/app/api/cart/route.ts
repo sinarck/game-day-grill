@@ -8,8 +8,6 @@ import {
 } from "@/types/api"
 import { NextRequest, NextResponse } from "next/server"
 
-// export const runtime = "edge"
-
 export async function GET(request: NextRequest) {
   // Supposedly, awaiting a db.$connect() speeds up the connection
   await db.$connect()

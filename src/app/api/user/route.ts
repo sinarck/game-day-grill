@@ -4,8 +4,6 @@ import { APIError, AuthAPIResponse } from "@/types/api"
 import { hash } from "bcryptjs"
 import { NextRequest, NextResponse } from "next/server"
 
-// export const runtime = "edge"
-
 export async function POST(request: NextRequest) {
   await db.$connect()
 

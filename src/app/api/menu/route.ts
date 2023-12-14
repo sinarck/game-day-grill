@@ -3,8 +3,6 @@ import { menuSchema } from "@/schema/api"
 import { APIError, MenuAPIResponse } from "@/types/api"
 import { NextRequest, NextResponse } from "next/server"
 
-// export const runtime = "edge"
-
 export async function POST(request: NextRequest) {
   await db.$connect()
 
