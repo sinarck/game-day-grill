@@ -3,7 +3,7 @@ import { menuSchema } from "@/schema/api"
 import { APIError, MenuAPIResponse } from "@/types/api"
 import { NextRequest, NextResponse } from "next/server"
 
-export const runtime = "edge"
+// export const runtime = "edge"
 
 export async function POST(request: NextRequest) {
   await db.$connect()
@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
     const existingMenu = await db.menu.findFirst({
       where: { restaurantId: restaurantId },
       include: { items: true },
-      cacheStrategy: { ttl: 60, swr: 60 },
     })
 
     if (!existingMenu) {

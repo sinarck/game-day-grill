@@ -10,7 +10,7 @@ import { MenuAPIResponse } from "@/types/api"
 import { AlertTriangle } from "lucide-react"
 import { useCallback, useEffect } from "react"
 
-export const runtime = "edge"
+// export const runtime = "edge"
 
 const Page = () => {
   const { data, fetch, error } = useAxios<MenuAPIResponse>()

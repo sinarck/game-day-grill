@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios"
 import { SignInResponse } from "next-auth/react"
 import { useCallback, useState } from "react"
 
-export const runtime = "edge"
+// export const runtime = "edge"
 
 interface FetchProps<T> {
   endpoint: string
