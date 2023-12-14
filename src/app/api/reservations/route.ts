@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
         size: size,
         date: date,
       },
+      cacheStrategy: { swr: 60, ttl: 60 },
     })
 
     if (existingReservation) {

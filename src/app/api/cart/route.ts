@@ -37,6 +37,10 @@ export async function GET(request: NextRequest) {
         items: true,
         user: true,
       },
+      cacheStrategy: {
+        ttl: 60,
+        swr: 60,
+      },
     })
 
     if (!cart) {
@@ -81,6 +85,7 @@ export async function POST(request: NextRequest) {
     // Check if the user id is valid exists
     const user = await db.user.findUnique({
       where: { id: userId },
+      cacheStrategy: { swr: 60, ttl: 3_660 },
     })
     if (!user) {
       return NextResponse.json<APIError<AuthAPIResponse>>(
@@ -97,6 +102,7 @@ export async function POST(request: NextRequest) {
     // Check if the menuItem exists
     const menuItem = await db.menuItem.findUnique({
       where: { id: menuItemId },
+      cacheStrategy: { swr: 60, ttl: 3_660 },
     })
     if (!menuItem) {
       return NextResponse.json<APIError<MenuAPIResponse>>(
@@ -114,6 +120,7 @@ export async function POST(request: NextRequest) {
       where: {
         userId: userId,
       },
+      cacheStrategy: { swr: 60, ttl: 3_660 },
     })
 
     if (cartExists) {
