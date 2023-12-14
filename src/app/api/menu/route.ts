@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
     const existingMenu = await db.menu.findFirst({
       where: { restaurantId: restaurantId },
       include: { items: true },
+      cacheStrategy: { swr: 60, ttl: 3_660 },
     })
 
     if (!existingMenu) {

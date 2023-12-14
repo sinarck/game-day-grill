@@ -1,6 +1,7 @@
 import { Pool, neonConfig } from "@neondatabase/serverless"
 import { PrismaNeon } from "@prisma/adapter-neon"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client/edge"
+import { withAccelerate } from "@prisma/extension-accelerate"
 import dotenv from "dotenv"
 import ws from "ws"
 
@@ -12,7 +13,7 @@ const pool = new Pool({ connectionString })
 const adapter = new PrismaNeon(pool)
 
 const prismaClientSingleton = () => {
-  return new PrismaClient({ adapter })
+  return new PrismaClient({ adapter }).$extends(withAccelerate())
 }
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
