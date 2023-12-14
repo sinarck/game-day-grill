@@ -7,6 +7,7 @@ import { db } from "./db"
 export const authOptions: NextAuthOptions = {
   // The following line causes errors with Prisma Accelerate
   // Ignore it for now, there is no fix
+  // @ts-ignore
   adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
