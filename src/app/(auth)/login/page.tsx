@@ -4,7 +4,7 @@ import Form from "@/components/auth/form"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { authForm, loginSchema } from "@/schema/form"
-import { signIn } from "next-auth/react"
+import { SignInResponse, signIn } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -12,7 +12,7 @@ import { useState } from "react"
 const Page = () => {
   // State management
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<SignInResponse | null>(null)
 
   // Hooks
   const router = useRouter()
@@ -39,7 +39,7 @@ const Page = () => {
         variant: "default",
       })
     } else if (loginData) {
-      setError(loginData.error)
+      setError(loginData)
     }
   }
 

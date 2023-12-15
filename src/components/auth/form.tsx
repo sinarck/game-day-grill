@@ -1,6 +1,7 @@
 import { authForm } from "@/schema/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AnimatePresence, motion } from "framer-motion"
+import { SignInResponse } from "next-auth/react"
 import { FormHTMLAttributes } from "react"
 import { useForm } from "react-hook-form"
 import { ZodType } from "zod"
@@ -11,7 +12,7 @@ interface FormProps
   extends Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
   onSubmit: (data: authForm) => Promise<void>
   schema: ZodType<any, any, any>
-  apiError?: string | null
+  apiError?: SignInResponse | null
   loading: boolean
   heading: string
   buttonText: string
@@ -38,13 +39,17 @@ const Form = ({
     resolver: zodResolver(schema),
   })
 
+  console.log(apiError)
+
   return (
     <div className="w-50 flex max-h-80 flex-col items-center justify-center rounded-xl bg-gray-100 p-10 align-middle shadow-lg">
       <h1 className="mb-4 text-lg font-bold">{heading}</h1>
       <form onSubmit={handleSubmit(onSubmit)} {...props}>
         <div className="flex flex-col">
           <Input
-            apiError={apiError}
+            apiError={
+              apiError && ("" + apiError.error).length > 25 ? null : apiError
+            }
             fieldName="username"
             labelName="Username"
             type="text"
@@ -62,7 +67,7 @@ const Form = ({
         </div>
         <div className="pt-3">
           <AnimatePresence>
-            {apiError !== null && (
+            {apiError && (
               <motion.div
                 initial={{ opacity: 0 }}
                 exit={{ opacity: 0 }}
@@ -70,10 +75,12 @@ const Form = ({
                 transition={{ ease: "easeIn", duration: 0.2 }}
                 className="w-full text-center"
               >
-                <p className="w-full pb-2 text-center text-[10px] text-red-600">
-                  {apiError === "CredentialsSignin"
-                    ? "Username or Password is incorrect"
-                    : "Something went wrong"}
+                <p className="w-full pb-2 text-center text-[10px] text-red-400">
+                  {apiError.error === "CredentialsSignin" &&
+                    "Username or password is incorrect"}
+                  {("" + apiError.error).length > 25
+                    ? "Something went wrong"
+                    : String(apiError)}
                 </p>
               </motion.div>
             )}

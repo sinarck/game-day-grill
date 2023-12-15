@@ -1,13 +1,15 @@
 import { cn } from "@/lib/utils"
+import { motion, useAnimation } from "framer-motion"
 import { EyeIcon, EyeOffIcon, LucideIcon } from "lucide-react"
-import { InputHTMLAttributes, useState } from "react"
+import { SignInResponse } from "next-auth/react"
+import { InputHTMLAttributes, useEffect, useState } from "react"
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 
 interface InputProps<T extends FieldValues = FieldValues>
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "register"> {
   fieldName: keyof T
   labelName?: string
-  apiError?: string | null
+  apiError?: SignInResponse | null
   errors: FieldErrors<T>
   register: UseFormRegister<any>
 }
@@ -25,6 +27,25 @@ const Input = <K extends FieldValues>({
   const [inputType, setInputType] =
     useState<React.HTMLInputTypeAttribute>("password")
   const [iconType, setIconType] = useState<LucideIcon>(EyeOffIcon)
+  const [shake, setShake] = useState(false)
+
+  const controls = useAnimation()
+
+  useEffect(() => {
+    if (apiError) {
+      controls.start({
+        x: [0, -15, 15, -15, 15, 0],
+        y: [0, 0, 0, 0, 0, 0],
+        transition: { duration: 0.5, stiffness: 100, damping: 10 },
+      })
+    } else {
+      controls.start({
+        x: 0,
+        y: 0,
+        transition: { duration: 0.5 },
+      })
+    }
+  }, [apiError, controls])
 
   const handleVisibility = () => {
     if (props.type === "password") {
@@ -39,14 +60,15 @@ const Input = <K extends FieldValues>({
   }
 
   return (
-    <div className="relative flex flex-col">
+    <motion.div className="relative flex flex-col" animate={controls}>
       {labelName && (
         <label
           className={cn(
             "pointer-events-none absolute left-0 top-0 transition-all duration-200 ease-in focus:mt-2 focus:text-xs focus:text-gray-500",
             isFocused || hasValue
               ? "mt-4 text-xs text-gray-500"
-              : "mt-7 text-base text-black"
+              : "mt-7 text-base text-black",
+            apiError && "text-red-400"
           )}
         >
           {labelName}
@@ -71,8 +93,8 @@ const Input = <K extends FieldValues>({
             fontSize: 14,
           }}
           autoCapitalize="off"
-          autoComplete="off"
           autoCorrect="off"
+          spellCheck="false"
           aria-autocomplete="none"
           className={cn(
             "border-b-2 border-gray-300 bg-gray-100 pt-8 outline-none transition-all duration-200 ease-in",
@@ -99,7 +121,7 @@ const Input = <K extends FieldValues>({
           </span>
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }
 export default Input
