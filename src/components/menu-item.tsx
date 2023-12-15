@@ -38,7 +38,7 @@ const MenuItem = ({ menuItem }: MenuItemProps) => {
       <div>
         <div className="flex justify-between">
           <div className="text-md font-bold">{menuItem.name}</div>
-          <div>{menuItem.price}</div>
+          <p>${menuItem.price}</p>
         </div>
         <div className="text-sm text-gray-500">{menuItem.description}</div>
       </div>

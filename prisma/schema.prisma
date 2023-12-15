@@ -21,15 +21,27 @@ enum Tier {
   @@map("tier")
 }
 
+enum Options {
+  VEGETARIAN
+  GLUTEN_FREE
+}
+
+enum Beverages {
+  COCKTAILS
+  MOCKTAILS
+  JUICES
+
+  @@map("beverages")
+}
+
 enum FoodCategory {
   APPETIZERS
-  WINGS
-  FAJITAS
-  BURGERS
+  ENTREES
   STEAKS
-  SEAFOOD
-  BEVERAGES
+  WINGS
+  BURGERS
   DESSERTS
+  BEVERAGES
 
   @@map("food_category")
 }
@@ -110,6 +122,8 @@ model MenuItem {
   price       Float
   description String
   category    FoodCategory
+  beverage    Beverages?
+  options     Options?
 
   menu   Menu? @relation(fields: [menuId], references: [id])
   menuId Int?

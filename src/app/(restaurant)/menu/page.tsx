@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import useAxios from "@/hooks/useAxios"
 import { MenuAPIResponse } from "@/types/api"
+import { FoodCategory } from "@prisma/client"
 import { AlertTriangle } from "lucide-react"
 import { useCallback, useEffect } from "react"
 
@@ -33,22 +34,43 @@ const Page = () => {
       <Tabs defaultValue="appetizers" className="w-full">
         <div className="flex w-full justify-center">
           <TabsList>
-            <TabsTrigger value="appetizers">Appetizers</TabsTrigger>
-            <TabsTrigger value="else">Everything else</TabsTrigger>
+            {(
+              Object.keys(FoodCategory) as Array<keyof typeof FoodCategory>
+            ).map((key) => (
+              <TabsTrigger key={key} value={key.toLowerCase()}>
+                {key.charAt(0) + key.substring(1).toLowerCase()}
+              </TabsTrigger>
+            ))}
           </TabsList>
         </div>
-        <TabsContent value="appetizers" className="grid grid-cols-2 gap-4">
+        {(Object.keys(FoodCategory) as Array<keyof typeof FoodCategory>).map(
+          (key) => (
+            <TabsContent
+              key={key.toLowerCase()}
+              value={key.toLowerCase()}
+              className="grid grid-cols-2 gap-4"
+            >
+              {data && (
+                <>
+                  <Separator className="col-span-1" />
+                  <Separator className="col-start-2 col-end-2" />
+                </>
+              )}
+              {data?.data.menu?.items?.map(
+                (item, i) =>
+                  item.category === key && (
+                    <MenuItem key={(item.id, i)} menuItem={item} />
+                  )
+              )}
+            </TabsContent>
+          )
+        )}
+        {/* <TabsContent value="appetizers" className="grid grid-cols-2 gap-4">
           {data && (
             <>
               <Separator className="col-span-1" />
               <Separator className="col-start-2 col-end-2" />{" "}
             </>
-          )}
-          {data?.data.menu?.items?.map(
-            (item, i) =>
-              item.category === "APPETIZERS" && (
-                <MenuItem key={(item.id, i)} menuItem={item} />
-              )
           )}
         </TabsContent>
         <TabsContent value="else" className="grid grid-cols-2 gap-4">
@@ -64,7 +86,7 @@ const Page = () => {
                 <MenuItem key={(item.id, i)} menuItem={item} />
               )
           )}
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
       {error && !data && (
         <div className="mx-auto flex max-w-sm items-start gap-2 rounded-md border border-red-100 bg-red-50 p-5 align-middle shadow-sm">
