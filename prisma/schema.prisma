@@ -1,3 +1,5 @@
+// Required Prisma generator and datasources
+
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
@@ -9,8 +11,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// Authentication Model
-
+// Rewards and Food category enums
 enum Tier {
   BRONZE
   SILVER
@@ -18,6 +19,19 @@ enum Tier {
   PLATINUM
 
   @@map("tier")
+}
+
+enum FoodCategory {
+  APPETIZERS
+  WINGS
+  FAJITAS
+  BURGERS
+  STEAKS
+  SEAFOOD
+  BEVERAGES
+  DESSERTS
+
+  @@map("food_category")
 }
 
 model User {
@@ -44,60 +58,19 @@ model Cart {
   @@map("cart")
 }
 
-// Restaurant Models
-
 model Restaurant {
   id           Int            @id @default(autoincrement())
   name         String
   address      String
   phone        String
-  menu         Menu           @relation(fields: [menuId], references: [id])
-  menuId       Int            @unique
+  menu         Menu?          @relation
+  menuId       Int?           @unique
   orders       Orders[]
   Reservations Reservations[]
 
   @@map("restaurant")
 }
 
-// Food Models
-enum FoodCategory {
-  APPETIZERS
-  WINGS
-  FAJITAS
-  BURGERS
-  STEAKS
-  SEAFOOD
-  BEVERAGES
-  DESSERTS
-
-  @@map("food_category")
-}
-
-model MenuItem {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
-  price       Float
-  description String
-  category    FoodCategory
-
-  menu   Menu? @relation(fields: [menuId], references: [id])
-  menuId Int?
-  Cart   Cart? @relation(fields: [cartId], references: [id])
-  cartId Int?
-
-  @@map("menu_item")
-}
-
-model Menu {
-  id                  Int         @id @default(autoincrement())
-  items               MenuItem[]
-  found_at_restaurant Restaurant?
-  restaurantId        Int?
-
-  @@map("menu")
-}
-
-// Business Models
 model Orders {
   id           Int        @id @default(autoincrement())
   userId       Int
@@ -120,4 +93,28 @@ model Reservations {
   restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
 
   @@map("reservations")
+}
+
+model Menu {
+  id                  Int        @id @default(autoincrement())
+  items               MenuItem[]
+  found_at_restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId        Int        @unique
+
+  @@map("menu")
+}
+
+model MenuItem {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  price       Float
+  description String
+  category    FoodCategory
+
+  menu   Menu? @relation(fields: [menuId], references: [id])
+  menuId Int?
+  Cart   Cart? @relation(fields: [cartId], references: [id])
+  cartId Int?
+
+  @@map("menu_item")
 }

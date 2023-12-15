@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
           },
         },
         include: {
-          user: true, // Include the user in the response
+          user: true,
         },
       })
       return NextResponse.json<CartAPIResponse>(
