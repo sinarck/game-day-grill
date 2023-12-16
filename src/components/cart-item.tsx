@@ -15,18 +15,21 @@ const CartItem = ({ item, quantity }: CartItemProps) => {
   const { add, remove } = useCartStore()
 
   return (
-    <div className="flex items-center justify-between align-middle">
-      <div>
-        <p className="text-bold">{item.name}</p>
-        <p className="text-sm text-gray-500">{item.description}</p>
-        <p>{item.price}</p>
+    <div className="flex flex-col items-end align-middle">
+      <div className="w-full">
+        <div className="flex justify-between pb-1">
+          <p className="whitespace-nowrap font-semibold">{item.name}</p>
+          <p className="font-semibold">${item.price}</p>
+        </div>
+        <p className="text-xs text-gray-400">{item.description}</p>
       </div>
-      <div className="shadow-ms-px flex h-1/4 items-center justify-evenly border p-1 align-middle">
+      <div className="shadow-ms-px ml-2 flex h-1/4 items-center justify-evenly rounded-md border p-2 align-middle">
         <Button
           loading={false}
           variant="ghost"
+          className="p-1"
           onClick={() => remove(item)}
-          size="icon"
+          size="tiny"
         >
           -
         </Button>
@@ -35,7 +38,7 @@ const CartItem = ({ item, quantity }: CartItemProps) => {
           loading={false}
           variant="ghost"
           onClick={() => add(item)}
-          size="icon"
+          size="tiny"
         >
           +
         </Button>

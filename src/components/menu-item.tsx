@@ -13,7 +13,7 @@ interface MenuItemProps {
 const MenuItem = ({ menuItem }: MenuItemProps) => {
   const store = useCartStore()
   const { status, data } = useSession()
-  let { fetch, loading } = useAxios<OrderAPIResponse>()
+  let { fetch, loading, data: dat } = useAxios<OrderAPIResponse>()
 
   // TODO: strongly type the fetch function
   const handleOrder = async (menuItem: MenuItemProps["menuItem"]) => {

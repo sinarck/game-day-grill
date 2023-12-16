@@ -32,6 +32,7 @@ const buttonVariants = cva(
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         wide: "h-10 w-[9.5rem]",
+        tiny: "h-6 w-6",
         icon: "h-10 w-10",
       },
     },
@@ -54,48 +55,54 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {loading && (
-          <motion.svg
-            className="h-6 w-6"
-            height="24"
-            viewBox="0 0 50 50"
-            width="24"
-            animate={{ rotate: 360, opacity: [0.5, 1] }}
-            transition={{
-              ease: "linear",
-              repeat: Infinity,
-              duration: 2,
-              opacity: { ease: "easeIn", duration: 0.25 },
-            }}
-            style={{ originX: "center", originY: "center" }}
-          >
-            <circle
-              className="bg-pink-900 opacity-40"
-              cx="25"
-              cy="25"
-              fill="none"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="6"
-              strokeLinecap="round"
-            />
-            <motion.circle
-              cx="25"
-              cy="25"
-              fill="none"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="6"
-              strokeLinecap="round"
-              animate={{
-                strokeDasharray: ["1, 150", "90, 150", "90, 150"],
-                strokeDashoffset: [0, -35, -125],
+        <div className="flex items-center">
+          {loading && (
+            <motion.svg
+              className="mr-2 h-6 w-6" // Add some margin to the right of the SVG
+              height="24"
+              viewBox="0 0 50 50"
+              width="24"
+              animate={{ rotate: 360, opacity: [0.5, 1] }}
+              transition={{
+                ease: "linear",
+                repeat: Infinity,
+                duration: 2,
+                opacity: { ease: "easeIn", duration: 0.25 },
               }}
-              transition={{ ease: "easeInOut", repeat: Infinity, duration: 2 }}
-            />
-          </motion.svg>
-        )}
-        {!loading && children}
+              style={{ originX: "center", originY: "center" }}
+            >
+              <circle
+                className="bg-pink-900 opacity-40"
+                cx="25"
+                cy="25"
+                fill="none"
+                r="20"
+                stroke="currentColor"
+                strokeWidth="6"
+                strokeLinecap="round"
+              />
+              <motion.circle
+                cx="25"
+                cy="25"
+                fill="none"
+                r="20"
+                stroke="currentColor"
+                strokeWidth="6"
+                strokeLinecap="round"
+                animate={{
+                  strokeDasharray: ["1, 150", "90, 150", "90, 150"],
+                  strokeDashoffset: [0, -35, -125],
+                }}
+                transition={{
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  duration: 2,
+                }}
+              />
+            </motion.svg>
+          )}
+          {children}
+        </div>
       </button>
     )
   }

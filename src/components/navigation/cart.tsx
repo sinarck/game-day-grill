@@ -12,9 +12,7 @@ import { Button } from "../ui/button"
 const Cart = () => {
   const router = useRouter()
   const { cart } = useCartStore()
-
   const session = useSession()
-
   const { data, fetch } = useAxios<CartAPIResponse>()
 
   const addToCartSchema = z.object({

@@ -33,7 +33,7 @@ const Page = () => {
       <h1 className="text-center text-2xl font-bold tracking-wide">Menu</h1>
       <Tabs defaultValue="appetizers" className="w-full">
         <div className="flex w-full justify-center">
-          <TabsList>
+          <TabsList className="mb-3">
             {(
               Object.keys(FoodCategory) as Array<keyof typeof FoodCategory>
             ).map((key) => (
