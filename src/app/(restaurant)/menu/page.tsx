@@ -65,28 +65,6 @@ const Page = () => {
             </TabsContent>
           )
         )}
-        {/* <TabsContent value="appetizers" className="grid grid-cols-2 gap-4">
-          {data && (
-            <>
-              <Separator className="col-span-1" />
-              <Separator className="col-start-2 col-end-2" />{" "}
-            </>
-          )}
-        </TabsContent>
-        <TabsContent value="else" className="grid grid-cols-2 gap-4">
-          {data && (
-            <>
-              <Separator className="col-span-1" />
-              <Separator className="col-start-2 col-end-2" />{" "}
-            </>
-          )}
-          {data?.data.menu?.items.map(
-            (item, i) =>
-              item.category !== "APPETIZERS" && (
-                <MenuItem key={(item.id, i)} menuItem={item} />
-              )
-          )}
-        </TabsContent> */}
       </Tabs>
       {error && !data && (
         <div className="mx-auto flex max-w-sm items-start gap-2 rounded-md border border-red-100 bg-red-50 p-5 align-middle shadow-sm">
