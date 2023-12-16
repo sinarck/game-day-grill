@@ -117,13 +117,13 @@ model Menu {
 }
 
 model MenuItem {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
-  price       Float
-  description String
-  category    FoodCategory
-  beverage    Beverages?
-  options     Options?
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  price           Float
+  description     String
+  category        FoodCategory
+  beverage        Beverages?
+  MenuItemOptions MenuItemOptions[]
 
   menu   Menu? @relation(fields: [menuId], references: [id])
   menuId Int?
@@ -131,4 +131,13 @@ model MenuItem {
   cartId Int?
 
   @@map("menu_item")
+}
+
+model MenuItemOptions {
+  menuItemId Int
+  option     Options
+  MenuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@id([menuItemId, option])
+  @@map("menu_item_options")
 }
