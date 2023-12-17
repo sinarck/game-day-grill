@@ -30,6 +30,7 @@ export const Footer = () => {
             </p>
           </div>
         </div>
+
         <div className="space-y-2 text-sm">
           <p className="text-base font-bold tracking-wide text-gray-900">
             Contact Us
@@ -108,6 +109,9 @@ export const Footer = () => {
           © Copyright {new Date().getFullYear()} Game Day Grill. All rights
           reserved.
         </p>
+        <Link href={"/credits"} className="text-sm text-gray-600">
+          Credits
+        </Link>
       </div>
     </div>
   )
