@@ -4,7 +4,7 @@ import { Button } from "./ui/button"
 
 export type CartItems = NonNullable<
   NonNullable<CartAPIResponse["cart"]>["items"]
->[0]
+>[0] & { quantity: number }
 
 interface CartItemProps {
   item: CartItems

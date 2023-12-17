@@ -28,9 +28,7 @@ const Page = () => {
           "Party of " +
           data?.data.reservations?.size +
           " on  " +
-          new Date(String(data?.data.reservations?.date)).toLocaleDateString() +
-          " at " +
-          new Date(String(data?.data.reservations?.date)).toLocaleTimeString(),
+          new Date(String(data?.data.reservations?.date)).toLocaleDateString(),
       })
     }
   }, [data, toast])
@@ -47,7 +45,7 @@ const Page = () => {
         body: {
           name: name,
           date: date,
-          restaurantId: restaurantId,
+          restaurantId: 1,
           size: size,
         },
         method: "POST",
@@ -65,7 +63,7 @@ const Page = () => {
     formState: { errors },
   } = useForm<Omit<z.infer<typeof reservationsSchema>, "date">>({
     defaultValues: {
-      restaurantId: undefined,
+      restaurantId: 1,
       name: "",
       size: undefined,
     },
@@ -77,18 +75,11 @@ const Page = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="container flex w-96 flex-col items-center justify-center rounded-xl bg-gray-100 p-10 align-middle shadow-lg"
+      className="container flex w-96 flex-col items-center justify-center gap-2 rounded-xl bg-gray-100 p-10 align-middle shadow-lg"
     >
       <Input<z.infer<typeof reservationsSchema>>
         fieldName="name"
         labelName="Name"
-        register={register}
-        errors={errors}
-      />
-      <Input<z.infer<typeof reservationsSchema>>
-        type="number"
-        fieldName="restaurantId"
-        labelName="Restaurant ID"
         register={register}
         errors={errors}
       />

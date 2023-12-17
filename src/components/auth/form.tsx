@@ -80,7 +80,7 @@ const Form = ({
                     "Username or password is incorrect"}
                   {("" + apiError.error).length > 25
                     ? "Something went wrong"
-                    : String(apiError)}
+                    : String(apiError).replace("[object Object]", "")}
                 </p>
               </motion.div>
             )}
