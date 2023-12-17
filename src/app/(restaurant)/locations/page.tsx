@@ -1,4 +1,12 @@
 const Page = () => {
+  const locations = [
+    "123 Broadway St, New York, NY, 10001",
+    "456 Hollywood Blvd, Los Angeles, CA, 90028",
+    "789 Michigan Ave, Chicago, IL, 60611",
+    "321 Main St, Houston, TX, 77002",
+    "654 Central Ave, Phoenix, AZ, 85004",
+    "987 Market St, Philadelphia, PA, 19107",
+  ]
   return (
     <div className="flex min-h-screen p-28">
       <div className="w-3/4 space-y-10">
@@ -17,7 +25,16 @@ const Page = () => {
           </p>
         </div>
       </div>
-      <div className="w-1/4">Current locations in:</div>
+      <div className="w-1/4 pl-10">
+        <p className="mb-4 text-2xl font-bold uppercase tracking-wide">
+          Current locations in:
+        </p>
+        {locations.map((loc, idx) => (
+          <p className="font-gray-400 mb-2 text-sm" key={loc}>
+            {loc}
+          </p>
+        ))}
+      </div>
     </div>
   )
 }
