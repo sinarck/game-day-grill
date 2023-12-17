@@ -32,7 +32,7 @@ export const Footer = () => {
         </div>
         <div className="space-y-2 text-sm">
           <p className="text-base font-bold tracking-wide text-gray-900">
-            Contacts
+            Contact Us
           </p>
           <div className="flex">
             <p className="mr-1 text-gray-800">Phone:</p>
@@ -42,18 +42,18 @@ export const Footer = () => {
               title="Our phone"
               className="text-deep-purple-accent-400 hover:text-deep-purple-800 transition-colors duration-300"
             >
-              850-123-5021
+              +1 (850) 123-5021
             </Link>
           </div>
           <div className="flex">
             <p className="mr-1 text-gray-800">Email:</p>
             <Link
-              href="mailto:info@lorem.mail"
+              href="mailto:support@game-day-grill.com"
               aria-label="Our email"
               title="Our email"
               className="text-deep-purple-accent-400 hover:text-deep-purple-800 transition-colors duration-300"
             >
-              info@lorem.mail
+              support@game-day-grill.com
             </Link>
           </div>
           <div className="flex">
@@ -76,19 +76,22 @@ export const Footer = () => {
           </span>
           <div className="mt-1 flex items-center space-x-3">
             <Link
-              href="/"
+              target="_blank"
+              href="https://x.com"
               className="hover:text-deep-purple-accent-400 text-gray-500 transition-colors duration-300"
             >
               <TwitterIcon className="h-6 w-6" />
             </Link>
             <Link
-              href="/"
+              target="_blank"
+              href="https://instagram.com"
               className="hover:text-deep-purple-accent-400 text-gray-500 transition-colors duration-300"
             >
               <InstagramIcon className="h-6 w-6" />
             </Link>
             <Link
-              href="/"
+              target="_blank"
+              href="https://facebook.com"
               className="hover:text-deep-purple-accent-400 text-gray-500 transition-colors duration-300"
             >
               <FacebookIcon className="h-6 w-6" />

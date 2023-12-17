@@ -7,19 +7,7 @@ import Link from "next/link"
 
 export default function Home() {
   return (
-    <>
-      <div className="relative h-screen overflow-hidden">
-        <Image
-          alt="Gift cards"
-          src="/restaurant.jpg"
-          fill
-          draggable={false}
-          placeholder="blur"
-          blurDataURL="/restaurant.jpg"
-          className="w-full object-contain"
-          sizes="(max-width: 640px) 100vw, 50vw"
-        />
-      </div>
+    <div className="relative h-screen overflow-hidden">
       <div className="relative h-screen overflow-hidden">
         <div className="absolute inset-0 flex pb-16">
           <main className="flex w-full items-center justify-center p-24 sm:w-1/2">
@@ -61,6 +49,6 @@ export default function Home() {
           />
         </div>
       </div>
-    </>
+    </div>
   )
 }
