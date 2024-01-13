@@ -38,7 +38,9 @@ const Page = () => {
               Object.keys(FoodCategory) as Array<keyof typeof FoodCategory>
             ).map((key) => (
               <TabsTrigger key={key} value={key.toLowerCase()}>
-                {key.charAt(0) + key.substring(1).toLowerCase()}
+                <p className="text-xs sm:font-normal">
+                  {key.charAt(0) + key.substring(1).toLowerCase()}
+                </p>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -83,6 +85,8 @@ const Page = () => {
       )}
       {!data && !error && (
         <div className="grid grid-cols-2 gap-4">
+          <Separator className="col-span-1" />
+          <Separator className="col-start-2 col-end-2" />
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
